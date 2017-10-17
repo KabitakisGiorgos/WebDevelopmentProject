@@ -1,0 +1,39 @@
+.myheader{
+    height: 250px;
+    min-height: 250px;
+    position:relative;
+    background-image:url(back.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+nav{
+    background-color:#3498db;
+}
+.noStyle{
+    color:white;
+    padding-right: 10px;
+    text-decoration: none;
+}
+li{
+    display: inline;
+}
+.mylist{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.profileStyle{
+    height:100px;
+    width:130px;
+}
+.row.content{
+    height: 100%;
+}
+.body{
+    padding-top:0;
+}
+h1,h2{
+    text-align: center;
+    margin:0;
+    color:white;
+}

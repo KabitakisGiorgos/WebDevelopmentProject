@@ -3,34 +3,42 @@
 <head>
     <title>About Me</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
     <meta name="keywords" content="Info,A1,359,Html">
     <meta name="author" content="csd3142">
     <meta name="viewport" content="width=device=-width,initial-scale=1.0">
+    <link rel="stylesheet" text="text/css" href="mycss.css">
 </head>
 
 <body>
 
-</body>
-    <header>
-        <h1>My name is Morty<h1>
+    <header class="w3-container myheader">
+        <h1>My name is Morty</h1>
         <h2> A Little Bit About Me</h2>
     </header>
 
     <nav>
-        Bio
-        My Grades
-        My Pictures
-        Info
-        My Video
-        My Voice
-       </nav>
+        <a href="#jump1"><img class="profileStyle" src="morty.jpg"></a>
+        <ul class="mylist">
+            <li><a href="#bio"class="noStyle" href="">Bio</a></li>
+            <li><a class="noStyle" href="">My Grades</a></li>
+            <li><a class="noStyle" href="">My Pictures</a></li>
+            <li><a href="#info"class="noStyle" href="">Info</a></li>
+            <li><a class="noStyle" href="">My Video</a></li>
+            <li><a class="noStyle" href="">My Voice</a></li>
+        </ul>
+    </nav>
 
     <article>
+            <div id="jump1"></div>
+            <h3>A Morty "Quickie"</h3>
             Mortimer "Morty" Smith Sr. is one of the two eponymous main protagonists in Rick and Morty. 
             He is the grandson of Rick and is often forced to tag along on his various misadventures.
             Morty attends Harry Herpson High School along with his sister, Summer.
         <section>
-            <h2>Biorgraphy</h2>
+            <div id="bio"></div>
+            <h3>Biorgraphy</h3>
             Although the information is easily accesible, not much has been revealed about Morty's past life. Currently, Morty is 14 years old, and as of the beginning of the series, Rick Sanchez had been mysteriously missing from the family for a total of 14 years. 
             It is unknown if Morty's birth and Rick's disappearance are linked to each other, but it has been shown on two seprate occasions that Rick knew Morty when he was only a baby. 
             In the episode "Close Rick-Counters of the Rick Kind", one of Rick's happy memories of Morty was picking him up as a baby.
@@ -41,6 +49,7 @@
     </article>
 
     <aside>
+        <div id="info"></div>
         <h2>Morty Smith</h2>
         Species:Human
         Age:14
@@ -67,4 +76,5 @@
         Copyright 2017-2018 for HY-359
         Author CSD3142
     </footer>
+</body>
 </html>
