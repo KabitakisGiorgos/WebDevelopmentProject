@@ -1,0 +1,149 @@
+.myheader{
+    height: 250px;
+    min-height: 250px;
+    position:relative;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.navStyle{
+    background-color:#3498db;
+    height: 100%;
+}
+.myimages{
+    height:100px;
+    cursor:pointer;
+    box-shadow: 0px 10px 10px 0px; 
+}
+.myimages:hover{
+    opacity: 0.5;
+}
+.myimages:active{
+    padding: 10px 0;
+    opacity: 1;
+    text-align:center;
+    margin: auto;
+    display:block;
+    height: 70%;
+    width: 70%;
+}
+.noStyle{
+    text-align:center;
+    font-size:25px;
+    border-right: 1px solid black;
+    color:white;
+    padding-right: 10px;
+    text-decoration: none;
+}
+
+.noStyle:link{
+    color:white;
+    text-decoration: none;
+}
+.noStyle:hover{
+    color:#3498db;
+    background-color:white;
+
+}
+
+li{
+    display: inline;
+}
+.menu{
+    padding-top:5%;
+    padding-left:15%;
+}
+.mylist{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-left:auto;
+    margin-right: auto;
+    display: block;
+    text-align:center;
+}
+.names{
+    display:block;
+}
+p{
+    text-align: center;
+
+}
+.border2{
+    padding-left:5%;  
+}
+.delete{
+    text-decoration: line-through red ;
+    font-size:20px;
+}
+.border{
+    border:4px solid #3498db;
+    margin-left:30%;
+    margin-bottom:5%;
+}
+.alignrow{
+    padding-left:30%;
+}
+.alignrow2{
+    padding-left:32%;
+    padding-top:2%;
+}
+.bordertable{
+    
+    margin-left:24%;
+    margin-bottom:5%;
+}
+td,th{
+    border: 2px solid rgba(0, 0, 0, 0.27);
+}
+
+.styleback{
+    background-color: rgba(52, 152, 219, 0.17);
+}
+.alignt{
+    margin-left:32%;
+}
+.alignvideo{
+    margin-left:38%;
+}
+.alignsound{
+    margin-left:39%;
+}
+.profileStyle{
+    width:60%;
+    border-radius: 100%;
+}
+.backcolor{
+    background-color: rgba(52, 152, 219, 0.17);
+}
+.bcolor{
+    background-color: rgba(52, 152, 219, 0.17);
+}
+.row.content{
+    height: 100%;
+}
+.thclass{
+    color:#3498db; 
+    text-align:center;
+    padding:0px 10px 0 10px;
+}
+.tdclass{
+    padding:0px 20px 0 20px;
+}
+.body{
+    padding-top:0;
+}
+
+h1,h2{
+    text-align: center;
+    margin:0;
+    color:white;
+}
+
+h3{
+    text-decoration:underline  #3498db;
+    text-align: center;
+    padding-top:5%;
+}
+footer{
+    text-align: center;
+}
