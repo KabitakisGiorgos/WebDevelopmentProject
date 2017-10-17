@@ -4,7 +4,9 @@
     position:relative;
     background-size: 100% 100%;
     background-repeat: no-repeat;
+
 }
+
 .navStyle{
     background-color:#3498db;
     height: 100%;
@@ -146,4 +148,88 @@ h3{
 }
 footer{
     text-align: center;
+}
+
+@media screen and (max-width: 320px) {
+    .myheader {
+        left:19%;
+    }
+    .navStyle{
+        position: relative;
+        left:19%;
+    }
+    article{
+        position: relative;
+        left:19%;
+    }
+    .noStyle{
+        font-size:10px;
+        padding: 0px 0px 0px 0px;
+    }
+    .profileStyle{
+        position: relative;
+        left:20%;
+    }
+    
+    .border{
+        position: relative;
+        right:10%;
+    }
+    .bordertable{
+        position: relative;
+        right: 10%;
+    }
+    .alignt{
+        position: relative;
+        right:15%;
+    }
+    .alignvideo{
+        position: relative;
+        right:15%;
+    }
+    .alignsound{
+        position: relative;
+        right:30%;
+    }
+    footer{
+        position: relative;
+        right:15%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    
+    .noStyle{
+        font-size:10px;
+        padding: 0px 0px 0px 0px;
+    }
+    .profileStyle{
+        position: relative;
+        left:20%;
+    }
+    
+    .border{
+        position: relative;
+        right:10%;
+    }
+    .bordertable{
+        position: relative;
+        right: 10%;
+    }
+    .alignt{
+        position: relative;
+        right:15%;
+    }
+    .alignvideo{
+        position: relative;
+        right:15%;
+    }
+    .alignsound{
+        position: relative;
+        right:30%;
+    }
+    footer{
+        position: relative;
+        
+    }
 }
