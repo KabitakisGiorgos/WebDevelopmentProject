@@ -19,13 +19,13 @@
         <h3>Email</h3>
         <span class="red">*</span><input type="text" name="email" pattern="[A-Za-z0-9._.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" title="Εισαγωγή έγκυρου email" placeholder="π.χ xxxx@trollmail.com" required>
         <h3>Password</h3>
-        <span class="red">*</span><input type="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())" placeholder="Enter Password" required>
+        <span class="red">*</span><input type="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())" placeholder="Εισαγωγή Password" required>
         <h3>Επιβεβαίωση Password</h3>
-        <span class="red">*</span><input type="password" name="Επιβεβαίωση Password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Ομοίως με το password" placeholder="Write Password Again" required>
+        <span class="red">*</span><input type="password" name="Επιβεβαίωση Password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Ομοίως με το password" placeholder="Ξανα δώσε Password" required>
         <h3>Όνομα</h3>
-        <span class="red">*</span><input type="text" pattern=".{0,20}" name="Όνομα"  placeholder="Name" required>
+        <span class="red">*</span><input type="text" pattern=".{0,20}" title="Έως 20 χαρακτήρες" name="Όνομα"  placeholder="π.χ. Γιώργος" required>
         <h3>Επίθετο</h3>
-        <span class="red">*</span><input type="text" pattern=".{4,20}" name="Επώνυμο"  placeholder="Last Name" required>
+        <span class="red">*</span><input type="text" pattern=".{4,20}" title="Απο 4 έως 20 χαρακτήρες" name="Επώνυμο"  placeholder="π.χ. Παπαδόπουλος" required>
         <h3>Ημερομηνία Γέννησης</h3>
         <span class="red">*</span><input type="datetime-local" name="Date"  required>
         <h3>Φύλο</h3>
@@ -33,7 +33,7 @@
         <input type="radio" name="gender" value="Γυναίκα">Κορίτσι
         <input type="radio" name="gender" value="Τίποτα">Μη εφαρμόσιμο
         <h3>Χώρα</h3>
-        <select name="country" id="country">
+        <span class="red">*</span><select name="country" id="country">
                 <optgroup id="country-optgroup-Africa" label="Africa">
                 <option value="DZ" label="Algeria">Algeria</option>
                 <option value="AO" label="Angola">Angola</option>
@@ -297,7 +297,10 @@
                 <option value="VU" label="Vanuatu">Vanuatu</option>
                 <option value="WF" label="Wallis and Futuna">Wallis and Futuna</option>
                 </optgroup>
-                </select>
+                </select required>
+        <h3>Πόλη</h3>
+        <span class="red">*</span><input type="text" pattern=".{2,20}" name="Όνομα" title="Από 2 μέχρι 20 χαρακτήρες"  placeholder="π.χ. Ηράκλειο" required>
+        <br>
         <input type="submit">
     </form>
 
