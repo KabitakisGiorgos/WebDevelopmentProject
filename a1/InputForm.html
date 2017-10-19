@@ -12,6 +12,9 @@
 
 <body>
     <form>
-        <span class="red">*</span><input type="text" name="Username" pattern="[A-Za-z1-9]{8}" placeholder="Username">
+        <span class="red">*</span><input type="text" name="Username" pattern="[A-Za-z0-9]{8}" placeholder="Username">
+    </form>
+    <form>
+        <span class="red">*</span><input type="text" name="email" pattern="[A-Za-z0-9._.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" placeholder="Email">
     </form>
 </body>
