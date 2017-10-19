@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lan="en">
 <head>
     <title>Sign Up</title>
     <meta charset="UTF-8">
@@ -11,18 +12,22 @@
 
 
 <body>
+    <span class="red size">*=required field</span>
     <form>
-        <span class="red">*</span><input type="text" name="Username" pattern="[A-Za-z0-9]{8,}" placeholder="Username">
-        <br>
-        <span class="red">*</span><input type="text" name="email" pattern="[A-Za-z0-9._.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" placeholder="Email">
-        <br>
-        <span class="red">*</span><input type="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" placeholder="Password">
-        <br>
-        <span class="red">*</span><input type="password" name="passwordVerify" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" placeholder="Password Verify">
-        <br>
-        <span class="red">*</span><input type="text" pattern=".{0,20}" name="name"  placeholder="Name">
-        <br>
-        <span class="red">*</span><input type="text" pattern=".{4,20}" name="Last name"  placeholder="Last Name">
+        <h3>Username</h3>
+        <span class="red">*</span><input type="text" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142"required>
+        <h3>Email</h3>
+        <span class="red">*</span><input type="text" name="email" pattern="[A-Za-z0-9._.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" title="Εισαγωγή έγκυρου email" placeholder="π.χ xxxx@trollmail.com" required>
+        <h3>Password</h3>
+        <span class="red">*</span><input type="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())" placeholder="Enter Password" required>
+        <h3>Επιβεβαίωση Password</h3>
+        <span class="red">*</span><input type="password" name="Επιβεβαίωση Password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Ομοίως με το password" placeholder="Write Password Again" required>
+        <h3>Όνομα</h3>
+        <span class="red">*</span><input type="text" pattern=".{0,20}" name="Όνομα"  placeholder="Name" required>
+        <h3>Επίθετο</h3>
+        <span class="red">*</span><input type="text" pattern=".{4,20}" name="Επώνυμο"  placeholder="Last Name" required>
+        <h3>Ημερομηνία Γέννησης</h3>
+        <span class="red">*</span><input type="datetime-local" name="Date"  required>
         <br>
         <input type="submit">
     </form>
