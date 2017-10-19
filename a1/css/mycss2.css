@@ -1,10 +1,40 @@
+
+h1{
+    background-color:#4285f4;
+    color:white;
+    text-align: center;
+}
 body{
     margin:0px;
+    
 }
 .red{
     color:red;
 }
 
+.input_form{
+    border: 1px solid rgba(128, 128, 128, 0.64);
+    box-shadow:10px 10px 5px #888888;
+}
+select{
+    width: 90%;
+}
 .size{
-    font-size:15px;
+    font-size:10px;
+}
+textarea{
+    resize: none;
+    width: 100%;
+}
+input:hover,textarea:hover{
+    background-color: rgba(66, 134, 244, 0.23);
+}
+.size:hover{
+    font-size:20px;
+}
+.mybutton{
+    background-color:#4285f4;
+    color:white;
+    font-size:25px;
+    margin-bottom: 20px;
 }

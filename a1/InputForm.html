@@ -5,13 +5,22 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     <meta name="keywords" content="SignUp,A1.2,359,Html">
     <meta name="author" content="csd3142">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" text="text/css" href="css/mycss2.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    
 </head>
 
 
 <body>
+    <div class="row" style="padding-bottom:20px;padding-top:20px;">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-6 input_form">
+    <h1>Sign Up</h1>
     <span class="red size">*=required field</span>
     <form>
         <h3>Username</h3>
@@ -31,7 +40,7 @@
         <h3>Φύλο</h3>
         <input type="radio" name="gender" value="Άντρας">Αγόρι
         <input type="radio" name="gender" value="Γυναίκα">Κορίτσι
-        <input type="radio" name="gender" value="Τίποτα">Μη εφαρμόσιμο
+        <input type="radio" name="gender" value="Τίποτα" checked>Μη εφαρμόσιμο
         <h3>Χώρα</h3>
         <span class="red">*</span><select name="country" id="country">
                 <optgroup id="country-optgroup-Africa" label="Africa">
@@ -307,7 +316,10 @@
         <h3>Γενικές Πληροφορίες</h3>
         <textarea name="πληροφορίες" cols="70" rows="10" placeholder="Ότι αλλο θα ήθελες να μας πείς για σενα..." maxlength="500"></textarea>
         <br>
-        <input type="submit">
+         <div class="col-sm-5"></div>
+        <input class="mybutton" type="submit">
     </form>
-
+</div>
+</div>
+<div class="col-sm-4"></div>
 </body>
