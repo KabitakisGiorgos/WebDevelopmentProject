@@ -13,6 +13,9 @@
     <link rel="stylesheet" text="text/css" href="css/mycss2.css">
     <script src="./myCode.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXJGeZolESVKMPpCoGRG9jM80iZFjZYoU&callback=initMap">
+    </script>
     
 </head>
 
@@ -31,7 +34,7 @@
         <h3>Password</h3>
         <span class="red">*</span><input type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())" placeholder="Εισαγωγή Password" required>
         <h3>Επιβεβαίωση Password</h3>
-        <span class="red">*</span><input type="password" id="confirm_password" name="confirm_password" onblur="verify2();" onkeypress="verify(event);" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Ομοίως με το password" placeholder="Ξανα δώσε Password" required>
+        <span class="red">*</span><input type="password" id="confirm_password" name="confirm_password" onblur="verify(event,0);" onkeypress="verify(event,1);" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Ομοίως με το password" placeholder="Ξανα δώσε Password" required>
         <span id="message" class="ver"></span>
         <h3>Όνομα</h3>
         <span class="red">*</span><input type="text" pattern=".{0,20}" title="Έως 20 χαρακτήρες" name="Όνομα"  placeholder="π.χ. Γιώργος" required>
@@ -310,9 +313,13 @@
                 </optgroup>
                 </select required>
         <h3>Πόλη</h3>
-        <span class="red">*</span><input type="text" pattern=".{2,20}" name="πόλη" title="Από 2 μέχρι 20 χαρακτήρες"  placeholder="π.χ. Ηράκλειο" required>
+        <span class="red">*</span><input id="city" type="text" pattern=".{2,20}" name="πόλη" title="Από 2 μέχρι 20 χαρακτήρες"  placeholder="π.χ. Ηράκλειο" required>
+        <h3>Διεύθυνση</h3>
+        <input type="text" id="address" pattern=".{2,40}" name="διεύθυνση" title="Από 2 μέχρι 40 χαρακτήρες" placeholder="π.χ. Διομήδη 11" required>
+        <span id="message2" class="ver"></span>
+        <div id="map"></div>
         <h3>Επάγγελμα</h3>
-        <span class="red">*</span><input type="text" pattern=".{2,20}" name="επάγγελμα" title="Από 2 μέχρι 20 χαρακτήρες"  placeholder="π.χ. Φοιτητής" required>
+        <span class="red">*</span><input type="text" id="job" pattern=".{2,20}" name="επάγγελμα" title="Από 2 μέχρι 20 χαρακτήρες"  placeholder="π.χ. Φοιτητής" required>
         <h3>Ενδιαφέροντα</h3>
         <textarea name="ενδιαφέροντα" cols="70" rows="5" placeholder="Βιβλία/Υπολογιστές/Παιχνίδια...." maxlength="100"></textarea>
         <h3>Γενικές Πληροφορίες</h3>
