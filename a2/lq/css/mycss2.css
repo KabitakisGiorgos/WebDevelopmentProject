@@ -42,3 +42,11 @@ input:hover,textarea:hover{
 .ver{
     font-size:18px;
 }
+#map{
+    height: 100%;
+}
+.showbut{
+    display: none;
+    background-color:#4285f4;
+    color:white;
+}
