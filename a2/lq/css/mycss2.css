@@ -39,6 +39,11 @@ input:hover,textarea:hover{
     margin-bottom: 20px;
 }
 
+.mybutton:hover{
+    background-color:#4285f4;
+
+}
+
 .ver{
     font-size:18px;
 }
@@ -49,4 +54,13 @@ input:hover,textarea:hover{
     display: none;
     background-color:#4285f4;
     color:white;
+}
+
+.showbut2{
+    display:none;
+    background-color:#4285f4;
+    color:white;
+}
+.showbut2:hover{
+    background-color:#4285f4;
 }

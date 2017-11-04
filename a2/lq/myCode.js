@@ -90,7 +90,7 @@ var verify = function(e,flag) {
 
 var Showmap=function(){
   document.getElementById('map').style.display = 'block';
-  document.getElementById('map').style.width = '700px';
+  document.getElementById('map').style.width = '100%';
   document.getElementById('map').style.height = '400px';
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 8,
@@ -98,4 +98,8 @@ var Showmap=function(){
   });
   var geocoder = new google.maps.Geocoder();
   geocodeAddress(geocoder, map);
+}
+
+function buttonappear(){
+  if(document.getElementById("username").value.match(/[A-Za-z0-9]{8,}/)) document.getElementById("snap").style.display='inline';
 }

@@ -16,7 +16,7 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXJGeZolESVKMPpCoGRG9jM80iZFjZYoU&callback=initMap">
     </script>
-    
+    <script src="face.js"></script>
 </head>
 
 
@@ -28,7 +28,11 @@
     <span class="red size">*=required field</span>
     <form onsubmit="askPass();">
         <h3>Username</h3>
-        <span class="red">*</span><input type="text" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142"required>
+        <span class="red">*</span><input type="text" id="username" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142"required onblur="buttonappear();">
+        <span>
+            <input class="showbut2" type='button' id="snap" value ='Take Photo' onclick="URLfunction();faceRec.init();">
+            <input class="showbut2" type='button' id="upload" value ='Upload Image'>
+        </span>
         <h3>Email</h3>
         <span class="red">*</span><input type="text" name="email" pattern="[A-Za-z0-9._.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" title="Εισαγωγή έγκυρου email" placeholder="π.χ xxxx@trollmail.com" required> 
         <h3>Password</h3>
