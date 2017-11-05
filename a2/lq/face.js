@@ -171,7 +171,18 @@ var faceRec = (function () {
         if(myresponse.results.length>=1){
             if(myresponse.results[0].confidence>=78){
                 document.getElementById("username").value=myresponse.results[0].user_id;
+                document.getElementById("nomatch").innerHTML='';
+            }else{
+              document.getElementById("nomatch").innerHTML='You are too beautiful to match you with somenone';
+              setTimeout(function(){
+                document.getElementById("nomatch").innerHTML="";
+                },3000);
             }
+        }else{
+          document.getElementById("nomatch").innerHTML='You are too beautiful to match you with somenone';
+          setTimeout(function(){
+            document.getElementById("nomatch").innerHTML="";
+            },3000);
         }
       }else{
         console.log("Waiting...");
@@ -199,6 +210,7 @@ function URLfunction2(value){
       if(URL2==null) {
           document.getElementById('no').checked=true;
       }else{
+        document.getElementById("nomatch").innerHTML="Wait you handsome beast";
         faceRec.uploadImage2(URL2);
       }
   }

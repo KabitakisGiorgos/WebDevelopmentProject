@@ -23,10 +23,13 @@
     <form>
         <h3>Username</h3>
         <input type="text" id="username" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142" required>
+       
         <span>
                 <input type="radio" name="photo" value="yes" id="yes" onchange="URLfunction2(this.value);"> Upload Photo
                 <input type="radio" name="photo" value="no" id="no" onchange="URLfunction2(this.value);" checked> No,thanks
         </span>
+        <br>
+        <span id="nomatch" style="color:#4285f4;"></span>
         <h3>Password</h3>
         <input type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())" placeholder="Εισαγωγή Password" required>
       
