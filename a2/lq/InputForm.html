@@ -28,9 +28,9 @@
     <span class="red size">*=required field</span>
     <form onsubmit="askPass();">
         <h3>Username</h3>
-        <span class="red">*</span><input type="text" id="username" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142"required onblur="buttonappear();">
+        <span class="red">*</span><input type="text" id="username" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142" onblur="buttonappear();" required>
         <span>
-            <input class="showbut2" type='button' id="snap" value ='Take Photo' onclick="URLfunction();faceRec.init();">
+            <input class="showbut2" type='button' id="snap" value ='Take Photo' onclick="URLfunction();faceRec.init2();">
             <input class="showbut2" type='button' id="upload" value ='Upload Image'>
         </span>
         <h3>Email</h3>

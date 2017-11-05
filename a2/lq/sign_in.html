@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lan="en">
+<head>
+
+        <title>Sign In</title>
+        <meta charset="UTF-8">
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1">    
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+        <meta name="keywords" content="Sign_in,A2,359,Html">
+        <meta name="author" content="csd3142">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" text="text/css" href="css/mycss2.css">
+        <script src="./face.js"></script>
+
+</head>
+<body>
+    <div class="row" style="padding-bottom:20px;padding-top:20px;">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-6 input_form">
+    <h1>Sign In</h1>
+    <form>
+        <h3>Username</h3>
+        <input type="text" id="username" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142" required>
+        <span>
+                <input type="radio" name="photo" value="yes" id="yes" onchange="URLfunction2(this.value);"> Upload Photo
+                <input type="radio" name="photo" value="no" id="no" onchange="URLfunction2(this.value);" checked> No,thanks
+        </span>
+        <h3>Password</h3>
+        <input type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())" placeholder="Εισαγωγή Password" required>
+      
+        <br>
+        <div class="col-sm-5"></div>
+       <button class="mybutton" type="submit">Είσοδος</button>
+    </form>
+    </div>
+    </div>
+</body>

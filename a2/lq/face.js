@@ -105,19 +105,26 @@ var faceRec = (function () {
       });
   }
 
+  function uploadImage2(URL2){
+    var data=new FormData();
+    data.append('api_key', faceAPI.apiKey);
+    data.append('api_secret', faceAPI.apiSecret);
+    data.append('image_url',URL2);
+    data.append('outer_id',faceAPI.app);
+    ajaxRequest4('POST', faceAPI.search, data);
+  }
   // Function for initializing things (event handlers, etc...)
   function init() {
       // Trigger when upload button is pressed
-      document.getElementById('upload').addEventListener('click', uploadImage);
-      console.log("kala ftasame");
+      document.getElementById('upload').addEventListener('check', uploadImage);
   }
+
+ 
 
   function ajaxRequest(post,search,data,callback){
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        console.log("Ola popa");
-        console.log(this);
         var myresponse=JSON.parse(this.response);
         face_token=myresponse.faces[0].face_token;
         console.log(myresponse.faces[0].face_token);
@@ -134,13 +141,10 @@ var faceRec = (function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        console.log("Ola popa 2");
-        console.log(this);
         var myresponse=JSON.parse(this.response);
-        
         callback();
       }else{
-        console.log("Waiting2...");
+        console.log("Waiting...");
       }
     };
     xhttp.open(post, search, true);
@@ -151,17 +155,35 @@ var faceRec = (function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        console.log("Ola popa3");
       }else{
-        console.log("Waiting3...");
+        console.log("Waiting...");
       }
     };
     xhttp.open(post, search, true);
     xhttp.send(data);
   }
 
+  function ajaxRequest4(post, search, data){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var myresponse=JSON.parse(this.response);
+        if(myresponse.results.length>=1){
+            if(myresponse.results[0].confidence>=78){
+                document.getElementById("username").value=myresponse.results[0].user_id;
+            }
+        }
+      }else{
+        console.log("Waiting...");
+      }
+    };
+    xhttp.open(post, search, true);
+    xhttp.send(data);
+  }
+  
   return {
     init: init,
+    uploadImage2: uploadImage2,
   };
 
 })();
@@ -170,3 +192,15 @@ function URLfunction(){
   URL = prompt("Please enter an image URL", "https://goo.gl/AES9iA");
   document.getElementById("upload").style.display='inline';
 }
+
+function URLfunction2(value){
+  if(value==='yes'){
+      var URL2 = prompt("Please enter an image URL", "https://goo.gl/AES9iA");
+      if(URL2==null) {
+          document.getElementById('no').checked=true;
+      }else{
+        faceRec.uploadImage2(URL2);
+      }
+  }
+}
+
