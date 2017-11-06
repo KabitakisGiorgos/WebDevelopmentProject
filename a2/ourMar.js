@@ -5,5 +5,6 @@ function ourMap(array){
         if(typeof fn!=='function') return currentArr;
         currentArr=currentArr.map(fn);
         if(typeof callback==='function') callback.call(currentArr,array);
+        return mapWithCallback;
     })
 }
