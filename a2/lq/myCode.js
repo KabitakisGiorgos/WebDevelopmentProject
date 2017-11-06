@@ -73,7 +73,6 @@ var verify = function(e,flag) {
           position: results[0].geometry.location
         });
             document.getElementById('showbutton').style.display="block";
-          
             console.log("found location");
             
       } else {
@@ -83,6 +82,7 @@ var verify = function(e,flag) {
           document.getElementById("message2").innerHTML="";
           },3000);
           document.getElementById('showbutton').style.display="none";
+          document.getElementById('hidebutton').style.display="none";
           document.getElementById('map').style.display = 'none'
       }
     });
@@ -92,12 +92,19 @@ var Showmap=function(){
   document.getElementById('map').style.display = 'block';
   document.getElementById('map').style.width = '100%';
   document.getElementById('map').style.height = '400px';
+   document.getElementById('hidebutton').style.display="inline";
+
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 8,
     center: {lat: -34.397, lng: 150.644}
   });
   var geocoder = new google.maps.Geocoder();
   geocodeAddress(geocoder, map);
+}
+
+var Hidemap=function(){
+  document.getElementById('map').style.display = 'none';
+  document.getElementById('hidebutton').style.display = 'none';
 }
 
 function buttonappear(){
