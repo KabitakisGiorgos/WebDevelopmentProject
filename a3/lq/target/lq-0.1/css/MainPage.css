@@ -1,0 +1,64 @@
+.myheader{
+    height: 250px;
+    min-height: 250px;
+    position:relative;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+
+}
+
+h1,h2{
+    text-align: center;
+    margin:0;
+    color:white;
+}
+
+.navStyle{
+    background-color:#3498db;
+    height: 100%;
+}
+
+.logoPic{
+    width:30%;
+    height: 30%;    
+
+}
+
+.mylist{
+    list-style-type: none;
+    padding-top:3%;
+    margin-left:auto;
+    margin-right: auto;
+    display: block;
+    text-align:right;
+}
+
+li{
+    display: inline;
+}
+
+.noStyle{
+    text-align:center;
+    font-size:25px;
+    border-right: 1px solid black;
+    color:white;
+    padding-right: 10px;
+    text-decoration: none;
+}
+
+.noStyle:link{
+    color:white;
+    text-decoration: none;
+}
+.noStyle:hover{
+    color:#3498db;
+    background-color:white;
+    cursor: pointer;
+}
+
+#registerForm{
+    display:none;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
