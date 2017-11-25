@@ -49,23 +49,29 @@ public class SubmitForm extends HttpServlet {
 
                 Pattern userName = Pattern.compile("[A-Za-z0-9]{8,}");
                 Pattern Email = Pattern.compile("[A-Za-z0-9._.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}");
-//                Pattern Pass = Pattern.compile("[A-Za-z0-9]{8,}");//fix this at the end
+                Pattern Pass = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,10}$");
                 Pattern name = Pattern.compile(".{0,20}");
                 Pattern surname = Pattern.compile(".{4,20}");
                 Pattern city = Pattern.compile(".{2,20}");
-                Pattern address = Pattern.compile(".{2,40}");//fix here
+                Pattern address = Pattern.compile(".{2,40}");
                 Pattern job = Pattern.compile(".{2,20}");
 
                 Matcher m = userName.matcher(request.getParameter("username"));
                 Matcher m1 = Email.matcher(request.getParameter("email"));
-//                Matcher m2 = Pass.matcher(request.getParameter("password"));
-//                Matcher m3 = Pass.matcher(request.getParameter("confirm_password"));
+                Matcher m2 = Pass.matcher(request.getParameter("password"));
+                Matcher m3 = Pass.matcher(request.getParameter("confirm_password"));
                 Matcher m4 = name.matcher(request.getParameter("name"));
                 Matcher m5 = surname.matcher(request.getParameter("surname"));
                 Matcher m6 = city.matcher(request.getParameter("city"));
                 Matcher m7 = job.matcher(request.getParameter("job"));
-//                || !m2.matches()|| !m3.matches()
-                if (!m.matches() || !m1.matches() || !m4.matches() || !m5.matches() || !m6.matches() || !m7.matches()) {
+                Matcher m8 = address.matcher(request.getParameter("address"));
+                if (request.getParameter("address") != null && !m8.matches()) {
+                    response.setStatus(400);//den tairiazoyne ta regexes
+                    response.setContentType("text/xml");
+                    PrintWriter out = response.getWriter();
+                    out.write("regexproblem");
+                } else if (!m.matches() || !m1.matches() || !m2.matches() || !m3.matches() || !m4.matches() || !m5.matches() || !m6.matches() || !m7.matches()) {
+
                     response.setStatus(400);//den tairiazoyne ta regexes
                     response.setContentType("text/xml");
                     PrintWriter out = response.getWriter();
@@ -112,7 +118,6 @@ public class SubmitForm extends HttpServlet {
 
                     }
                 }
-
             } else {
                 response.setStatus(400);
                 response.setContentType("text/xml");

@@ -114,7 +114,10 @@ function submitTheform() {
         document.getElementById('name').value = "";
         document.getElementById('surname').value = "";
         document.getElementById('date').value = "";
+
+        document.getElementById("default").checked=true;
         document.getElementsByName('gender').value = "unknown";
+
         document.getElementById('country').value = "GR";
         document.getElementById('city').value = "";
         document.getElementById('address').value = "";
@@ -227,6 +230,7 @@ function submitTheform() {
         <div class="col-sm-3"></div>\
     </div>\
           ';//put here dinamically request give the user INFOS 
+        console.log(date);
         document.getElementById("DynamicContainer").innerHTML = mydiv;
         document.getElementById("DynamicContainer").style.display = "block";
 

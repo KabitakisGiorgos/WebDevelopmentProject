@@ -87,12 +87,11 @@
                         <span class="red">*</span><input type="text" id="email" name="email" pattern="[A-Za-z0-9._.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
                             title="Εισαγωγή έγκυρου email" placeholder="π.χ xxxx@trollmail.com"  onblur="checkEmail(this.value);" required><span style="color:red;" id="EmailMessage"></span>
                         <h3>Password</h3>
-                        <!-- pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" -->
-                        <span class="red">*</span><input type="password" id="password" name="password" 
+                        <span class="red">*</span><input type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,10}$"
                             title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())"
                             placeholder="Εισαγωγή Password" required>
                         <h3>Επιβεβαίωση Password</h3>
-                        <span class="red">*</span><input type="password" id="confirm_password" name="confirm_password" onblur="verify(event,0);"
+                        <span class="red">*</span><input type="password" id="confirm_password" name="confirm_password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,10}$" onblur="verify(event,0);"
                             onkeypress="verify(event,1);" 
                             title="Ομοίως με το password" placeholder="Ξανα δώσε Password" required>
                         <span id="message" class="ver"></span>
@@ -107,7 +106,7 @@
                         <h3>Φύλο</h3>
                         <input type="radio" name="gender" value="male">Αγόρι
                         <input type="radio" name="gender" value="female">Κορίτσι
-                        <input type="radio" name="gender" value="unknown" checked>Μη εφαρμόσιμο
+                        <input type="radio" id="default" name="gender" value="unknown" checked>Μη εφαρμόσιμο
                         <h3>Χώρα</h3>
                         <span class="red">*</span><select name="country" id="country">
                                     <optgroup id="country-optgroup-Africa" label="Africa">
@@ -400,7 +399,7 @@
                     <div class="col-sm-3"></div>
         </div>
         <div id="DynamicContainer" class="container-fluid">
-            
+
         </div>
     </div>
 </body>
