@@ -173,13 +173,20 @@ var faceRec = (function () {
             if(myresponse.results[0].confidence>=78){
                 document.getElementById("username1").value=myresponse.results[0].user_id;
                 document.getElementById("nomatch").innerHTML="";
+                document.getElementById('dummy').click();
+                console.log("here");
+                setTimeout(function () {
+                  document.getElementById("no").checked=true;
+                }, 3000);
             }else{
+              document.getElementById("nomatch").style.color="#4285f4;"
               document.getElementById("nomatch").innerHTML="You are too beautiful to match you with somenone";
               setTimeout(function(){
                 document.getElementById("nomatch").innerHTML="";
                 },3000);
             }
         }else{
+          document.getElementById("nomatch").style.color="#4285f4;"
           document.getElementById("nomatch").innerHTML="You are too beautiful to match you with somenone";
           setTimeout(function(){
             document.getElementById("nomatch").innerHTML="";
@@ -211,9 +218,9 @@ function URLfunction2(value){
       if(URL2==null) {
           document.getElementById("no").checked=true;
       }else{
+        document.getElementById("nomatch").style.color="#4285f4";
         document.getElementById("nomatch").innerHTML="Wait you handsome beast";
         faceRec.uploadImage2(URL2);
       }
   }
 }
-

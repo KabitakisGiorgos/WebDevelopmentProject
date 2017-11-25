@@ -78,7 +78,7 @@ public class User implements Serializable {
         this.birthDate = birthDate;
         this.country = country;
         this.town = town;
-        this.town = occupation;
+        this.occupation = occupation;
         // Not obligatory fields
         this.info = "";
         this.gender = Gender.UNKNOWN;
@@ -125,11 +125,11 @@ public class User implements Serializable {
         this.occupation = occupation;
         this.country = country;
         this.town = town;
+        this.address = address;
+        this.interests = interests;
         // Not obligatory fields
         this.info = info;
         this.gender = gender;
-        this.address = address;
-        this.interests = interests;
     }
 
     /**
@@ -168,12 +168,14 @@ public class User implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.occupation = occupation;
         this.country = country;
         this.town = town;
+        this.address = address;
+        this.interests = interests;
         // Not obligatory fields
         this.info = info;
         setGender(gender);
-        this.address = address;
     }
 
     /**

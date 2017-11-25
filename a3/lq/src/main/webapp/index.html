@@ -44,25 +44,26 @@
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6 input_form">
                     <h1 class="myh1">Sign In</h1>
-                    <form>
-                        <h3>Username</h3>
-                        <input type="text" id="username1" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142"
-                            required>
-                        <span>
+
+                    <h3>Username</h3>
+                    <input type="text" id="username1" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142" onblur="NameCheck();"
+                        required>
+                    <span>
                                 <input type="radio" name="photo" value="yes" id="yes" onchange="URLfunction2(this.value);"> Upload Photo
                                 <input type="radio" name="photo" value="no" id="no" onchange="URLfunction2(this.value);" checked> No,thanks
                         </span>
-                        <br>
-                        <span id="nomatch" style="color:#4285f4;"></span>
-                        <h3>Password</h3>
-                        <input type="password" id="password1" name="password1" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$"
-                            title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())"
-                            placeholder="Εισαγωγή Password" required>
-
-                        <br>
-                        <div class="col-sm-3"></div>
-                        <button class="mybutton" type="submit">Είσοδος</button>
-                    </form>
+                    <br>
+                    <span id="nomatch" style="color:#4285f4;"></span>
+                    <span id="dummy" onclick="ManualTrue();"></span>
+                    <h3>Password</h3>
+                    <input type="password" id="password1" name="password1" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,10}$"
+                        title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())"
+                        placeholder="Εισαγωγή Password"  onblur="PasswordCheck();" required>
+                        <span id="LogingPassMessage" style="color:red;"></span>
+                    <br>
+                    <div class="col-sm-3"></div>
+                    <button class="mybutton" onclick="TryToLogin();">Είσοδος</button>
+                    
                 </div>
             </div>
         </div>
@@ -74,41 +75,42 @@
                 <div class="col-sm-6 input_form">
                     <h1 class="myh1">Sign Up</h1>
                     <span class="red size">*=required field</span>
-                   
-                        <h3>Username</h3>
-                        <span class="red">*</span><input type="text" id="username" name="Username" pattern="[A-Za-z0-9]{8,}"
-                            title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142" onblur="checkName(this.value);"
-                            required><span id="NameMessage"></span>
-                        <span>
+
+                    <h3>Username</h3>
+                    <span class="red">*</span><input type="text" id="username" name="Username" pattern="[A-Za-z0-9]{8,}"
+                        title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142" onblur="checkName(this.value);"
+                        required><span id="NameMessage"></span>
+                    <span>
                                 <input class="showbut2" type='button' id="snap" value ='Take Photo' onclick="URLfunction();faceRec.init();">
                                 <input class="showbut2" type='button' id="upload" value ='Upload Image' >
                         </span>
-                        <h3>Email</h3>
-                        <span class="red">*</span><input type="text" id="email" name="email" pattern="[A-Za-z0-9._.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
-                            title="Εισαγωγή έγκυρου email" placeholder="π.χ xxxx@trollmail.com"  onblur="checkEmail(this.value);" required><span style="color:red;" id="EmailMessage"></span>
-                        <h3>Password</h3>
-                        <span class="red">*</span><input type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,10}$"
-                            title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())"
-                            placeholder="Εισαγωγή Password" required>
-                        <h3>Επιβεβαίωση Password</h3>
-                        <span class="red">*</span><input type="password" id="confirm_password" name="confirm_password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,10}$" onblur="verify(event,0);"
-                            onkeypress="verify(event,1);" 
-                            title="Ομοίως με το password" placeholder="Ξανα δώσε Password" required>
-                        <span id="message" class="ver"></span>
-                        <h3>Όνομα</h3>
-                        <span class="red">*</span><input id="name" type="text" pattern=".{0,20}" title="Έως 20 χαρακτήρες" name="Όνομα"
-                            placeholder="π.χ. Γιώργος" required>
-                        <h3>Επίθετο</h3>
-                        <span class="red">*</span><input  id="surname" type="text" pattern=".{4,20}" title="Απο 4 έως 20 χαρακτήρες" name="Επώνυμο"
-                            placeholder="π.χ. Παπαδόπουλος" required>
-                        <h3>Ημερομηνία Γέννησης</h3>
-                        <span class="red">*</span><input id="date" type="date" name="Date" required>
-                        <h3>Φύλο</h3>
-                        <input type="radio" name="gender" value="male">Αγόρι
-                        <input type="radio" name="gender" value="female">Κορίτσι
-                        <input type="radio" id="default" name="gender" value="unknown" checked>Μη εφαρμόσιμο
-                        <h3>Χώρα</h3>
-                        <span class="red">*</span><select name="country" id="country">
+                    <h3>Email</h3>
+                    <span class="red">*</span><input type="text" id="email" name="email" pattern="[A-Za-z0-9._.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"
+                        title="Εισαγωγή έγκυρου email" placeholder="π.χ xxxx@trollmail.com" onblur="checkEmail(this.value);"
+                        required><span style="color:red;" id="EmailMessage"></span>
+                    <h3>Password</h3>
+                    <span class="red">*</span><input type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,10}$"
+                        title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())"
+                        placeholder="Εισαγωγή Password" required>
+                    <h3>Επιβεβαίωση Password</h3>
+                    <span class="red">*</span><input type="password" id="confirm_password" name="confirm_password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,10}$"
+                        onblur="verify(event,0);" onkeypress="verify(event,1);" title="Ομοίως με το password" placeholder="Ξανα δώσε Password"
+                        required>
+                    <span id="message" class="ver"></span>
+                    <h3>Όνομα</h3>
+                    <span class="red">*</span><input id="name" type="text" pattern=".{0,20}" title="Έως 20 χαρακτήρες" name="Όνομα"
+                        placeholder="π.χ. Γιώργος" required>
+                    <h3>Επίθετο</h3>
+                    <span class="red">*</span><input id="surname" type="text" pattern=".{4,20}" title="Απο 4 έως 20 χαρακτήρες"
+                        name="Επώνυμο" placeholder="π.χ. Παπαδόπουλος" required>
+                    <h3>Ημερομηνία Γέννησης</h3>
+                    <span class="red">*</span><input id="date" type="date" name="Date" required>
+                    <h3>Φύλο</h3>
+                    <input type="radio" name="gender" value="male">Αγόρι
+                    <input type="radio" name="gender" value="female">Κορίτσι
+                    <input type="radio" id="default" name="gender" value="unknown" checked>Μη εφαρμόσιμο
+                    <h3>Χώρα</h3>
+                    <span class="red">*</span><select name="country" id="country">
                                     <optgroup id="country-optgroup-Africa" label="Africa">
                                     <option value="DZ" label="Algeria">Algeria</option>
                                     <option value="AO" label="Angola">Angola</option>

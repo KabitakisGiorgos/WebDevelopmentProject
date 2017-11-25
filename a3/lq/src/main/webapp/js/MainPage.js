@@ -2,6 +2,8 @@
 var passwordcheckin = false;
 var usenameValidity = false;
 var emailValidity = false;
+var login=false;
+var login1=false;
 
 function gotoRegister() {
   document.getElementById("signIn").style.display = "none";
@@ -89,10 +91,7 @@ function submitTheform() {
     var interests = document.getElementById('interests').value;
     var info = document.getElementById('info').value;
     var mystring = "username=" + username + "&email=" + email + "&password=" + password + "&confirm_password=" + verifyPassword + "&name=" + name + "&surname=" + surname + "&date=" + date + "&country=" + country + "&gender=" + gender + "&city=" + city + "&address=" + address + "&job=" + job + "&interests=" + interests + "&info=" + info + "&action=submit";
-    console.log(gender);
-    console.log(address)
-    console.log(job);
-    console.log(interests);
+
     loadXMLDoc('GET', "SubmitForm?" + mystring, function (response) {
       //here we put all the response handling functions
       console.log(response);
@@ -103,7 +102,6 @@ function submitTheform() {
       } else if (response == "regexproblem") {
         alert("Problem with input format");
       } else if (response == "1") {
-        console.log("came here");
         //all good here
         //clear the the form for a start
         //
@@ -115,7 +113,7 @@ function submitTheform() {
         document.getElementById('surname').value = "";
         document.getElementById('date').value = "";
 
-        document.getElementById("default").checked=true;
+        document.getElementById("default").checked = true;
         document.getElementsByName('gender').value = "unknown";
 
         document.getElementById('country').value = "GR";
@@ -144,93 +142,90 @@ function submitTheform() {
                     <td class="infoStyle">Username:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
                         '+ username +
-                      '</span>\
+          '</span>\
                         </td/>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Email:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
                     '+ email +
-                      '</span>\
+          '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Όνομα:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
                         '+ name +
-                      '</span>\
+          '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Επίθετο:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
                         '+ surname +
-                      '</span>\
+          '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Ημερομηνία Γέννησης:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
                         '+ date +
-                      '</span>\
+          '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Φύλο:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
                         '+ gender +
-                      '</span>\
+          '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Χώρα:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
                         '+ country +
-                      '</span>\
+          '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Πόλη:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
                         '+ city +
-                      '</span>\
+          '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Διεύθυνση:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
                         '+ address +
-                      '</span>\
+          '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Επάγγελμα:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
                         '+ job +
-                      '</span>\
+          '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Ενδιαφέροντα:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="width:400px;\
-                        max-height:70px;overflow:auto;word-wrap: break-word;display:inline-block;font-size:20px;">'+interests+'\
+                        max-height:70px;overflow:auto;word-wrap: break-word;display:inline-block;font-size:20px;">'+ interests + '\
                         </span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Γενικες Πληροφορίες:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px"><span style="width:400px;\
-                        max-height:70px;overflow:auto;word-wrap: break-word;display:inline-block;font-size:20px;">'+info+'\
+                        max-height:70px;overflow:auto;word-wrap: break-word;display:inline-block;font-size:20px;">'+ info + '\
                         </span>\
                         </span>\
                     </td>\
                 </tr>\
             </table>\
         </div>\
-        <div class="col-sm-3"></div>\
-    </div>\
-          ';//put here dinamically request give the user INFOS 
-        console.log(date);
+        <div class="col-sm-3"></div>';//put here dinamically request give the user INFOS 
         document.getElementById("DynamicContainer").innerHTML = mydiv;
         document.getElementById("DynamicContainer").style.display = "block";
 
@@ -252,9 +247,13 @@ function validInputs() {
     return false;
   }
   if (!document.getElementById("password").checkValidity()) {
+    document.getElementById("message").style.color="red";
+    document.getElementById("message").innerHTML="Wrong Input";
     return false;
   }
   if (!document.getElementById("confirm_password").checkValidity()) {
+    document.getElementById("message").style.color="red";
+    document.getElementById("message").innerHTML="Wrong Input";
     return false;
   }
   if (!document.getElementById("name").checkValidity()) {
@@ -291,11 +290,72 @@ var verify = function (e, flag) {
   }
 };
 
+function PasswordCheck(){
+  if (!document.getElementById("password1").checkValidity()) {
+    
+    document.getElementById("LogingPassMessage").innerHTML="Wrong Input";
+    login1=false;
+  }else{
+    document.getElementById("LogingPassMessage").innerHTML="";
+    login1=true;
+  }
+}
+
+function NameCheck(){
+  if (!document.getElementById("username1").checkValidity()) {
+    document.getElementById("nomatch").style.color="red";
+    document.getElementById("nomatch").innerHTML="Wrong Input";
+    login=false;
+  }else{
+    document.getElementById("nomatch").innerHTML="";
+    login=true;
+  }
+}
+
+
+function ManualTrue(){
+  login=true;
+}
+
+function TryToLogin() {
+  if(login&&login1){
+    console.log("stelnei minima sto server MPRRR");
+    var data="SiteFunctions?username="+document.getElementById('username1').value+"&password="+document.getElementById('password1').value+"&action=login";
+    loadXMLDoc('POST',data,function(response){
+      console.log(response);
+      if(response=="1"){
+        //go to new page
+      }else if(response=="notExistentUser"){
+        document.getElementById("nomatch").style.color="red";
+        document.getElementById("nomatch").innerHTML="Not existent User";
+        setTimeout(function () {
+          document.getElementById("nomatch").innerHTML= "Please Try again";
+        }, 2000);
+        setTimeout(function () {
+          document.getElementById("nomatch").innerHTML= "";
+        }, 4000);
+        document.getElementById("username1").value="";
+        document.getElementById("password1").value="";
+      }else if(response=="WrongPassword"){
+        document.getElementById("LogingPassMessage").innerHTML="Wrong Password!Please Try again";
+        setTimeout(function () {
+          document.getElementById("LogingPassMessage").innerHTML= "";
+        }, 3000);
+        document.getElementById("password1").value="";
+      }else{
+        alert("Something went really bad");
+      }
+    });
+  }else{
+    alert("Something is wrong with your inputs");
+  }
+}
+
 function loadXMLDoc(method, name, callback) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
+      // console.log(this.responseText);
       callback(this.responseText);
     } else if (this.status == 400) {
       callback(this.responseText);
