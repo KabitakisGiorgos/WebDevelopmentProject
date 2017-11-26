@@ -174,7 +174,6 @@ var faceRec = (function () {
                 document.getElementById("username1").value=myresponse.results[0].user_id;
                 document.getElementById("nomatch").innerHTML="";
                 document.getElementById('dummy').click();
-                console.log("here");
                 setTimeout(function () {
                   document.getElementById("no").checked=true;
                 }, 3000);
@@ -214,7 +213,7 @@ function URLfunction(){
 
 function URLfunction2(value){
   if(value==="yes"){
-      var URL2 = prompt("Please enter an image URL", "https://goo.gl/AES9iA");
+      URL2 = prompt("Please enter an image URL", "https://goo.gl/AES9iA");
       if(URL2==null) {
           document.getElementById("no").checked=true;
       }else{

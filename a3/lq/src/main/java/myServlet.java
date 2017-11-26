@@ -11,10 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import gr.csd.uoc.cs359.winter2017.lq.db.UserDB;
-import gr.csd.uoc.cs359.winter2017.lq.model.User;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -27,14 +25,6 @@ public class myServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession(true);//check it here if needed
-        User newUser = (User) session.getAttribute("newUser");
-
-        if (newUser == null) {
-            newUser = new User();
-            session.setAttribute("newUser", newUser);
-        }
 
         if (request.getParameter("action") != null && request.getParameter("action").equals("searchUserName")) {
             if (request.getParameter("UserName") != null) {
@@ -102,7 +92,6 @@ public class myServlet extends HttpServlet {
             response.setContentType("text/xml");
             PrintWriter out = response.getWriter();
             out.write("UnknownError");
-
         }
     }
 

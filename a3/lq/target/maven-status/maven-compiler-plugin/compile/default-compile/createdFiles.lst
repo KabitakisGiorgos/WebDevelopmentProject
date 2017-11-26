@@ -2,6 +2,7 @@ gr\csd\uoc\cs359\winter2017\lq\db\CS359DB.class
 gr\csd\uoc\cs359\winter2017\lq\model\User$Gender.class
 SubmitForm.class
 myServlet.class
+NewServlet.class
 gr\csd\uoc\cs359\winter2017\lq\db\UserDB.class
 gr\csd\uoc\cs359\winter2017\lq\ExampleAPI.class
 gr\csd\uoc\cs359\winter2017\lq\model\User.class

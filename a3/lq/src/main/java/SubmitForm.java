@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javax.servlet.http.HttpSession;
 import gr.csd.uoc.cs359.winter2017.lq.db.UserDB;
 import gr.csd.uoc.cs359.winter2017.lq.model.User;
 import java.io.PrintWriter;
@@ -28,13 +27,9 @@ public class SubmitForm extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(true);//check it here if needed
-        User newUser = (User) session.getAttribute("newUser");
+        User newUser = new User();
         response.setContentType("text/html;charset=UTF-8");
-        if (newUser == null) {
-            newUser = new User();
-            session.setAttribute("newUser", newUser);
-        }
+
         if (request.getParameter("action") != null && request.getParameter("action").equals("submit")) {
             if (request.getParameter("username") != null
                     && request.getParameter("email") != null

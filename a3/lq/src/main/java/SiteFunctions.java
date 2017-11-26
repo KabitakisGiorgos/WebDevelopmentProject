@@ -12,8 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import gr.csd.uoc.cs359.winter2017.lq.model.User;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,10 +24,30 @@ public class SiteFunctions extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         HttpSession session = request.getSession(true);
+        User newUser = null;
+
         response.setContentType("text/html;charset=UTF-8");
-        if (request.getParameter("action") != null && request.getParameter("action").equals("login")) {
+        if (request.getParameter("action") != null && request.getParameter("action").equals("logout")) {
+            session.invalidate();
+            response.setStatus(200);
+            response.setContentType("text/xml");
+            PrintWriter out = response.getWriter();
+            out.write("closed");
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("reload")) {
+            User testUser = (User) session.getAttribute("newUser");
+            if (testUser != null) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                out.write(testUser.getUserName());
+            } else {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                out.write("NOTconnected");
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("login")) {
             if (request.getParameter("username") != null && request.getParameter("password") != null) {
                 //checkaroyme an iparxei to onoma arxika
                 try {
@@ -35,6 +55,11 @@ public class SiteFunctions extends HttpServlet {
                         User myUser = UserDB.getUser(request.getParameter("username"));
                         if (myUser.getPassword().equals(request.getParameter("password"))) {
                             //tairiazei to onoma me to password
+                            if (newUser == null) {
+                                newUser = new User();
+                                newUser.setUserName(request.getParameter("username"));
+                                session.setAttribute("newUser", newUser);
+                            }
                             response.setStatus(200);
                             response.setContentType("text/xml");
                             PrintWriter out = response.getWriter();

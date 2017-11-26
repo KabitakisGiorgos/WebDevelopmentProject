@@ -75,3 +75,58 @@ input:hover,textarea:hover{
     font-size:25px;
     color:#4285f4;
 }
+
+.circular--portrait {
+  position: relative;
+  width: 100px;
+  height:100px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.circular--portrait img {
+  width: 100%;
+  height: auto;
+}
+
+.dropbtn {
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropbtn:hover .dropdown-content{
+    display: block;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropMenu{
+    text-align: center;
+    cursor: pointer;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size:20px;
+}
+
+.dropMenu:hover{
+    background-color: #E2E2E2
+}
+

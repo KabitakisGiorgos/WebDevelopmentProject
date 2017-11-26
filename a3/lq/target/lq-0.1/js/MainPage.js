@@ -2,18 +2,18 @@
 var passwordcheckin = false;
 var usenameValidity = false;
 var emailValidity = false;
-var login=false;
-var login1=false;
+var login = false;
+var login1 = false;
 
 function gotoRegister() {
   document.getElementById("signIn").style.display = "none";
-  document.getElementById("DynamicContainer").style.display = "none";
+  document.getElementById("DynamicContainer").innerHTML = "";
   document.getElementById("registerForm").style.display = "block";
 }
 
 function gotoSignIn() {
   document.getElementById("signIn").style.display = "block";
-  document.getElementById("DynamicContainer").style.display = "none";
+  document.getElementById("DynamicContainer").innerHTML = "";
   document.getElementById("registerForm").style.display = "none";
 }
 
@@ -65,6 +65,8 @@ function checkName(name) {
     }
   });
 }
+
+
 
 function submitTheform() {
   var ok = validInputs();
@@ -132,7 +134,7 @@ function submitTheform() {
         document.getElementById("message").innerHTML = "";
 
         //new content fix
-        document.getElementById("registerForm").style.display = "none";//here put the new div
+        document.getElementById("registerForm").style.display = "none";
         var mydiv = '<div class="row" style="padding-bottom:20px;padding-top:20px;">\
         <div class="col-sm-3"></div>\
         <div class="col-sm-6 input_form">\
@@ -210,22 +212,22 @@ function submitTheform() {
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Ενδιαφέροντα:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="width:400px;\
-                        max-height:70px;overflow:auto;word-wrap: break-word;display:inline-block;font-size:20px;">'+ interests + '\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="width:400%;\
+                        max-height:70px;overflow:auto;word-wrap: break-word;display:inline-block;font-size:17px;">'+ interests + '\
                         </span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Γενικες Πληροφορίες:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px"><span style="width:400px;\
-                        max-height:70px;overflow:auto;word-wrap: break-word;display:inline-block;font-size:20px;">'+ info + '\
+                    <td style="padding-bottom: 10px;padding-left:70px"><span style="width:400%;\
+                        max-height:70px;overflow:auto;word-wrap: break-word;display:inline-block;font-size:17px;">'+ info + '\
                         </span>\
                         </span>\
                     </td>\
                 </tr>\
             </table>\
         </div>\
-        <div class="col-sm-3"></div>';//put here dinamically request give the user INFOS 
+        <div class="col-sm-3"></div>';
         document.getElementById("DynamicContainer").innerHTML = mydiv;
         document.getElementById("DynamicContainer").style.display = "block";
 
@@ -247,13 +249,13 @@ function validInputs() {
     return false;
   }
   if (!document.getElementById("password").checkValidity()) {
-    document.getElementById("message").style.color="red";
-    document.getElementById("message").innerHTML="Wrong Input";
+    document.getElementById("message").style.color = "red";
+    document.getElementById("message").innerHTML = "Wrong Input";
     return false;
   }
   if (!document.getElementById("confirm_password").checkValidity()) {
-    document.getElementById("message").style.color="red";
-    document.getElementById("message").innerHTML="Wrong Input";
+    document.getElementById("message").style.color = "red";
+    document.getElementById("message").innerHTML = "Wrong Input";
     return false;
   }
   if (!document.getElementById("name").checkValidity()) {
@@ -290,67 +292,143 @@ var verify = function (e, flag) {
   }
 };
 
-function PasswordCheck(){
+function PasswordCheck() {
   if (!document.getElementById("password1").checkValidity()) {
-    
-    document.getElementById("LogingPassMessage").innerHTML="Wrong Input";
-    login1=false;
-  }else{
-    document.getElementById("LogingPassMessage").innerHTML="";
-    login1=true;
+
+    document.getElementById("LogingPassMessage").innerHTML = "Wrong Input";
+    login1 = false;
+  } else {
+    document.getElementById("LogingPassMessage").innerHTML = "";
+    login1 = true;
   }
 }
 
-function NameCheck(){
+function NameCheck() {
   if (!document.getElementById("username1").checkValidity()) {
-    document.getElementById("nomatch").style.color="red";
-    document.getElementById("nomatch").innerHTML="Wrong Input";
-    login=false;
-  }else{
-    document.getElementById("nomatch").innerHTML="";
-    login=true;
+    document.getElementById("nomatch").style.color = "red";
+    document.getElementById("nomatch").innerHTML = "Wrong Input";
+    login = false;
+  } else {
+    document.getElementById("nomatch").innerHTML = "";
+    login = true;
   }
 }
 
 
-function ManualTrue(){
-  login=true;
+function ManualTrue() {
+  login = true;
 }
 
 function TryToLogin() {
-  if(login&&login1){
+  if (login && login1) {
     console.log("stelnei minima sto server MPRRR");
-    var data="SiteFunctions?username="+document.getElementById('username1').value+"&password="+document.getElementById('password1').value+"&action=login";
-    loadXMLDoc('POST',data,function(response){
+    var data = "SiteFunctions?username=" + document.getElementById('username1').value + "&password=" + document.getElementById('password1').value + "&action=login";
+    loadXMLDoc('POST', data, function (response) {
       console.log(response);
-      if(response=="1"){
-        //go to new page
-      }else if(response=="notExistentUser"){
-        document.getElementById("nomatch").style.color="red";
-        document.getElementById("nomatch").innerHTML="Not existent User";
+
+      if (response == "1") {
+        loginFunction(document.getElementById("username1").value);
+        document.getElementById("signIn").value = "";
+        document.getElementById("registerForm").value = "";
+      } else if (response == "notExistentUser") {
+        document.getElementById("nomatch").style.color = "red";
+        document.getElementById("nomatch").innerHTML = "Not existent User";
         setTimeout(function () {
-          document.getElementById("nomatch").innerHTML= "Please Try again";
+          document.getElementById("nomatch").innerHTML = "Please Try again";
         }, 2000);
         setTimeout(function () {
-          document.getElementById("nomatch").innerHTML= "";
+          document.getElementById("nomatch").innerHTML = "";
         }, 4000);
-        document.getElementById("username1").value="";
-        document.getElementById("password1").value="";
-      }else if(response=="WrongPassword"){
-        document.getElementById("LogingPassMessage").innerHTML="Wrong Password!Please Try again";
+        document.getElementById("username1").value = "";
+        document.getElementById("password1").value = "";
+      } else if (response == "WrongPassword") {
+        document.getElementById("LogingPassMessage").innerHTML = "Wrong Password!Please Try again";
         setTimeout(function () {
-          document.getElementById("LogingPassMessage").innerHTML= "";
+          document.getElementById("LogingPassMessage").innerHTML = "";
         }, 3000);
-        document.getElementById("password1").value="";
-      }else{
+        document.getElementById("password1").value = "";
+      } else {
         alert("Something went really bad");
       }
     });
-  }else{
+  } else {
     alert("Something is wrong with your inputs");
   }
 }
 
+function loginFunction(username) {
+  document.getElementById("signIn").style.display = "none";
+  var MenuContent = '<li><a class="noStyle" onclick="">MyFriends</a></li>\
+  <div class="dropdown" style="float:right;">\
+  <li><a class="noStyle dropbtn" onclick="">'+ username + ' ' + '<em  class="glyphicon glyphicon-triangle-bottom" ></em></a></li>\
+  <div class="dropdown-content">\
+  <span class="dropMenu" onclick="test();">Settings<em class="material-icons">border_color</em></span>\
+  <span class="dropMenu" onclick="Log_out();">Log Out</span>\
+</div>\
+</div>\
+  ';
+  document.getElementById("mylist").innerHTML = MenuContent;
+  Homepage();
+}
+
+function Homepage() {
+  var mycontainer = '<div class="row" style="padding-bottom:20px;padding-top:20px;">\
+  <div class="col-sm-3"></div>\
+  <div class="col-sm-6 input_form">\
+      <h1 class="myh1">Homepage</h1>\
+      <div class="col-sm-1">\
+          <div id="myphoto">\
+              <div class="circular--portrait">\
+                  <img src="images/avatar.png" >\
+              </div>\
+          </div>\
+      </div>\
+      <div class="col-sm-11" style="text-align:center;">\
+          <h3>Welcome To No Purpose Site</h3>\
+      </div>\
+  </div>\
+  <div class="col-sm-3"></div>\
+</div>';
+  document.getElementById("logoPic").style.cursor = "pointer";
+
+  document.getElementById("logoPic").addEventListener("click", gotoHomePage);
+
+  document.getElementById("DynamicContainer").innerHTML = mycontainer;
+}
+
+function gotoHomePage() {//HEREEEEEEEEEEEEEE CHECK IT AGAIN after all are fixed
+  Homepage();
+  console.log("PRESSED");
+}
+window.onload = function () {
+  var mystring = "SiteFunctions?&action=reload";
+  console.log("here");
+  loadXMLDoc('GET', mystring, function (response) {
+    console.log(response);
+    if (response == "NOTconnected") {
+      document.getElementById("mylist").innerHTML = '\
+      <li><a class="noStyle" onclick="gotoRegister();">Register</a></li>\
+      <li><a class="noStyle" onclick="gotoSignIn();">Sign In</a></li>';
+
+    } else {
+      document.getElementById("signIn").style.display = "none";
+      loginFunction(response);
+    }
+  });
+}
+
+function Log_out() {
+  var mystring = "SiteFunctions?&action=logout";
+  var answer = confirm("Are you sure you want to log out");
+  if (answer) {
+    loadXMLDoc('GET', mystring, function (response) {
+      console.log(response);
+      location.reload();
+    });
+  }else{
+    console.log("nothing happens relax bro");
+  }
+}
 function loadXMLDoc(method, name, callback) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {

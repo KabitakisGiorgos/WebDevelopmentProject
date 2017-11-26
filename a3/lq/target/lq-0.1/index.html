@@ -10,10 +10,15 @@
     <meta name="author" content="csd3142">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" text="text/css" href="css/MainPage.css">
     <link rel="stylesheet" text="text/css" href="css/mycss2.css">
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script>
+        var URL2;
+        var UploadPhoto = false;
+    </script>
     <script src="js/face.js"></script>
     <script src="js/MainPage.js"></script>
     <script src="js/myCode.js"></script>
@@ -21,6 +26,7 @@
 </head>
 
 <body>
+   
     <header class="container-fluid myheader" style="background-image:url(images/back.png);margin-right:0%;">
         <h1>Welcome</h1>
         <h2>A page With no Purpose</h2>
@@ -29,25 +35,24 @@
     <nav class=" container-fluid navStyle">
 
         <div class="col-sm-3">
-            <img class="logoPic" src="images/mylogo.png" alt="Logo Picture">
+            <img id="logoPic" class="logoPic" src="images/mylogo.png" alt="Logo Picture">
         </div>
         <div class="col-sm-9 menu">
-            <ul class="mylist">
-                <li><a class="noStyle" onclick="gotoRegister();">Register</a></li>
-                <li><a class="noStyle" onclick="gotoSignIn();">Sign In</a></li>
+            <ul id="mylist" class="mylist">
+                
             </ul>
         </div>
     </nav>
     <div id="MainContainer" class="container-fluid ">
-        <div id="signIn" class="container-fluid">
+        <div id="signIn" class="container-fluid" style="display:none;">
             <div class="row" style="padding-bottom:20px;padding-top:20px;">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-6 input_form">
                     <h1 class="myh1">Sign In</h1>
 
                     <h3>Username</h3>
-                    <input type="text" id="username1" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142" onblur="NameCheck();"
-                        required>
+                    <input type="text" id="username1" name="Username" pattern="[A-Za-z0-9]{8,}" title="Τουλάχιστον 8 λατινικοί χαρακτήρες" placeholder="π.χ. AMcsd3142"
+                        onblur="NameCheck();" required>
                     <span>
                                 <input type="radio" name="photo" value="yes" id="yes" onchange="URLfunction2(this.value);"> Upload Photo
                                 <input type="radio" name="photo" value="no" id="no" onchange="URLfunction2(this.value);" checked> No,thanks
@@ -58,12 +63,12 @@
                     <h3>Password</h3>
                     <input type="password" id="password1" name="password1" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,10}$"
                         title="Από 8 έως 10 λατινικοί χαρακτήρες με τουλάχιστον ενα χαρακτήρα,έναν αριθμό και ένα (!@#$%^&*())"
-                        placeholder="Εισαγωγή Password"  onblur="PasswordCheck();" required>
-                        <span id="LogingPassMessage" style="color:red;"></span>
+                        placeholder="Εισαγωγή Password" onblur="PasswordCheck();" required>
+                    <span id="LogingPassMessage" style="color:red;"></span>
                     <br>
                     <div class="col-sm-3"></div>
                     <button class="mybutton" onclick="TryToLogin();">Είσοδος</button>
-                    
+
                 </div>
             </div>
         </div>
