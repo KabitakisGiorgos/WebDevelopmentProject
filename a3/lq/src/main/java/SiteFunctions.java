@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import gr.csd.uoc.cs359.winter2017.lq.model.User;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -28,7 +29,23 @@ public class SiteFunctions extends HttpServlet {
         User newUser = null;
 
         response.setContentType("text/html;charset=UTF-8");
-        if (request.getParameter("action") != null && request.getParameter("action").equals("logout")) {
+        if (request.getParameter("action") != null && request.getParameter("action").equals("userlist")) {
+            try {
+                newUser = (User) session.getAttribute("newUser");
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                List<User> users = UserDB.getUsers();
+                for (int i = 0; i < users.size(); i++) {
+                    if (users.get(i).getUserName().equals(newUser.getUserName())) {
+                        continue;
+                    }
+                    out.write(users.get(i).getUserName() + "^^^" + users.get(i).getEmail() + "+++++++");
+                }
+            } catch (ClassNotFoundException e) {
+
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("logout")) {
             session.invalidate();
             response.setStatus(200);
             response.setContentType("text/xml");

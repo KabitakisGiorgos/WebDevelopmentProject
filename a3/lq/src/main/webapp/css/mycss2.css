@@ -129,4 +129,28 @@ input:hover,textarea:hover{
 .dropMenu:hover{
     background-color: #E2E2E2
 }
+.borderTable{
+    border-bottom: 2px solid #4285f4;
+}
+.circular--portrait2 {
+    position: relative;
+    width: 100px;
+    height:100px;
+    overflow: hidden;
+    border-radius: 50%;
+    
+  }
+  
+.circular--portrait2 img {
+    width: 100%;
+    height: auto;
+  }
+  .picture{
+      width: 120px;
+  }
 
+  .infoStyle2{
+
+    font-size:22px;
+    color:#4285f4;
+}

@@ -358,7 +358,7 @@ function TryToLogin() {
 
 function loginFunction(username) {
   document.getElementById("signIn").style.display = "none";
-  var MenuContent = '<li><a class="noStyle" onclick="">MyFriends</a></li>\
+  var MenuContent = '<li><a class="noStyle" onclick="MyFriendList();">MyFriends</a></li>\
   <div class="dropdown" style="float:right;">\
   <li><a class="noStyle dropbtn" onclick="">'+ username + ' ' + '<em  class="glyphicon glyphicon-triangle-bottom" ></em></a></li>\
   <div class="dropdown-content">\
@@ -396,6 +396,50 @@ function Homepage() {
   document.getElementById("DynamicContainer").innerHTML = mycontainer;
 }
 
+function MyFriendList() {
+  var mystring = "SiteFunctions?&action=userlist";
+  loadXMLDoc('GET', mystring, function (response) {
+
+    var myresponse = response;
+
+    myresponse = myresponse.split("+++++++");
+
+    document.getElementById("DynamicContainer").innerHTML = "";
+    document.getElementById("DynamicContainer").innerHTML = ' <div class="row" style="padding-bottom:20px;padding-top:20px;height:100%">\
+      <div class="col-sm-3"></div>\
+      <div class="col-sm-6 input_form">\
+          <h1 class="myh1">My Friends<span style="font-size:15px;">(inside DB)</span></h1>\
+          <table id="mytable" style="table-layout:fixed;width:100%;">\
+          </table>\
+          </div>\
+          <div class="col-sm-3"></div>';
+    for (var i = 0; i < myresponse.length-1; i++) {//fix servlet exclude same name and send only name and email
+      var object2 = myresponse[i].split("^^^");
+      console.log(object2);
+      var username = object2[0];
+      var email = object2[1];
+
+      console.log(username);
+      console.log(email);
+      var mystring = '<tr class="borderTable">\
+        <td class="picture">\
+            <div class="circular--portrait2">\
+                <img src="images/avatar.png">\
+            </div>\
+        </td>\
+        <td>\
+            <span class="infoStyle2" style="padding:0px;">  Username:  </span><br>'+ username + '\
+        </td>\
+        <td style="position:relative;left:10%;">\
+            <span class="infoStyle2">  Email:  </span> <br>'+ email + '\
+        </td>\
+       \
+    </tr>';
+      document.getElementById("mytable").innerHTML = document.getElementById("mytable").innerHTML + mystring;
+    }
+  });
+}
+
 function gotoHomePage() {//HEREEEEEEEEEEEEEE CHECK IT AGAIN after all are fixed
   Homepage();
   console.log("PRESSED");
@@ -425,7 +469,7 @@ function Log_out() {
       console.log(response);
       location.reload();
     });
-  }else{
+  } else {
     console.log("nothing happens relax bro");
   }
 }
