@@ -37,9 +37,10 @@ input:hover,textarea:hover{
     background-color:#4285f4;
     color:white;
     font-size:25px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     align-content: center;
     position: relative;
+
     left:20%;
 }
 
@@ -153,4 +154,19 @@ input:hover,textarea:hover{
 
     font-size:22px;
     color:#4285f4;
+}
+
+.mybutton2{
+    background-color:#4285f4;
+    color:white;
+    font-size:20px;
+    align-content: center;
+    position: relative;
+    left:30%;
+    display: none;
+}
+
+.visible-borders {
+    border: solid 1px #888888;
+    box-shadow: 10px 10px 5px #888888;
 }

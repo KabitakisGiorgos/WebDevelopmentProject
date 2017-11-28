@@ -29,7 +29,178 @@ public class SiteFunctions extends HttpServlet {
         User newUser = null;
 
         response.setContentType("text/html;charset=UTF-8");
-        if (request.getParameter("action") != null && request.getParameter("action").equals("userlist")) {
+        if (request.getParameter("action") != null && request.getParameter("action").equals("update")) {
+            newUser = (User) session.getAttribute("newUser");
+            try {
+                User updateUser = UserDB.getUser(newUser.getUserName());
+                User newUser2 = new User(
+                        updateUser.getUserName(),
+                        updateUser.getEmail(),
+                        updateUser.getPassword(),
+                        request.getParameter("input1"),
+                        request.getParameter("input2"),
+                        request.getParameter("input3"),
+                        request.getParameter("input4"),
+                        request.getParameter("input5"),
+                        request.getParameter("input6"),
+                        request.getParameter("input7"),
+                        request.getParameter("input8"),
+                        request.getParameter("input9"),
+                        request.getParameter("input10"));
+                UserDB.deleteUser(newUser.getUserName());
+                UserDB.addUser(newUser2);
+            } catch (ClassNotFoundException e) {
+
+            }
+
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("email") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");//fixed
+            response.setStatus(200);
+            response.setContentType("text/xml");
+            PrintWriter out = response.getWriter();
+            try {
+                out.write(UserDB.getUser(newUser.getUserName()).getEmail());
+
+            } catch (ClassNotFoundException e) {
+
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("Fname") && request.getParameter("input") != null) {
+
+            newUser = (User) session.getAttribute("newUser");
+            if (request.getParameter("input").equals("0")) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                try {
+                    out.write(UserDB.getUser(newUser.getUserName()).getFirstName());
+
+                } catch (ClassNotFoundException e) {
+
+                }
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("Lname") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");
+            if (request.getParameter("input").equals("0")) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                try {
+                    out.write(UserDB.getUser(newUser.getUserName()).getLastName());
+
+                } catch (ClassNotFoundException e) {
+
+                }
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("Bdate") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");
+            if (request.getParameter("input").equals("0")) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                try {
+                    out.write(UserDB.getUser(newUser.getUserName()).getBirthDate());
+
+                } catch (ClassNotFoundException e) {
+                }
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("gender") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");
+            if (request.getParameter("input").equals("0")) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                try {
+                    out.write(UserDB.getUser(newUser.getUserName()).getGender().toString());
+
+                } catch (ClassNotFoundException e) {
+
+                }
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("country") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");
+            if (request.getParameter("input").equals("0")) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                try {
+                    out.write(UserDB.getUser(newUser.getUserName()).getCountry());
+
+                } catch (ClassNotFoundException e) {
+
+                }
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("city") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");
+            if (request.getParameter("input").equals("0")) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                try {
+                    out.write(UserDB.getUser(newUser.getUserName()).getTown());
+
+                } catch (ClassNotFoundException e) {
+
+                }
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("address") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");
+            if (request.getParameter("input").equals("0")) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                try {
+                    out.write(UserDB.getUser(newUser.getUserName()).getAddress());
+
+                } catch (ClassNotFoundException e) {
+
+                }
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("job") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");
+            if (request.getParameter("input").equals("0")) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                try {
+                    out.write(UserDB.getUser(newUser.getUserName()).getOccupation());
+
+                } catch (ClassNotFoundException e) {
+
+                }
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("interests") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");
+            if (request.getParameter("input").equals("0")) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                try {
+                    out.write(UserDB.getUser(newUser.getUserName()).getInterests());
+
+                } catch (ClassNotFoundException e) {
+
+                }
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("infos") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");
+            if (request.getParameter("input").equals("0")) {
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                try {
+                    out.write(UserDB.getUser(newUser.getUserName()).getInfo());
+
+                } catch (ClassNotFoundException e) {
+
+                }
+            }
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("name") && request.getParameter("input") != null) {
+            newUser = (User) session.getAttribute("newUser");
+            response.setStatus(200);//okkkkk
+            response.setContentType("text/xml");
+            PrintWriter out = response.getWriter();
+            out.write(newUser.getUserName());
+        } else if (request.getParameter("action") != null && request.getParameter("action").equals("userlist")) {
             try {
                 newUser = (User) session.getAttribute("newUser");
                 response.setStatus(200);
@@ -102,8 +273,6 @@ public class SiteFunctions extends HttpServlet {
                 PrintWriter out = response.getWriter();
                 out.write("notAllfieldscovered");
             }
-        } else if (false) {//another sevice here-action
-
         } else {//the service u ask isnt provided
             response.setStatus(400);
             response.setContentType("text/xml");

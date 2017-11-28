@@ -135,77 +135,77 @@ function submitTheform() {
 
         //new content fix
         document.getElementById("registerForm").style.display = "none";
-        var mydiv = '<div class="row" style="padding-bottom:20px;padding-top:20px;">\
+        var mydiv = '<div class="row" style="padding-bottom:20px;padding-top:17px;">\
         <div class="col-sm-3"></div>\
         <div class="col-sm-6 input_form">\
             <h1 class="myh1">Welcome<span style="font-size:15px;">(Your Info)</span></h1>\
             <table style="table-layout:fixed;width:100%;">\
                 <tr>\
                     <td class="infoStyle">Username:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:17px;">\
                         '+ username +
           '</span>\
                         </td/>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Email:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:17px;">\
                     '+ email +
           '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Όνομα:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:17px;">\
                         '+ name +
           '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Επίθετο:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:17px;">\
                         '+ surname +
           '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Ημερομηνία Γέννησης:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:17px;">\
                         '+ date +
           '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Φύλο:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:17px;">\
                         '+ gender +
           '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Χώρα:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:17px;">\
                         '+ country +
           '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Πόλη:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:17px;">\
                         '+ city +
           '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Διεύθυνση:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:17px;">\
                         '+ address +
           '</span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Επάγγελμα:</td>\
-                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:20px;">\
+                    <td style="padding-bottom: 10px;padding-left:70px;"><span style="font-size:17px;">\
                         '+ job +
           '</span>\
                     </td>\
@@ -213,14 +213,14 @@ function submitTheform() {
                 <tr>\
                     <td class="infoStyle">Ενδιαφέροντα:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px;"><span style="width:400%;\
-                        max-height:70px;overflow:auto;word-wrap: break-word;display:inline-block;font-size:17px;">'+ interests + '\
+                        max-height:70px;word-wrap: break-word;font-size:17px;">'+ interests + '\
                         </span>\
                     </td>\
                 </tr>\
                 <tr>\
                     <td class="infoStyle">Γενικες Πληροφορίες:</td>\
                     <td style="padding-bottom: 10px;padding-left:70px"><span style="width:400%;\
-                        max-height:70px;overflow:auto;word-wrap: break-word;display:inline-block;font-size:17px;">'+ info + '\
+                        max-height:70px;word-wrap: break-word;font-size:17px;">'+ info + '\
                         </span>\
                         </span>\
                     </td>\
@@ -360,9 +360,9 @@ function loginFunction(username) {
   document.getElementById("signIn").style.display = "none";
   var MenuContent = '<li><a class="noStyle" onclick="MyFriendList();">MyFriends</a></li>\
   <div class="dropdown" style="float:right;">\
-  <li><a class="noStyle dropbtn" onclick="">'+ username + ' ' + '<em  class="glyphicon glyphicon-triangle-bottom" ></em></a></li>\
+  <li><a id="takename" class="noStyle dropbtn" onclick="">'+ username + ' ' + '<em  class="glyphicon glyphicon-triangle-bottom" ></em></a></li>\
   <div class="dropdown-content">\
-  <span class="dropMenu" onclick="test();">Settings<em class="material-icons">border_color</em></span>\
+  <span class="dropMenu" onclick="Settings();">Settings<em class="material-icons">border_color</em></span>\
   <span class="dropMenu" onclick="Log_out();">Log Out</span>\
 </div>\
 </div>\
@@ -396,6 +396,190 @@ function Homepage() {
   document.getElementById("DynamicContainer").innerHTML = mycontainer;
 }
 
+function Settings() {
+  //here requests
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=name", function (response) {
+    document.getElementById("Pusername").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=email", function (response) {
+    document.getElementById("Pemail").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=Fname", function (response) {
+    document.getElementById("Pname").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=Lname", function (response) {
+    document.getElementById("PLname").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=Bdate", function (response) {
+    document.getElementById("PBdate").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=gender", function (response) {
+    document.getElementById("Pgender").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=country", function (response) {
+    document.getElementById("Pcountry").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=city", function (response) {
+    document.getElementById("Pcity").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=address", function (response) {
+    document.getElementById("Paddress").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=job", function (response) {
+    document.getElementById("Pjob").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=interests", function (response) {
+    document.getElementById("Pinterests").innerHTML = response;
+  });
+  loadXMLDoc('GET', "SiteFunctions?input=0&action=infos", function (response) {
+    document.getElementById("Pinfo").innerHTML = response;
+  });
+
+  var mydiv = '<div class="row" style="padding-bottom:20px;padding-top:20px;">\
+  <div class="col-sm-3"></div>\
+  <div class="col-sm-6 input_form">\
+      <h1 class="myh1">Personal Info<em class="glyphicon glyphicon-pencil"></em></span></h1>\
+      <table style="table-layout:fixed;width:100%;">\
+          <tr>\
+              <td class="infoStyle">Username:</td>\
+              <td style="padding-bottom: 10px;padding-left:70px;"><span id="Pusername" style="font-size:17px;">\
+    </span>\
+                  </td/>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Email:</td>\
+              <td  style="padding-bottom: 10px;padding-left:70px;"><span id="Pemail" style="font-size:17px;">\
+              </span>\
+              </td>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Όνομα:</td>\
+              <td  style="padding-bottom: 10px;padding-left:70px;" onclick="appearbuttons()"><span id="Pname" class="visible-borders"  contenteditable="true" style="font-size:17px;">\
+                  </span>\
+              </td>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Επίθετο:</td>\
+              <td  style="padding-bottom: 10px;padding-left:70px;" onclick="appearbuttons()" "><span id="PLname"  class="visible-borders" contenteditable="true" style="font-size:17px;">\
+                  </span>\
+              </td>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Ημερομηνία Γέννησης:</td>\
+              <td style="padding-bottom: 10px;padding-left:70px;" onclick="appearbuttons()"><span id="PBdate" class="visible-borders" contenteditable="true" style="font-size:17px;">\
+                  </span>\
+              </td>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Φύλο:</td>\
+              <td style="padding-bottom: 10px;padding-left:70px;"onclick="appearbuttons()" ><span id="Pgender"class="visible-borders" contenteditable="true" style="font-size:17px;">\
+                  </span>\
+              </td>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Χώρα:</td>\
+              <td style="padding-bottom: 10px;padding-left:70px;" onclick="appearbuttons()" ><span id="Pcountry" class="visible-borders" contenteditable="true" style="font-size:17px;">\
+                  </span>\
+              </td>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Πόλη:</td>\
+              <td style="padding-bottom: 10px;padding-left:70px;" onclick="appearbuttons()"><span id="Pcity" class="visible-borders" contenteditable="true" style="font-size:17px;">\
+                 </span>\
+              </td>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Διεύθυνση:</td>\
+              <td style="padding-bottom: 10px;padding-left:70px;" onclick="appearbuttons()" ><span id="Paddress" class="visible-borders" contenteditable="true" style="font-size:17px;">\
+                  </span>\
+              </td>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Επάγγελμα:</td>\
+              <td style="padding-bottom: 10px;padding-left:70px;"onclick="appearbuttons()" ><span id="Pjob" class="visible-borders"  contenteditable="true" style="font-size:17px;">\
+                  </span>\
+              </td>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Ενδιαφέροντα:</td>\
+              <td style="padding-bottom: 10px;padding-left:70px;" onclick="appearbuttons()"><span id="Pinterests" class="visible-borders"  contenteditable="true" style="width:400%;\
+                  max-height:70px;overflow:auto;word-wrap: break-word;font-size:17px;">\
+                  </span>\
+              </td>\
+          </tr>\
+          <tr>\
+              <td class="infoStyle">Γενικες Πληροφορίες:</td>\
+              <td style="padding-bottom: 10px;padding-left:70px" onclick="appearbuttons()"><span id="Pinfo" class="visible-borders" contenteditable="true" style="width:400%;\
+                  max-height:70px;overflow:auto;word-wrap: break-word;font-size:17px;">\
+                  </span>\
+                  </span>\
+              </td>\
+          </tr>\
+      </table>\
+      <button class="mybutton2" onclick="UpdateChanges();">Submit Changes</button>\
+      <button class="mybutton2" onclick="Settings();">Cancel</button>\
+  </div>\
+  <div class="col-sm-3"></div>';
+  document.getElementById("DynamicContainer").innerHTML = mydiv;
+  document.getElementById("DynamicContainer").style.display = "block";
+}
+
+function UpdateChanges() {
+  //first of all check all regexes and changes
+  if ((document.getElementById("Pname").innerHTML).length > 20 || (document.getElementById("Pname").innerHTML).length <= 0) {
+    alert("Wrong name input!!");
+    return;
+  }
+
+  if ((document.getElementById("PLname").innerHTML).length > 20 || (document.getElementById("PLname").innerHTML).length <= 4) {
+    alert("Wrong Last Name input!!");
+    return;
+  }
+
+  if ((document.getElementById("Pcity").innerHTML).length > 20 || (document.getElementById("Pcity").innerHTML).length < 0) {
+    alert("Wrong city input!!");
+    return;
+  }
+  if ((document.getElementById("Paddress").innerHTML).length > 40 || (document.getElementById("Paddress").innerHTML).length <0) {
+    alert("Wrong address input!!");
+    return;
+  }
+
+  if ((document.getElementById("Pjob").innerHTML).length > 20 || (document.getElementById("Pjob").innerHTML).length <= 2) {
+    alert("Wrong job input!!");
+    return;
+  }
+
+  if ((document.getElementById("Pinterests").innerHTML).length > 100 || (document.getElementById("Pinterests").innerHTML).length < 0) {
+    alert("Wrong interests input!!");
+    return;
+  }
+
+  if ((document.getElementById("Pinfo").innerHTML).length > 500 || (document.getElementById("Pinfo").innerHTML).length < 0) {
+    alert("Wrong info input!!");
+    return;
+  }
+  
+  var mystring2="input1="+document.getElementById("Pname").innerHTML
+  +"&input2="+document.getElementById("PLname").innerHTML +"&input3="+document.getElementById("PBdate").innerHTML +
+  "&input4="+document.getElementById("Pjob").innerHTML +"&input5="+document.getElementById("Pcountry").innerHTML +
+  "&input6="+document.getElementById("Pcity").innerHTML +"&input7="+ document.getElementById("Paddress").innerHTML+
+  "&input8="+ document.getElementById("Pinterests").innerHTML+"&input9="+ document.getElementById("Pinfo").innerHTML+
+  "&input10="+document.getElementById("Pgender").innerHTML;
+ 
+  loadXMLDoc('GET', "SiteFunctions?"+mystring2+"&action=update", function (response) {
+  });
+  // location.reload();
+  alert("The changes are made");
+  Settings();
+  Settings();
+}
+
+function appearbuttons() {
+  document.getElementsByClassName("mybutton2")[0].style.display = "inline-block";
+  document.getElementsByClassName("mybutton2")[1].style.display = "inline-block";
+}
+
 function MyFriendList() {
   var mystring = "SiteFunctions?&action=userlist";
   loadXMLDoc('GET', mystring, function (response) {
@@ -413,14 +597,10 @@ function MyFriendList() {
           </table>\
           </div>\
           <div class="col-sm-3"></div>';
-    for (var i = 0; i < myresponse.length-1; i++) {//fix servlet exclude same name and send only name and email
+    for (var i = 0; i < myresponse.length - 1; i++) {
       var object2 = myresponse[i].split("^^^");
-      console.log(object2);
       var username = object2[0];
       var email = object2[1];
-
-      console.log(username);
-      console.log(email);
       var mystring = '<tr class="borderTable">\
         <td class="picture">\
             <div class="circular--portrait2">\
@@ -440,13 +620,11 @@ function MyFriendList() {
   });
 }
 
-function gotoHomePage() {//HEREEEEEEEEEEEEEE CHECK IT AGAIN after all are fixed
+function gotoHomePage() {
   Homepage();
-  console.log("PRESSED");
 }
 window.onload = function () {
   var mystring = "SiteFunctions?&action=reload";
-  console.log("here");
   loadXMLDoc('GET', mystring, function (response) {
     console.log(response);
     if (response == "NOTconnected") {
