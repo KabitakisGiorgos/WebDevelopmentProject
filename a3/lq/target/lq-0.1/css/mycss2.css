@@ -168,5 +168,5 @@ input:hover,textarea:hover{
 
 .visible-borders {
     border: solid 1px #888888;
-    box-shadow: 10px 10px 5px #888888;
+    box-shadow: 2px 2px 1px #888888;
 }

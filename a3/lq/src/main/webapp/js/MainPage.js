@@ -242,12 +242,25 @@ function submitTheform() {
 
 function validInputs() {
 
-  if (!document.getElementById("username").checkValidity() || !usenameValidity) {
+  var pattern = new RegExp("[<>%\$]");
+  if (!document.getElementById("username").checkValidity() || !usenameValidity || pattern.test(document.getElementById("username").value)) {
     return false;
   }
-  if (!document.getElementById("email").checkValidity() || !emailValidity) {
+  if (!document.getElementById("email").checkValidity() || !emailValidity || pattern.test(document.getElementById("email").value)) {
     return false;
   }
+  if (document.getElementById("interests") != null) {
+    if (pattern.test(document.getElementById("interests").value)) {
+      return false;
+    }
+  }
+
+  if (document.getElementById("info") != null) {
+    if (pattern.test(document.getElementById("info").value)) {
+      return false;
+    }
+  }
+
   if (!document.getElementById("password").checkValidity()) {
     document.getElementById("message").style.color = "red";
     document.getElementById("message").innerHTML = "Wrong Input";
@@ -258,23 +271,26 @@ function validInputs() {
     document.getElementById("message").innerHTML = "Wrong Input";
     return false;
   }
-  if (!document.getElementById("name").checkValidity()) {
+  if (!document.getElementById("name").checkValidity() || pattern.test(document.getElementById("name").value)) {
     return false;
   }
-  if (!document.getElementById("surname").checkValidity()) {
+  if (!document.getElementById("surname").checkValidity() || pattern.test(document.getElementById("surname").value)) {
     return false;
   }
   if (!document.getElementById("date").checkValidity()) {
     return false;
   }
-  if (!document.getElementById("city").checkValidity()) {
+  if (!document.getElementById("city").checkValidity() || pattern.test(document.getElementById("city").value)) {
     return false;
   }
-  if (!document.getElementById("job").checkValidity()) {
+  if (!document.getElementById("job").checkValidity() || pattern.test(document.getElementById("job").value)) {
     return false;
   }
   if (!(document.getElementById("password").value == document.getElementById("confirm_password").value)) {
     alert("Two passwords are not the same");
+    return false;
+  }
+  if (!document.getElementById("address").checkValidity() || pattern.test(document.getElementById("address").value)) {
     return false;
   }
   return true;
@@ -526,48 +542,50 @@ function Settings() {
 
 function UpdateChanges() {
   //first of all check all regexes and changes
-  if ((document.getElementById("Pname").innerHTML).length > 20 || (document.getElementById("Pname").innerHTML).length <= 0) {
+  var pattern = new RegExp("[<>%\$]");
+  if ((document.getElementById("Pname").innerHTML).length > 20 || (document.getElementById("Pname").innerHTML).length <= 0||pattern.test(document.getElementById("Pname").innerHTML)) {
     alert("Wrong name input!!");
     return;
   }
 
-  if ((document.getElementById("PLname").innerHTML).length > 20 || (document.getElementById("PLname").innerHTML).length <= 4) {
+  if ((document.getElementById("PLname").innerHTML).length > 20 || (document.getElementById("PLname").innerHTML).length <= 4||pattern.test(document.getElementById("PLname").innerHTML)) {
     alert("Wrong Last Name input!!");
     return;
   }
 
-  if ((document.getElementById("Pcity").innerHTML).length > 20 || (document.getElementById("Pcity").innerHTML).length < 0) {
+  if ((document.getElementById("Pcity").innerHTML).length > 20 || (document.getElementById("Pcity").innerHTML).length < 0||pattern.test(document.getElementById("Pcity").innerHTML)) {
     alert("Wrong city input!!");
     return;
   }
-  if ((document.getElementById("Paddress").innerHTML).length > 40 || (document.getElementById("Paddress").innerHTML).length <0) {
+  if ((document.getElementById("Paddress").innerHTML).length > 40 || (document.getElementById("Paddress").innerHTML).length < 0||pattern.test(document.getElementById("Paddress").innerHTML)) {
     alert("Wrong address input!!");
     return;
   }
 
-  if ((document.getElementById("Pjob").innerHTML).length > 20 || (document.getElementById("Pjob").innerHTML).length <= 2) {
+  if ((document.getElementById("Pjob").innerHTML).length > 20 || (document.getElementById("Pjob").innerHTML).length <= 2||pattern.test(document.getElementById("Pjob").innerHTML)) {
     alert("Wrong job input!!");
     return;
   }
 
-  if ((document.getElementById("Pinterests").innerHTML).length > 100 || (document.getElementById("Pinterests").innerHTML).length < 0) {
+  if ((document.getElementById("Pinterests").innerHTML).length > 100 || (document.getElementById("Pinterests").innerHTML).length < 0||pattern.test(document.getElementById("Pinterests").innerHTML)) {
     alert("Wrong interests input!!");
     return;
   }
 
-  if ((document.getElementById("Pinfo").innerHTML).length > 500 || (document.getElementById("Pinfo").innerHTML).length < 0) {
+  if ((document.getElementById("Pinfo").innerHTML).length > 500 || (document.getElementById("Pinfo").innerHTML).length < 0||pattern.test(document.getElementById("Pinfo").value)) {
     alert("Wrong info input!!");
+    console.log("MPikeeee edo");
     return;
   }
-  
-  var mystring2="input1="+document.getElementById("Pname").innerHTML
-  +"&input2="+document.getElementById("PLname").innerHTML +"&input3="+document.getElementById("PBdate").innerHTML +
-  "&input4="+document.getElementById("Pjob").innerHTML +"&input5="+document.getElementById("Pcountry").innerHTML +
-  "&input6="+document.getElementById("Pcity").innerHTML +"&input7="+ document.getElementById("Paddress").innerHTML+
-  "&input8="+ document.getElementById("Pinterests").innerHTML+"&input9="+ document.getElementById("Pinfo").innerHTML+
-  "&input10="+document.getElementById("Pgender").innerHTML;
- 
-  loadXMLDoc('GET', "SiteFunctions?"+mystring2+"&action=update", function (response) {
+
+  var mystring2 = "input1=" + document.getElementById("Pname").innerHTML
+    + "&input2=" + document.getElementById("PLname").innerHTML + "&input3=" + document.getElementById("PBdate").innerHTML +
+    "&input4=" + document.getElementById("Pjob").innerHTML + "&input5=" + document.getElementById("Pcountry").innerHTML +
+    "&input6=" + document.getElementById("Pcity").innerHTML + "&input7=" + document.getElementById("Paddress").innerHTML +
+    "&input8=" + document.getElementById("Pinterests").innerHTML + "&input9=" + document.getElementById("Pinfo").innerHTML +
+    "&input10=" + document.getElementById("Pgender").innerHTML;
+
+  loadXMLDoc('GET', "SiteFunctions?" + mystring2 + "&action=update", function (response) {
   });
   // location.reload();
   alert("The changes are made");
@@ -666,3 +684,4 @@ function loadXMLDoc(method, name, callback) {
   xhttp.open(method, name, true);
   xhttp.send();
 }
+// <("[^"]*?"|'[^']*?'|[^'">])*>
