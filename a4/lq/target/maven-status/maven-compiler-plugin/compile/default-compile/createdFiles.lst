@@ -1,0 +1,13 @@
+gr\csd\uoc\cs359\winter2017\lq\db\InitiativeDB.class
+gr\csd\uoc\cs359\winter2017\lq\model\Initiative.class
+gr\csd\uoc\cs359\winter2017\lq\db\UserDB.class
+gr\csd\uoc\cs359\winter2017\lq\ExampleAPI.class
+VoteServlet.class
+SiteFunctions.class
+gr\csd\uoc\cs359\winter2017\lq\db\CS359DB.class
+gr\csd\uoc\cs359\winter2017\lq\model\User$Gender.class
+SubmitForm.class
+myServlet.class
+gr\csd\uoc\cs359\winter2017\lq\model\User.class
+gr\csd\uoc\cs359\winter2017\lq\db\VoteDB.class
+gr\csd\uoc\cs359\winter2017\lq\model\Vote.class
