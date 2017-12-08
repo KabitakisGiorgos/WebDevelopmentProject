@@ -24,23 +24,19 @@ public class ExampleAPI {
      */
     public static void main(String[] args) throws ClassNotFoundException {
 
-//        // Check initiatives
+////        // Check initiatives
 //        Initiative initiative = new Initiative();
-//        initiative.setCreator("turing");
+//        initiative.setCreator("Giorgoskmp");
 //        initiative.setTitle("Halting Problem");
 //        initiative.setCategory("Computability");
 //        initiative.setDescription("In computability theory, the halting problem is the problem of determining, from a description of an arbitrary computer program and an input, whether the program will finish running or continue to run forever.");
-//        initiative.setStatus(0);
+//        initiative.setStatus(2);
 //        InitiativeDB.addInitiative(initiative);
-//
-//        System.out.println(initiative.toString());
-//
-//
-//
-//        initiative.setStatus(1);
+//        initiative.setCategory("1");
 //        InitiativeDB.updateInitiative(initiative);
-//        System.out.println(initiative.toString());
-//
+//        InitiativeDB.getInitiative(35).setCategory("TROLL");
+//        InitiativeDB.updateInitiative(InitiativeDB.getInitiative(35));
+//        System.out.println(InitiativeDB.getInitiative(35).toString());
 //        int initID = initiative.getId();
 //
 //        Vote vote = new Vote();
@@ -62,11 +58,9 @@ public class ExampleAPI {
 //        }
 //
 //        // Get Initiatives WITH STATUS 0
-//        InitiativeDB.deleteInitiative(22);
-//        InitiativeDB.deleteInitiative(23);
-//        InitiativeDB.deleteInitiative(24);
-//        InitiativeDB.deleteInitiative(25);
-        List<Initiative> initiatives = InitiativeDB.getInitiativesWithStatus(0);
+       InitiativeDB.deleteInitiative(39);
+
+        List<Initiative> initiatives = InitiativeDB.getAllInitiatives();
         int i = 0;
         for (Initiative current : initiatives) {
             System.out.println("initiative:" + i++);

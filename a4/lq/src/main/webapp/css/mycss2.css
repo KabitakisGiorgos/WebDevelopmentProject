@@ -200,9 +200,10 @@ input:hover,textarea:hover{
 }
 
 .description{
-    margin-left:50px;
+    margin-left:100px;
     text-align:center;
-    width:400%; max-height:70px;
+    width:400%; 
+    max-height:70px;
     overflow:auto;
     word-wrap: break-word;
     font-size:17px;
@@ -220,4 +221,29 @@ input:hover,textarea:hover{
     align-content: center;
     position: relative;
     left:40%;
+}
+.choice{
+    display:none;
+}
+.centered {
+    position: absolute;
+    top: 0%;
+    left: 27%;
+    transform: translate(-50%, -50%);
+}
+
+.expired {
+    z-index: 2;
+    color: red;
+    font-size: 100px;
+    transform: rotate(-10deg);
+    opacity: 1;
+}
+
+.published {
+    opacity: 1;
+    z-index: 2;
+    color: green;
+    font-size: 100px;
+    transform: rotate(-10deg);
 }

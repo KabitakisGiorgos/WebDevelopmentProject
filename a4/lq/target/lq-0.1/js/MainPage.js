@@ -386,7 +386,7 @@ function loginFunction(username) {
 <li><a class="noStyle dropbtn2">Voting</a></li>\
 <div class="dropdown2-content">\
 <span class="dropMenu" onclick="NewInitiative();">New Initiative<em class="material-icons">add_circle</em></span>\
-<span class="dropMenu" onclick="">My Initiatives</span>\
+<span class="dropMenu" onclick="MyInitiativeList()">My Initiatives</span>\
 <span class="dropMenu" onclick="">Active Initiatives</span>\
 <span class="dropMenu" onclick="">Ended Initiatives</span>\
 </div>\
@@ -703,9 +703,9 @@ function NewInitiative() {
       <!-- add also title -->\
       <h1 class="myh1">Create New Initiative</span></h1>\
       <h3>Category</h3>\
-      <span class="red VoteInput">*<input style="color:black;" id="categoryVOTE" type="text" pattern=".{2,20}" placeholder="e.g Food" required></span>\
+      <span class="red VoteInput">*<input style="color:black;" id="categoryVOTE" type="text" pattern=".{2,40}" placeholder="e.g Food" required></span>\
       <h3>Title</h3>\
-      <span class="red VoteInput">*<input style="color:black;" id="titleVOTE" type="text" pattern=".{2,20}" placeholder="e.g Favorite Food" required></span>\
+      <span class="red VoteInput">*<input style="color:black;" id="titleVOTE" type="text" pattern=".{2,40}" placeholder="e.g Favorite Food" required></span>\
       <h3>Description</h3>\
       <span class="red VoteInput">*<textarea style="color:black;width:98%;" id="descriptionVOTE"  rows="3"  maxlength="200" type="text" placeholder="e.g Spaghetti or Pizza? Upvote for Spaghetti or Downvote for Pizza" required></textarea></span>\
       \
@@ -744,14 +744,6 @@ function SubmitNewInitiative() {
     return false;
   }
 
-  // if (document.getElementById("dateVOTE").value == "") {
-  //   alert("Fill all inputs");
-  //   return false;
-  // } else if (!document.getElementById("dateVOTE").checkValidity() || pattern.test(document.getElementById("dateVOTE").value)) {
-  //   alert("Wrong Date Input");
-  //   return false;
-  // }
-
   //send server request
   var mystring2 = "SiteFunctions?&action=reload";
   loadXMLDoc('GET', mystring2, function (response) {
@@ -763,14 +755,255 @@ function SubmitNewInitiative() {
 
     loadXMLDoc('GET', mystring, function (response) {
       console.log(response);
-      if(response==1){
+      if (response == 1) {
         alert("Your initiative was submitted")
-        NewInitiative();//HERE FIX AND TRANSFER USE TO MY INITIATIVES
-      }else{
+        MyInitiativeList();//HERE FIX AND TRANSFER USE TO MY INITIATIVES
+      } else {
         alert("Something Went Really Bad");
       }
     });
   });
-
-
 }
+
+function MyInitiativeList() {
+  var mystring = "SiteFunctions?&action=reload";
+  loadXMLDoc('GET', mystring, function (response) {
+    //response here has the nam
+    var mystring2 = "VoteServlet?action=UserInitiativeList&input=" + response;
+    loadXMLDoc('GET', mystring2, function (response2) {
+      if (response2 == "0") {
+        document.getElementById("DynamicContainer").innerHTML = '<div class="row" style="padding-bottom:10px;padding-top:20px;">\
+        <div class="col-sm-3"></div>\
+        <div class="col-sm-6 ">\
+            <h1 style="color:black;text-align:center;" >Oooops no initiatives yet</h1>\
+            <img style="width:50%;position:relative;left:25%" src="images/nopolls.png">\
+        </div>\
+        <div class="col-sm-3"></div>\
+    </div>';
+      } else {
+
+        var mymodal = '<div id="id01" class="w3-modal">\
+        <span id="ModalVoteID"></span>\
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom">\
+            <header class="w3-container" style="background-color:#4285f4">\
+                <span onclick="closeModal();" class="w3-button  w3-xlarge w3-display-topright">&times;</span>\
+                <h2>Settings</h2>\
+            </header>\
+\
+            <div class="w3-bar w3-border-bottom">\
+                <button class="tablink w3-bar-item w3-button" onclick="openChoice(event, \'update\')">Update</button>\
+                <button class="tablink w3-bar-item w3-button" onclick="openChoice(event, \'setVote\')">Set For Vote</button>\
+                <button class="tablink w3-bar-item w3-button" onclick="openChoice(event,\'delete\')">Delete</button>\
+            </div>\
+\
+            <div id="update" class="w3-container choice">\
+                <h3>Category</h3>\
+                <span class=" VoteInput"><input style="color:black;" id="categoryUPDATE" type="text" pattern=".{2,20}" value="Category" required></span>\
+                <h3>Title</h3>\
+                <span class=" VoteInput"><input style="color:black;" id="titleUPDATE" type="text" pattern=".{2,20}" value="Title" required></span>\
+                <h3>Description</h3>\
+                <span class=" VoteInput"><textarea style="color:black;width:98%;" id="descriptionUPDATE"  rows="3"  maxlength="200"   required>Title</textarea></span>\
+\
+                <button class="mybutton3" onclick="SaveChanges(document.getElementById(\'ModalVoteID\').innerHTML,document.getElementById(\'categoryUPDATE\').value,document.getElementById(\'titleUPDATE\').value,document.getElementById(\'descriptionUPDATE\').value);">Save</button>\
+                <button class="mybutton3" onclick="closeModal();">Cancel</button>\
+            </div>\
+\
+            <div id="setVote" class="w3-container choice">\
+                <h3>Expiration Date</h3>\
+                <input id="ExpireDate" type="datetime-local">\
+                <br>\
+                <button class="mybutton3" onclick="PublishInitiative(document.getElementById(\'ExpireDate\').value,document.getElementById(\'ModalVoteID\').innerHTML);">Publish</button>\
+                <button class="mybutton3" onclick="closeModal();">Cancel</button>\
+            </div>\
+            <div id="delete" class="w3-container choice">\
+                    <button class="mybutton3" onclick="deletePoll(document.getElementById(\'ModalVoteID\').innerHTML)">Delete</button>\
+                    <button class="mybutton3" onclick="closeModal();">Cancel</button>\
+                </div>\
+        </div>\
+    </div>\
+    ';
+        document.getElementById("DynamicContainer").innerHTML = mymodal;
+        var myresponse = response2;
+        myresponse = myresponse.split("<+>");//kathe poll brisketai edo mesa
+
+        for (var i = 0; i < myresponse.length - 1; i++) {
+          var tmp = myresponse[i].split("<>");
+
+          var ID = tmp[0];
+          var Creator = tmp[1];
+          var Title = tmp[2];
+          var Category = tmp[3];
+          var Description = tmp[4];
+          var Status = tmp[5];
+          var mycontent;
+          if (Status == "0") {
+            mycontent = '<div class="row" style="padding-bottom:10px;padding-top:20px;">\
+            <div class="col-sm-3"></div>\
+            <div class="col-sm-6 initiative_box">\
+              <div id="PollID'+ i + '" style="display:none">' + Status + '</div>\
+              <h1 class="myh1" >\
+              <div  class="col-sm-11"style="background-color:#4285f4;padding-left:13%"><span id="containerCategory">'+ Category + '</span><span style="font-size:15px;">(' + Creator + ')</span></div>\
+              <div  class="col-sm-1"style="background-color:#4285f4;padding-left:4%;"><em style="cursor:pointer;" onclick="openModal(\''+ ID + '\',\'' + Category + '\',\'' + Title + '\',\'' + Description + '\');" class="material-icons">border_color</em></div>\
+          </h1>\
+          \
+          \
+                <h3 id="containerTitle" style="color:black; text-align:center;">'+ Title + '</h3>\
+                <div style="border:1px solid black;padding-bottom:10px;">\
+                    <h4 class="myh4">Description:</h4>\
+                    <span id="containerDescription" class="description">'+ Description + '</span>\
+                </div>\
+            </div>\
+            <div class="col-sm-3"></div>\
+        </div>';
+          } else if (Status == "1") {
+            mycontent = ' <div class="row " style="padding-bottom:10px;padding-top:20px;">\
+            <div class="col-sm-3"></div>\
+            <div class="col-sm-6 initiative_box">\
+                <div class="centered published">Published</div>\
+                <div id="PollID'+ i + '" style="display:none">' + Status + '</div>\
+                <div style="opacity: 0.5;">\
+                    <h1 class="myh1">\
+                        <div class="col-sm-11" style="background-color:#4285f4;padding-left:13%"><span id="containerCategory">'+ Category + '</span><span style="font-size:15px;">(' + Creator + ')</span>\
+                        </div>\
+                        <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em class="material-icons">border_color</em></div>\
+                    </h1>\
+    \
+                    <h3 id="containerTitle" style="color:black; text-align:center;">'+ Title + '</h3>\
+                    <div style="border:1px solid black;padding-bottom:10px;">\
+                        <h4 class="myh4">Description:</h4>\
+                      <span id="containerDescription" class="description">'+ Description + '</span>\
+                    </div>\
+                </div>\
+            </div>\
+            <div class="col-sm-3"></div>\
+        </div>';
+          } else if (Status == "2") {
+            mycontent = ' <div class="row " style="padding-bottom:10px;padding-top:20px;">\
+            <div class="col-sm-3"></div>\
+            <div class="col-sm-6 initiative_box">\
+                <div class="centered expired">Expired</div>\
+                <div id="PollID'+ i + '" style="display:none">' + Status + '</div>\
+                <div style="opacity: 0.5;">\
+                    <h1 class="myh1">\
+                        <div class="col-sm-11" style="background-color:#4285f4;padding-left:13%"><span id="containerCategory">'+ Category + '</span><span style="font-size:15px;">(' + Creator + ')</span>\
+                        </div>\
+                        <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em class="material-icons">border_color</em></div>\
+                    </h1>\
+    \
+                    <h3 id="containerTitle" style="color:black; text-align:center;">'+ Title + '</h3>\
+                    <div style="border:1px solid black;padding-bottom:10px;">\
+                        <h4 class="myh4">Description:</h4>\
+                      <span id="containerDescription" class="description">'+ Description + '</span>\
+                    </div>\
+                </div>\
+            </div>\
+            <div class="col-sm-3"></div>\
+        </div>';
+          }
+          //check status later to fix how to present the polls status:0 status:1 status:2
+
+          document.getElementById("DynamicContainer").innerHTML = document.getElementById("DynamicContainer").innerHTML + mycontent;
+        }
+      }
+    });
+  });
+}
+
+function openModal(ID, Category, Title, Description) {
+  document.getElementById('id01').style.display = 'block';
+  document.getElementsByClassName("tablink")[0].click();
+  document.getElementById("categoryUPDATE").value = Category;
+  document.getElementById("titleUPDATE").value = Title;
+  document.getElementById("descriptionUPDATE").value = Description;
+  document.getElementById("ModalVoteID").innerHTML = ID
+}
+
+function closeModal() {
+  var answer = confirm("Any changes will be lost");
+  if (answer) {
+    document.getElementById('id01').style.display = 'none';
+  }
+}
+
+function SaveChanges(ID, category, title, description) {
+  var pattern = new RegExp("[<>%\$]");
+
+  if (category.length < 2 || category.length > 40 || pattern.test(category)) {//amd regex here and put an alert
+    alert("Wrong Category Input");
+    return false;
+  }
+
+  if (title.length < 2 || title.length > 40 || pattern.test(title)) {
+    alert("Wrong Title Input");
+    return false;
+  }
+  console.log(description);
+  if (description.length < 2 || description.length > 200 || pattern.test(description)) {
+    alert("Wrong Description Input");
+    return false;
+  }
+
+  //send server request
+  var mystring2 = "VoteServlet?&action=update&id=" + ID + "&category=" + category + "&title=" + title + "&description=" + description;
+  loadXMLDoc('GET', mystring2, function (response) {
+    console.log(response);
+    if (response == "1") {
+      MyInitiativeList();
+    } else {
+      alert("Something went really bad");
+    }
+  });
+}
+
+function PublishInitiative(expiredate,ID){//fix id
+  if(expiredate==""){
+    alert("Wrong Date Input");
+    return;
+  }
+  var d=new Date(expiredate);
+  var date=new Date();
+  date.setDate(date.getDate()+1);
+  if(d<date){
+    alert("We cant travel back to time SORRY");
+    return;
+  }
+  var d=d.toString().split(" GMT")
+  var mystring2="VoteServlet?&action=setExpireDate&id="+ID+"&date="+d[0];
+  loadXMLDoc('GET', mystring2, function (response) {
+    console.log(response);
+    if (response == "1") {
+      MyInitiativeList();
+    } else {
+      alert("Something went really bad");
+    }
+  });
+}
+
+
+function deletePoll(ID) {
+  var mystring = "VoteServlet?id=" + ID + "&action=deletePoll";
+
+  loadXMLDoc('GET', mystring, function (response) {
+    console.log(response);
+    if (response == "1") {
+      MyInitiativeList();
+    } else {
+      alert("Something went really bad");
+    }
+  });
+}
+
+function openChoice(evt, choice) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("choice");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].classList.remove("w3-light-grey");
+  }
+  document.getElementById(choice).style.display = "block";
+  evt.currentTarget.classList.add("w3-light-grey");
+}
+
