@@ -5,8 +5,8 @@
  */
 package gr.csd.uoc.cs359.winter2017.lq;
 
-import gr.csd.uoc.cs359.winter2017.lq.db.InitiativeDB;
-import gr.csd.uoc.cs359.winter2017.lq.model.Initiative;
+import gr.csd.uoc.cs359.winter2017.lq.db.VoteDB;
+import gr.csd.uoc.cs359.winter2017.lq.model.Vote;
 import java.util.List;
 
 /**
@@ -23,49 +23,52 @@ public class ExampleAPI {
      * @throws ClassNotFoundException
      */
     public static void main(String[] args) throws ClassNotFoundException {
-
-////        // Check initiatives
-//        Initiative initiative = new Initiative();
-//        initiative.setCreator("Giorgoskmp");
-//        initiative.setTitle("Halting Problem");
-//        initiative.setCategory("Computability");
-//        initiative.setDescription("In computability theory, the halting problem is the problem of determining, from a description of an arbitrary computer program and an input, whether the program will finish running or continue to run forever.");
-//        initiative.setStatus(2);
-//        InitiativeDB.addInitiative(initiative);
-//        initiative.setCategory("1");
-//        InitiativeDB.updateInitiative(initiative);
-//        InitiativeDB.getInitiative(35).setCategory("TROLL");
-//        InitiativeDB.updateInitiative(InitiativeDB.getInitiative(35));
-//        System.out.println(InitiativeDB.getInitiative(35).toString());
+//        Initiative initiative = InitiativeDB.getInitiative(41);
 //        int initID = initiative.getId();
-//
-//        Vote vote = new Vote();
-//        vote.setUser("turing");
-//        vote.setInitiativeID(initID);
-//        vote.setVote(false, true);
-//        System.out.println(vote);
-//        VoteDB.addVote(vote);
-//
-//        vote.setVote(true, true);
-//        VoteDB.updateVote(vote);
-//
-//        // Get upvotes
-//        List<Vote> votes = VoteDB.getVotesWithStatus(1);
-//        i = 0;
-//        for (Vote current : votes) {
-//            System.out.println("vote:" + i++);
-//            System.out.println(current);
+//        boolean exists = false;
+//        List<Vote> UsersVotes = VoteDB.getVotes("turing");
+//        Vote myvote = null;
+//        for (Vote current : UsersVotes) {
+//            if (current.getInitiativeID() == initID) {
+//                exists = true;
+//                myvote = current;
+//                break;
+//            }
 //        }
 //
-//        // Get Initiatives WITH STATUS 0
-       InitiativeDB.deleteInitiative(39);
+//        if (!exists) {
+//            Vote vote = new Vote();
+//            vote.setUser("turing");
+//            vote.setInitiativeID(initID);
+//            vote.setVote(false, true);
+//            VoteDB.addVote(vote);
+//        } else {
+//            System.out.println("User has already Voted i ll just update his vote later");
+//            myvote.setVote(false, true);
+//            VoteDB.updateVote(myvote);
+//        }
 
-        List<Initiative> initiatives = InitiativeDB.getAllInitiatives();
+//        vote.setVote(false, true);
+//        VoteDB.updateVote(vote);
+//        System.out.println(vote);
+        // Get upvotes from users (i.e. non delegators)
+//        VoteDB.deleteVote(14);
+//        VoteDB.deleteVote(15);
+//        VoteDB.deleteVote(16);
+//        VoteDB.deleteVote(17);
+//        VoteDB.deleteVote(21);
+        List<Vote> votes = VoteDB.getAllVotes();
         int i = 0;
-        for (Initiative current : initiatives) {
-            System.out.println("initiative:" + i++);
+        for (Vote current : votes) {
+            System.out.println("vote:" + i++);
             System.out.println(current);
         }
 
+//        List<Initiative> initiatives = InitiativeDB.getAllInitiatives();
+//        i = 0;
+//        for (Initiative current : initiatives) {
+//            System.out.println("initiative:" + i++);
+//            System.out.println(current);
+//        }
     }
 }

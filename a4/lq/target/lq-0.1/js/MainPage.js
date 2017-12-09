@@ -19,7 +19,6 @@ function gotoSignIn() {
 
 function checkEmail(email) {
   loadXMLDoc('GET', "myServlet?UserEmail=" + email + "&action=searchUserEmail", function (response) {
-    console.log(response);
     if (response == 1) {
       document.getElementById("EmailMessage").innerHTML = "<em style='color:green' class='glyphicon glyphicon-ok'></em>";
       emailValidity = true;
@@ -39,7 +38,6 @@ function checkEmail(email) {
 
 function checkName(name) {
   loadXMLDoc('GET', "myServlet?UserName=" + name + "&action=searchUserName", function (response) {
-    console.log(response);
     if (response == 1) {
       buttonappear(name);
       document.getElementById("NameMessage").innerHTML = "";
@@ -96,7 +94,6 @@ function submitTheform() {
 
     loadXMLDoc('GET', "SubmitForm?" + mystring, function (response) {
       //here we put all the response handling functions
-      console.log(response);
       if (response == "10") {
         alert("The password doesnt match with verify password plz fix it");
       } else if (response == "alreadyinuse") {
@@ -340,8 +337,6 @@ function TryToLogin() {
     console.log("stelnei minima sto server MPRRR");
     var data = "SiteFunctions?username=" + document.getElementById('username1').value + "&password=" + document.getElementById('password1').value + "&action=login";
     loadXMLDoc('POST', data, function (response) {
-      console.log(response);
-
       if (response == "1") {
         loginFunction(document.getElementById("username1").value);
         document.getElementById("signIn").value = "";
@@ -387,7 +382,7 @@ function loginFunction(username) {
 <div class="dropdown2-content">\
 <span class="dropMenu" onclick="NewInitiative();">New Initiative<em class="material-icons">add_circle</em></span>\
 <span class="dropMenu" onclick="MyInitiativeList()">My Initiatives</span>\
-<span class="dropMenu" onclick="">Active Initiatives</span>\
+<span class="dropMenu" onclick="ActiveInitiatives(\''+ username + '\');">Active Initiatives</span>\
 <span class="dropMenu" onclick="">Ended Initiatives</span>\
 </div>\
 </div>\
@@ -583,7 +578,6 @@ function UpdateChanges() {
 
   if ((document.getElementById("Pinfo").innerHTML).length > 500 || (document.getElementById("Pinfo").innerHTML).length < 0 || pattern.test(document.getElementById("Pinfo").value)) {
     alert("Wrong info input!!");
-    console.log("MPikeeee edo");
     return;
   }
 
@@ -671,11 +665,9 @@ function Log_out() {
   var answer = confirm("Are you sure you want to log out");
   if (answer) {
     loadXMLDoc('GET', mystring, function (response) {
-      console.log(response);
       location.reload();
     });
   } else {
-    console.log("nothing happens relax bro");
   }
 }
 function loadXMLDoc(method, name, callback) {
@@ -747,17 +739,15 @@ function SubmitNewInitiative() {
   //send server request
   var mystring2 = "SiteFunctions?&action=reload";
   loadXMLDoc('GET', mystring2, function (response) {
-    console.log(response);
 
     var mystring = "VoteServlet?action=NewPoll&category="
       + document.getElementById("categoryVOTE").value + "&title=" + document.getElementById("titleVOTE").value + "&description="
       + document.getElementById("descriptionVOTE").value + "&creator=" + response;
 
     loadXMLDoc('GET', mystring, function (response) {
-      console.log(response);
       if (response == 1) {
         alert("Your initiative was submitted")
-        MyInitiativeList();//HERE FIX AND TRANSFER USE TO MY INITIATIVES
+        MyInitiativeList();
       } else {
         alert("Something Went Really Bad");
       }
@@ -816,7 +806,7 @@ function MyInitiativeList() {
                 <button class="mybutton3" onclick="closeModal();">Cancel</button>\
             </div>\
             <div id="delete" class="w3-container choice">\
-                    <button class="mybutton3" onclick="deletePoll(document.getElementById(\'ModalVoteID\').innerHTML)">Delete</button>\
+                    <button class="mybutton3" onclick="deletePoll(document.getElementById(\'ModalVoteID\').innerHTML,\''+ response + '\')">Delete</button>\
                     <button class="mybutton3" onclick="closeModal();">Cancel</button>\
                 </div>\
         </div>\
@@ -858,7 +848,7 @@ function MyInitiativeList() {
           } else if (Status == "1") {
             mycontent = ' <div class="row " style="padding-bottom:10px;padding-top:20px;">\
             <div class="col-sm-3"></div>\
-            <div class="col-sm-6 initiative_box">\
+            <div class="col-sm-6 initiative_box" style="cursor:not-allowed;">\
                 <div class="centered published">Published</div>\
                 <div id="PollID'+ i + '" style="display:none">' + Status + '</div>\
                 <div style="opacity: 0.5;">\
@@ -880,7 +870,7 @@ function MyInitiativeList() {
           } else if (Status == "2") {
             mycontent = ' <div class="row " style="padding-bottom:10px;padding-top:20px;">\
             <div class="col-sm-3"></div>\
-            <div class="col-sm-6 initiative_box">\
+            <div class="col-sm-6 initiative_box" style="cursor:not-allowed;">\
                 <div class="centered expired">Expired</div>\
                 <div id="PollID'+ i + '" style="display:none">' + Status + '</div>\
                 <div style="opacity: 0.5;">\
@@ -905,6 +895,74 @@ function MyInitiativeList() {
           document.getElementById("DynamicContainer").innerHTML = document.getElementById("DynamicContainer").innerHTML + mycontent;
         }
       }
+    });
+  });
+}
+
+function ActiveInitiatives(username) {
+  document.getElementById("DynamicContainer").innerHTML = "";
+  var mystring2 = "VoteServlet?&action=ActiveInitiatives&username=" + username;
+  loadXMLDoc('GET', mystring2, function (response) {
+    if (response == "0") {
+      console.log("no initiatives");
+    } else {
+      var results = response.split("<+>");
+      for (var i = 0; i < results.length - 1; i++) {
+        var tmp = results[i].split("<>");
+        var ID = tmp[0];
+        var Creator = tmp[1];
+        var Title = tmp[2];
+        var Category = tmp[3];
+        var Description = tmp[4];
+        var UsersVote = tmp[5]
+        
+        var content = '\
+        <div class="row" style="padding-bottom:10px;padding-top:20px;">\
+        <div class="col-sm-3"></div>\
+        <div class="col-sm-6 initiative_box">\
+            <h1 class="myh1">\
+                <div class="col-sm-11" style="background-color:#4285f4;padding-left:13%"><span>'+ Category + '</span><span style="font-size:15px;">(' + Creator + ')</span></div>\
+                <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em id="alreadyVote'+ i + '" style="color:white;cursor:help;visibility:hidden;" class="material-icons"><abbr title="You Have already vote but still can change your choice">check_circle</em></div>\
+            </h1>\
+            <h3 style="color:black; text-align:center;">'+ Title + '</h3>\
+            <div style="border:1px solid black;padding-bottom:10px;">\
+                <h4 class="myh4">Description:</h4>\
+                <span class="description">'+ Description + '</span>\
+            </div>\
+            <div class="col-sm-5"></div>\
+            <div class="col-sm-4" style="position:relative;right:4.5%">\
+                <label class="radio-inline">\
+                            <input type="radio" name="vote'+ i + '" value="upvote" onclick="Vote(' + ID + ',1);"> UpVote<br>\
+                    </label>\
+                <label class="radio-inline">\
+                            <input type="radio" name="vote'+ i + '"  value="downvote"onclick="Vote(' + ID + ',0);"> DownVote\
+                    </label>\
+            </div>\
+            <div class="col-sm-4"></div>\
+        </div>\
+        <div class="col-sm-3"></div>\
+    </div>\
+        ';
+        document.getElementById("DynamicContainer").innerHTML = document.getElementById("DynamicContainer").innerHTML + content;
+        if (UsersVote == "1"||UsersVote=="0") {
+          document.getElementById("alreadyVote"+i).style.visibility="visible";
+        } else if (UsersVote=="-1"){
+          //nothing :P
+        } else {
+          alert("SOmethin went reallly wrong");
+        }
+      }
+    }
+  });
+}
+
+function Vote(ID, vote) {//the initiatvies ID
+  var mystring = "SiteFunctions?&action=reload";//when we vote we take the name of the voter
+  loadXMLDoc('GET', mystring, function (response) {//response holds the username
+    var mystring2 = "VoteServlet?&action=castVote&id=" + ID + "&vote=" + vote + "&user=" + response;
+    loadXMLDoc('GET', mystring2, function (response2) {
+      console.log(response2);
+      ActiveInitiatives(response);
     });
   });
 }
@@ -937,7 +995,7 @@ function SaveChanges(ID, category, title, description) {
     alert("Wrong Title Input");
     return false;
   }
-  console.log(description);
+
   if (description.length < 2 || description.length > 200 || pattern.test(description)) {
     alert("Wrong Description Input");
     return false;
@@ -946,7 +1004,6 @@ function SaveChanges(ID, category, title, description) {
   //send server request
   var mystring2 = "VoteServlet?&action=update&id=" + ID + "&category=" + category + "&title=" + title + "&description=" + description;
   loadXMLDoc('GET', mystring2, function (response) {
-    console.log(response);
     if (response == "1") {
       MyInitiativeList();
     } else {
@@ -955,22 +1012,21 @@ function SaveChanges(ID, category, title, description) {
   });
 }
 
-function PublishInitiative(expiredate,ID){//fix id
-  if(expiredate==""){
+function PublishInitiative(expiredate, ID) {
+  if (expiredate == "") {
     alert("Wrong Date Input");
     return;
   }
-  var d=new Date(expiredate);
-  var date=new Date();
-  date.setDate(date.getDate()+1);
-  if(d<date){
-    alert("We cant travel back to time SORRY");
+  var d = new Date(expiredate);
+  var date = new Date();
+  date.setDate(date.getDate() + 1);
+  if (d < date) {
+    alert("Initiatives must at least have a day as published");
     return;
   }
-  var d=d.toString().split(" GMT")
-  var mystring2="VoteServlet?&action=setExpireDate&id="+ID+"&date="+d[0];
+  var d = d.toString().split(" GMT")
+  var mystring2 = "VoteServlet?&action=setExpireDate&id=" + ID + "&date=" + d[0];
   loadXMLDoc('GET', mystring2, function (response) {
-    console.log(response);
     if (response == "1") {
       MyInitiativeList();
     } else {
@@ -979,12 +1035,10 @@ function PublishInitiative(expiredate,ID){//fix id
   });
 }
 
-
-function deletePoll(ID) {
-  var mystring = "VoteServlet?id=" + ID + "&action=deletePoll";
+function deletePoll(ID, creator) {
+  var mystring = "VoteServlet?id=" + ID + "&action=deletePoll&creator=" + creator;
 
   loadXMLDoc('GET', mystring, function (response) {
-    console.log(response);
     if (response == "1") {
       MyInitiativeList();
     } else {

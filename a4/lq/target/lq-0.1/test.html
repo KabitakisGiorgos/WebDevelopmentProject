@@ -17,197 +17,34 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .centered {
-            position: absolute;
-            top: 0%;
-            left: 27%;
-            transform: translate(-50%, -50%);
-        }
 
-        .expired {
-            z-index: 1000;
-            color: red;
-            font-size: 100px;
-            transform: rotate(-10deg);
-            opacity: 1;
-        }
-
-        .published {
-            opacity: 1;
-            z-index: 1000;
-            color: green;
-            font-size: 100px;
-            transform: rotate(-10deg);
-        }
     </style>
 </head>
 
 <body>
-    <button onclick="test()"> Hello</button>
-    <div id="test2"></div>
-    <div id="id01" class="w3-modal">
-        <div class="w3-modal-content w3-card-4 w3-animate-zoom">
-            <header class="w3-container" style="background-color:#4285f4">
-                <span onclick="document.getElementById('id01').style.display='none'" class="w3-button  w3-xlarge w3-display-topright">&times;</span>
-                <h2>Settings</h2>
-            </header>
-
-            <div class="w3-bar w3-border-bottom">
-                <button class="tablink w3-bar-item w3-button" onclick="openChoice(event, 'update')">Update</button>
-                <button class="tablink w3-bar-item w3-button" onclick="openChoice(event, 'setVote')">Set For Vote</button>
-                <button class="tablink w3-bar-item w3-button" onclick="openChoice(event, 'delete')">Delete</button>
-            </div>
-
-            <div id="update" class="w3-container choice">
-                <h3>Category</h3>
-                <span class=" VoteInput"><input style="color:black;" id="categoryVOTE" type="text" pattern=".{2,20}" value="Category" required></span>
-                <h3>Title</h3>
-                <span class=" VoteInput"><input style="color:black;" id="titleVOTE" type="text" pattern=".{2,20}" value="Title" required></span>
-                <h3>Description</h3>
-                <span class=" VoteInput"><textarea style="color:black;width:98%;" id="descriptionVOTE"  rows="3"  maxlength="200"   required>Title</textarea></span>
-
-                <button class="mybutton3" onclick="">Save</button>
-                <button class="mybutton3" onclick="">Cancel</button>
-            </div>
-
-            <div id="setVote" class="w3-container choice">
-                <h3>Expiration Date</h3>
-                <input type="datetime-local" min="2000-01-02">
-                <br>
-                <button class="mybutton3" onclick="">Publish</button>
-                <button class="mybutton3" onclick="">Cancel</button>
-            </div>
-            <div id="delete" class="w3-container choice">
-                <button class="mybutton3" onclick="">Delete</button>
-                <button class="mybutton3" onclick="">Cancel</button>
-            </div>
-        </div>
-    </div>
-    <script>
-        function test(){
-            var d=new Date();
-            console.log(d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear()+" "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
-        }
-        document.getElementsByClassName("tablink")[0].click();
-
-        function openChoice(evt, choice) {
-            var i, x, tablinks;
-            x = document.getElementsByClassName("choice");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablink");
-            for (i = 0; i < x.length; i++) {
-                tablinks[i].classList.remove("w3-light-grey");
-            }
-            document.getElementById(choice).style.display = "block";
-            evt.currentTarget.classList.add("w3-light-grey");
-        }
-    </script>
-
-
-    <div class="row " style="padding-bottom:10px;padding-top:20px;">
+    <div class="row" style="padding-bottom:10px;padding-top:20px;">
         <div class="col-sm-3"></div>
         <div class="col-sm-6 initiative_box">
-            <div class="centered expired">Expired</div>
-            <div style="opacity: 0.5;">
-                <h1 class="myh1">
-                    <div class="col-sm-11" style="background-color:#4285f4;padding-left:10%">Category<span style="font-size:20px;"></span>(Creator)</span>
-                    </div>
-                    <div class="col-sm-1" style="background-color:#4285f4;padding-left:5%;"><i onclick="document.getElementById('id01').style.display='block'" class="fa fa-gear align_setting" style="font-size:24px"></i></div>
-                </h1>
-
-                <h3 style="color:black; text-align:center;">Title</h3>
-                <div style="border:1px solid black;padding-bottom:10px;">
-                    <h4 class="myh4">Description:</h4>
-
-                    <span class="description"> HldHello WorldHello WorldHello WorldHello World    </span>
-                </div>
+            <div id="PollID" style="display:none">Status</div>
+            <h1 class="myh1">
+                <div class="col-sm-11" style="background-color:#4285f4;padding-left:13%"><span id="containerCategory">Category</span><span style="font-size:15px;">Creator</span></div>
+                <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em style="cursor:pointer;" class="material-icons">border_color</em></div>
+            </h1>
+            <h3 id="containerTitle" style="color:black; text-align:center;">Title</h3>
+            <div style="border:1px solid black;padding-bottom:10px;">
+                <h4 class="myh4">Description:</h4>
+                <span id="containerDescription" class="description">Description</span>
             </div>
-        </div>
-        <div class="col-sm-3"></div>
-    </div>
-    <div class="row " style="padding-bottom:10px;padding-top:20px;">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6 initiative_box">
-            <div class="centered published">Published</div>
-            <div style="opacity: 0.5;">
-                <h1 class="myh1">
-                    <div class="col-sm-11" style="background-color:#4285f4;padding-left:10%">Category<span style="font-size:20px;"></span>(Creator)</span>
-                    </div>
-                    <div class="col-sm-1" style="background-color:#4285f4;padding-left:5%;"><i onclick="document.getElementById('id01').style.display='block'" class="fa fa-gear align_setting" style="font-size:24px"></i></div>
-                </h1>
-
-                <h3 style="color:black; text-align:center;">Title</h3>
-                <div style="border:1px solid black;padding-bottom:10px;">
-                    <h4 class="myh4">Description:</h4>
-
-                    <span class="description"> HldHello WorldHello WorldHello WorldHello World    </span>
-                </div>
+            <div class="col-sm-5"></div>
+            <div class="col-sm-4" style="position:relative;right:4.5%">
+                <label class="radio-inline">
+                            <input type="radio" name="vote" value="upvote"> UpVote<br>
+                    </label>
+                <label class="radio-inline">
+                            <input type="radio" name="vote" value="downvote"> DownVote
+                    </label>
             </div>
-        </div>
-        <div class="col-sm-3"></div>
-    </div>
-    <div class="row " style="padding-bottom:10px;padding-top:20px;">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6 initiative_box">
-            <div class="centered published">Published</div>
-            <div style="opacity: 0.5;">
-                <h1 class="myh1">
-                    <div class="col-sm-11" style="background-color:#4285f4;padding-left:10%">Category<span style="font-size:20px;"></span>(Creator)</span>
-                    </div>
-                    <div class="col-sm-1" style="background-color:#4285f4;padding-left:5%;"><i onclick="document.getElementById('id01').style.display='block'" class="fa fa-gear align_setting" style="font-size:24px"></i></div>
-                </h1>
-
-                <h3 style="color:black; text-align:center;">Title</h3>
-                <div style="border:1px solid black;padding-bottom:10px;">
-                    <h4 class="myh4">Description:</h4>
-
-                    <span class="description"> HldHello WorldHello WorldHello WorldHello World    </span>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3"></div>
-    </div>
-    <div class="row " style="padding-bottom:10px;padding-top:20px;">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6 initiative_box">
-            <div class="centered published">Published</div>
-            <div style="opacity: 0.5;">
-                <h1 class="myh1">
-                    <div class="col-sm-11" style="background-color:#4285f4;padding-left:10%">Category<span style="font-size:20px;"></span>(Creator)</span>
-                    </div>
-                    <div class="col-sm-1" style="background-color:#4285f4;padding-left:5%;"><i onclick="document.getElementById('id01').style.display='block'" class="fa fa-gear align_setting" style="font-size:24px"></i></div>
-                </h1>
-
-                <h3 style="color:black; text-align:center;">Title</h3>
-                <div style="border:1px solid black;padding-bottom:10px;">
-                    <h4 class="myh4">Description:</h4>
-
-                    <span class="description"> HldHello WorldHello WorldHello WorldHello World    </span>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3"></div>
-    </div>
-    <div class="row " style="padding-bottom:10px;padding-top:20px;">
-        <div class="col-sm-3"></div>
-        <div class="col-sm-6 initiative_box">
-            <div class="centered published">Published</div>
-            <div style="opacity: 0.5;">
-                <h1 class="myh1">
-                    <div class="col-sm-11" style="background-color:#4285f4;padding-left:10%">Category<span style="font-size:20px;"></span>(Creator)</span>
-                    </div>
-                    <div class="col-sm-1" style="background-color:#4285f4;padding-left:5%;"><i onclick="document.getElementById('id01').style.display='block'" class="fa fa-gear align_setting" style="font-size:24px"></i></div>
-                </h1>
-
-                <h3 style="color:black; text-align:center;">Title</h3>
-                <div style="border:1px solid black;padding-bottom:10px;">
-                    <h4 class="myh4">Description:</h4>
-
-                    <span class="description"> HldHello WorldHello WorldHello WorldHello World    </span>
-                </div>
-            </div>
+            <div class="col-sm-4"></div>
         </div>
         <div class="col-sm-3"></div>
     </div>

@@ -5,7 +5,9 @@
  */
 
 import gr.csd.uoc.cs359.winter2017.lq.db.InitiativeDB;
+import gr.csd.uoc.cs359.winter2017.lq.db.VoteDB;
 import gr.csd.uoc.cs359.winter2017.lq.model.Initiative;
+import gr.csd.uoc.cs359.winter2017.lq.model.Vote;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -75,16 +77,25 @@ public class VoteServlet extends HttpServlet {
                 }         //here another action
             } else if (request.getParameter("action").equals("deletePoll")) {
                 //check number is given and exists
-                if (request.getParameter("id") != null) {
-                    try {
-                        InitiativeDB.deleteInitiative(Integer.parseInt(request.getParameter("id")));
+                if (request.getParameter("id") != null && request.getParameter("creator") != null) {
+                    try {//check if the deleting poll belongs to the user
+                        Initiative test = InitiativeDB.getInitiative(Integer.parseInt(request.getParameter("id")));
+                        if (test.getCreator().equals(request.getParameter("creator"))) {
+                            InitiativeDB.deleteInitiative(Integer.parseInt(request.getParameter("id")));
+                            response.setStatus(200);
+                            response.setContentType("text/xml");
+                            PrintWriter out = response.getWriter();
+                            out.write("1");
+                        } else {
+                            response.setStatus(400);
+                            response.setContentType("text/xml");
+                            PrintWriter out = response.getWriter();
+                            out.write("Opppps");
+                        }
                     } catch (ClassNotFoundException e) {
 
                     }
-                    response.setStatus(200);
-                    response.setContentType("text/xml");
-                    PrintWriter out = response.getWriter();
-                    out.write("1");
+
                 } else {
                     response.setStatus(400);
                     response.setContentType("text/xml");
@@ -128,6 +139,97 @@ public class VoteServlet extends HttpServlet {
                     response.setContentType("text/xml");
                     PrintWriter out = response.getWriter();
                     out.write("1");
+                } else {
+                    response.setStatus(400);
+                    response.setContentType("text/xml");
+                    PrintWriter out = response.getWriter();
+                    out.write("InputsMising");
+                }
+            } else if (request.getParameter("action").equals("ActiveInitiatives")) {
+                if (request.getParameter("username") != null) {
+                    try {
+                        List<Initiative> initiatives = InitiativeDB.getInitiativesWithStatus(1);
+                        response.setStatus(200);
+                        response.setContentType("text/xml");
+                        PrintWriter out = response.getWriter();
+                        if (initiatives.isEmpty()) {
+                            out.write("0");
+                        } else {//bale edo elegxo na blepei ean o xristis o sigkekrimenos exei psifisie kai na ton enimeronei kai na stelnei piso ena pedio
+                            for (Initiative current : initiatives) {
+                                out.write(current.getId() + "<>");
+                                out.write(current.getCreator() + "<>");
+                                out.write(current.getTitle() + "<>");
+                                out.write(current.getCategory() + "<>");
+                                out.write(current.getDescription() + "<>");
+
+                                List<Vote> UsersVotes = VoteDB.getVotes(request.getParameter("username"));//o xristis o dikos mas edo mesa
+                                Vote myvote = null;
+                                for (Vote current1 : UsersVotes) {
+                                    if (current1.getInitiativeID() == current.getId()) {
+                                        myvote = current1;
+                                        break;
+                                    }
+                                }
+                                if (myvote != null) {
+                                    out.write(myvote.getVote() + "<>");
+                                } else {
+                                    out.write("-1<>");
+                                }
+                                out.write("<+>");
+
+                            }
+                        }
+                    } catch (ClassNotFoundException e) {
+
+                    }
+                } else {
+                    response.setStatus(400);
+                    response.setContentType("text/xml");
+                    PrintWriter out = response.getWriter();
+                    out.write("InputsMising");
+                }
+
+            } else if (request.getParameter("action").equals("castVote")) {
+                if (request.getParameter("id") != null && request.getParameter("vote") != null && request.getParameter("user") != null) {
+                    try {
+                        int initID = Integer.parseInt(request.getParameter("id"));
+                        List<Vote> UsersVotes = VoteDB.getVotes(request.getParameter("user"));
+                        Vote myvote = null;
+                        for (Vote current : UsersVotes) {
+                            if (current.getInitiativeID() == initID) {
+                                myvote = current;
+                                break;
+                            }
+                        }
+                        if (myvote == null) {
+                            Vote vote = new Vote();
+                            vote.setUser(request.getParameter("user"));
+                            vote.setInitiativeID(initID);
+                            if (request.getParameter("vote").equals("1")) {
+                                vote.setVote(true, true);
+                            } else {
+                                vote.setVote(false, true);
+                            }
+                            VoteDB.addVote(vote);
+                            response.setStatus(200);
+                            response.setContentType("text/xml");
+                            PrintWriter out = response.getWriter();
+                            out.write("1");
+                        } else {//here we put the update
+                            if (request.getParameter("vote").equals("1")) {
+                                myvote.setVote(true, true);
+                            } else {
+                                myvote.setVote(false, true);
+                            }
+                            VoteDB.updateVote(myvote);
+                            response.setStatus(200);
+                            response.setContentType("text/xml");
+                            PrintWriter out = response.getWriter();
+                            out.write("updated");
+                        }
+                    } catch (ClassNotFoundException e) {
+
+                    }
                 } else {
                     response.setStatus(400);
                     response.setContentType("text/xml");
