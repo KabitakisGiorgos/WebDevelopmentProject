@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.*;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 /**
  *
  * @author George
@@ -290,6 +291,27 @@ public class VoteServlet extends HttpServlet {
                     response.setContentType("text/xml");
                     PrintWriter out = response.getWriter();
                     out.write("InputsMising");
+                }
+            } else if (request.getParameter("action").equals("checkExpires")) {
+                try {
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    Date date = new Date();//edo exoyme tin current date
+
+                    response.setStatus(200);
+                    response.setContentType("text/xml");
+                    PrintWriter out = response.getWriter();
+
+                    List<Initiative> initiatives = InitiativeDB.getInitiativesWithStatus(1);
+                    for (Initiative initiative : initiatives) {
+                        if (!initiative.getExpires().after(date)) {
+                            initiative.setStatus(2);
+                            InitiativeDB.updateInitiative(initiative);
+
+                        }
+                    }
+                    out.write("1");
+                } catch (ClassNotFoundException e) {
+
                 }
             }
         } else {

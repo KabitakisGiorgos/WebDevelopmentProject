@@ -392,6 +392,7 @@ function loginFunction(username) {
 }
 
 function Homepage() {
+  clearInterval(periodicalFunction);
   var mycontainer = '<div class="row" style="padding-bottom:20px;padding-top:20px;">\
   <div class="col-sm-3"></div>\
   <div class="col-sm-6 input_form">\
@@ -418,6 +419,7 @@ function Homepage() {
 
 function Settings() {
   //here requests
+  clearInterval(periodicalFunction);
   loadXMLDoc('GET', "SiteFunctions?input=0&action=name", function (response) {
     document.getElementById("Pusername").innerHTML = response;
   });
@@ -602,6 +604,7 @@ function appearbuttons() {
 }
 
 function MyFriendList() {
+  clearInterval(periodicalFunction);
   var mystring = "SiteFunctions?&action=userlist";
   loadXMLDoc('GET', mystring, function (response) {
 
@@ -642,9 +645,11 @@ function MyFriendList() {
 }
 
 function gotoHomePage() {
+  clearInterval(periodicalFunction);
   Homepage();
 }
 window.onload = function () {
+  clearInterval(periodicalFunction);
   var mystring = "SiteFunctions?&action=reload";
   loadXMLDoc('GET', mystring, function (response) {
     console.log(response);
@@ -661,6 +666,7 @@ window.onload = function () {
 }
 
 function Log_out() {
+  clearInterval(periodicalFunction);
   var mystring = "SiteFunctions?&action=logout";
   var answer = confirm("Are you sure you want to log out");
   if (answer) {
@@ -688,6 +694,7 @@ function loadXMLDoc(method, name, callback) {
 // <("[^"]*?"|'[^']*?'|[^'">])*>
 
 function NewInitiative() {
+  clearInterval(periodicalFunction);
   var mystring = '\
   <div class="row" style="padding-bottom:20px;padding-top:20px;">\
   <div class="col-sm-3"></div>\
@@ -756,6 +763,8 @@ function SubmitNewInitiative() {
 }
 
 function MyInitiativeList() {
+  clearInterval(periodicalFunction);
+  periodicalFunction = setInterval(askQuestion1, 20000);
   var mystring = "SiteFunctions?&action=reload";
   loadXMLDoc('GET', mystring, function (response) {
     //response here has the nam
@@ -890,8 +899,6 @@ function MyInitiativeList() {
             <div class="col-sm-3"></div>\
         </div>';
           }
-          //check status later to fix how to present the polls status:0 status:1 status:2
-
           document.getElementById("DynamicContainer").innerHTML = document.getElementById("DynamicContainer").innerHTML + mycontent;
         }
       }
@@ -900,7 +907,8 @@ function MyInitiativeList() {
 }
 
 function ActiveInitiatives(username) {
-  
+  clearInterval(periodicalFunction);
+  periodicalFunction = setInterval(askQuestion2, 20000);
   var mystring2 = "VoteServlet?&action=ActiveInitiatives&username=" + username;
   loadXMLDoc('GET', mystring2, function (response) {
     document.getElementById("DynamicContainer").innerHTML = "";
@@ -1020,7 +1028,7 @@ function PublishInitiative(expiredate, ID) {
   }
   var d = new Date(expiredate);
   var date = new Date();
-  date.setDate(date.getDate() + 1);
+  // date.setDate(date.getDate() + 1); HERE WE HAVE A RESTRICTION OF "A ONE DAY PERIOD OF PUBLISH" but putted on a comment in order to test my system :P 
   if (d < date) {
     alert("Initiatives must at least have a day as published");
     return;
@@ -1063,6 +1071,8 @@ function openChoice(evt, choice) {
 }
 
 function EndedInitiatives() {
+  clearInterval(periodicalFunction);
+  periodicalFunction = setInterval(askQuestion3, 20000);
   var mystring = "VoteServlet?&action=endedInitiatives";
 
   loadXMLDoc('GET', mystring, function (response) {
@@ -1116,11 +1126,11 @@ function openModalResults(ID) {
     var myresponse = response.split("<+>");
     var Votes = myresponse[0].split("<>");
     var Users = myresponse[1].split("<>");
-    if (parseInt(Votes[0])==0&&parseInt(Votes[1])==0){
-      document.getElementById("noVote").innerHTML='<img src="images/noVote.jpg" style="height:20%;width:20%;padding-bottom:10px;position:relative;left:40%;">';
+    if (parseInt(Votes[0]) == 0 && parseInt(Votes[1]) == 0) {
+      document.getElementById("noVote").innerHTML = '<img src="images/noVote.jpg" style="height:20%;width:20%;padding-bottom:10px;position:relative;left:40%;">';
       document.getElementById('id02').style.display = 'block';
     } else {
-      document.getElementById("noVote").innerHTML=' <div id="piechart" style="display:inline-block;"></div>\
+      document.getElementById("noVote").innerHTML = ' <div id="piechart" style="display:inline-block;"></div>\
       <div class="myChartContainer" id="chartDiv" style="display:inline-block;"></div>';
       document.getElementById("chartDiv").innerHTML = '<h2 style="color:black;">Voters:</h2>';
       for (var i = 0; i < Users.length - 1; i++) {
@@ -1144,4 +1154,47 @@ function openModalResults(ID) {
 
 function closeModalResults() {
   document.getElementById('id02').style.display = 'none';
+}
+
+function askQuestion1() {
+  var mystring = "VoteServlet?&action=checkExpires";
+
+  loadXMLDoc('GET', mystring, function (response) {
+    if (response == "1") {
+      MyInitiativeList();
+    } else if (response == "0") { }
+    else {
+      alert("something went really bad");
+    }
+  });
+}
+
+function askQuestion2() {
+  var mystring = "VoteServlet?&action=checkExpires";
+
+  loadXMLDoc('GET', mystring, function (response) {
+    if (response == "1") {
+      var mystring2 = "SiteFunctions?&action=reload";
+      loadXMLDoc('GET', mystring2, function (response2) {
+      ActiveInitiatives(response2);
+      });
+    } else if (response == "0") { }
+    else {
+      alert("something went really bad");
+    }
+  });
+}
+
+function askQuestion3() {
+  var mystring = "VoteServlet?&action=checkExpires";
+
+  loadXMLDoc('GET', mystring, function (response) {
+    if (response == "1") {
+      EndedInitiatives();
+    } else if (response == "0") { }
+    else {
+      alert("something went really bad");
+    }
+
+  });
 }

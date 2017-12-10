@@ -25,9 +25,9 @@ public class ExampleAPI {
      * @throws ClassNotFoundException
      */
     public static void main(String[] args) throws ClassNotFoundException {
-        Initiative initiative = InitiativeDB.getInitiative(47);
-        initiative.setStatus(2);
-        InitiativeDB.updateInitiative(initiative);
+//        Initiative initiative = InitiativeDB.getInitiative(48);
+//        initiative.setStatus(2);
+//        InitiativeDB.updateInitiative(initiative);
 //        int initID = initiative.getId();
 //        boolean exists = false;
 //        List<Vote> UsersVotes = VoteDB.getVotes("turing");
@@ -65,6 +65,7 @@ public class ExampleAPI {
         int i = 0;
         for (Vote current : votes) {
             System.out.println("vote:" + i++);
+//            VoteDB.deleteVote(current.getId());
             System.out.println(current);
         }
 
@@ -72,6 +73,7 @@ public class ExampleAPI {
         i = 0;
         for (Initiative current : initiatives) {
             System.out.println("initiative:" + i++);
+//            InitiativeDB.deleteInitiative(current.getId());
             System.out.println(current);
         }
     }
