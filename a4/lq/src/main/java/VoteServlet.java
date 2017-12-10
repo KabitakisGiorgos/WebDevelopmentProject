@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.*;
 
 /**
  *
@@ -230,6 +231,60 @@ public class VoteServlet extends HttpServlet {
                     } catch (ClassNotFoundException e) {
 
                     }
+                } else {
+                    response.setStatus(400);
+                    response.setContentType("text/xml");
+                    PrintWriter out = response.getWriter();
+                    out.write("InputsMising");
+                }
+            } else if (request.getParameter("action").equals("endedInitiatives")) {
+                try {
+                    List<Initiative> initiatives = InitiativeDB.getInitiativesWithStatus(2);
+                    response.setStatus(200);
+                    response.setContentType("text/xml");
+                    PrintWriter out = response.getWriter();
+                    for (Initiative current : initiatives) {
+                        out.write(current.getId() + "<>");
+                        out.write(current.getCreator() + "<>");
+                        out.write(current.getTitle() + "<>");
+                        out.write(current.getCategory() + "<>");
+                        out.write(current.getDescription() + "<>");
+                        out.write("<+>");//here put the vote send or else where ? check it
+                    }
+                } catch (ClassNotFoundException e) {
+
+                }
+            } else if (request.getParameter("action").equals("VoteResults")) {
+                if (request.getParameter("id") != null) {
+                    try {
+                        int initID = Integer.parseInt(request.getParameter("id"));
+                        List<Vote> allVotes = VoteDB.getAllVotes();
+                        List<String> Users = new ArrayList<>();
+                        int Upvotes = 0;
+                        int Downvotes = 0;
+                        for (Vote current : allVotes) {
+                            if (current.getInitiativeID() == initID) {
+                                Users.add(current.getUser());
+                                if (current.getVote() == 1) {
+                                    Upvotes++;
+                                } else {
+                                    Downvotes++;
+                                }
+                            }
+                        }
+                        response.setStatus(200);
+                        response.setContentType("text/xml");
+                        PrintWriter out = response.getWriter();
+                        out.write(Upvotes + "<>");
+                        out.write(Downvotes + "<>");
+                        out.write("<+>");
+                        for (int i = 0; i < Users.size(); i++) {
+                            out.write(Users.get(i) + "<>");
+                        }
+                    } catch (ClassNotFoundException e) {
+
+                    }
+
                 } else {
                     response.setStatus(400);
                     response.setContentType("text/xml");

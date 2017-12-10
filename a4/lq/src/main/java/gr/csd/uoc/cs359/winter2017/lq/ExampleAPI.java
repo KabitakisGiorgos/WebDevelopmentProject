@@ -8,6 +8,8 @@ package gr.csd.uoc.cs359.winter2017.lq;
 import gr.csd.uoc.cs359.winter2017.lq.db.VoteDB;
 import gr.csd.uoc.cs359.winter2017.lq.model.Vote;
 import java.util.List;
+import gr.csd.uoc.cs359.winter2017.lq.model.Initiative;
+import gr.csd.uoc.cs359.winter2017.lq.db.InitiativeDB;
 
 /**
  *
@@ -23,7 +25,9 @@ public class ExampleAPI {
      * @throws ClassNotFoundException
      */
     public static void main(String[] args) throws ClassNotFoundException {
-//        Initiative initiative = InitiativeDB.getInitiative(41);
+        Initiative initiative = InitiativeDB.getInitiative(47);
+        initiative.setStatus(2);
+        InitiativeDB.updateInitiative(initiative);
 //        int initID = initiative.getId();
 //        boolean exists = false;
 //        List<Vote> UsersVotes = VoteDB.getVotes("turing");
@@ -53,10 +57,10 @@ public class ExampleAPI {
 //        System.out.println(vote);
         // Get upvotes from users (i.e. non delegators)
 //        VoteDB.deleteVote(14);
-//        VoteDB.deleteVote(15);
-//        VoteDB.deleteVote(16);
-//        VoteDB.deleteVote(17);
-//        VoteDB.deleteVote(21);
+//        VoteDB.deleteVote(22);
+//        VoteDB.deleteVote(23);
+//        VoteDB.deleteVote(24);
+//        VoteDB.deleteVote(25);
         List<Vote> votes = VoteDB.getAllVotes();
         int i = 0;
         for (Vote current : votes) {
@@ -64,11 +68,11 @@ public class ExampleAPI {
             System.out.println(current);
         }
 
-//        List<Initiative> initiatives = InitiativeDB.getAllInitiatives();
-//        i = 0;
-//        for (Initiative current : initiatives) {
-//            System.out.println("initiative:" + i++);
-//            System.out.println(current);
-//        }
+        List<Initiative> initiatives = InitiativeDB.getAllInitiatives();
+        i = 0;
+        for (Initiative current : initiatives) {
+            System.out.println("initiative:" + i++);
+            System.out.println(current);
+        }
     }
 }

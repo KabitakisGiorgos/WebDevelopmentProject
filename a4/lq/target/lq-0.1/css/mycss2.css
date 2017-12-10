@@ -247,3 +247,11 @@ input:hover,textarea:hover{
     font-size: 100px;
     transform: rotate(-10deg);
 }
+.myChartContainer {
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    width: 30%;
+    height: 75%;
+    overflow: auto;
+}

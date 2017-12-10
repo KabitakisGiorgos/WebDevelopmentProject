@@ -383,7 +383,7 @@ function loginFunction(username) {
 <span class="dropMenu" onclick="NewInitiative();">New Initiative<em class="material-icons">add_circle</em></span>\
 <span class="dropMenu" onclick="MyInitiativeList()">My Initiatives</span>\
 <span class="dropMenu" onclick="ActiveInitiatives(\''+ username + '\');">Active Initiatives</span>\
-<span class="dropMenu" onclick="">Ended Initiatives</span>\
+<span class="dropMenu" onclick="EndedInitiatives();">Ended Initiatives</span>\
 </div>\
 </div>\
   ';
@@ -900,9 +900,10 @@ function MyInitiativeList() {
 }
 
 function ActiveInitiatives(username) {
-  document.getElementById("DynamicContainer").innerHTML = "";
+  
   var mystring2 = "VoteServlet?&action=ActiveInitiatives&username=" + username;
   loadXMLDoc('GET', mystring2, function (response) {
+    document.getElementById("DynamicContainer").innerHTML = "";
     if (response == "0") {
       console.log("no initiatives");
     } else {
@@ -915,7 +916,7 @@ function ActiveInitiatives(username) {
         var Category = tmp[3];
         var Description = tmp[4];
         var UsersVote = tmp[5]
-        
+
         var content = '\
         <div class="row" style="padding-bottom:10px;padding-top:20px;">\
         <div class="col-sm-3"></div>\
@@ -929,8 +930,8 @@ function ActiveInitiatives(username) {
                 <h4 class="myh4">Description:</h4>\
                 <span class="description">'+ Description + '</span>\
             </div>\
-            <div class="col-sm-5"></div>\
-            <div class="col-sm-4" style="position:relative;right:4.5%">\
+            <div class="col-sm-4"></div>\
+            <div class="col-sm-5" style="position:relative;right:-1%">\
                 <label class="radio-inline">\
                             <input type="radio" name="vote'+ i + '" value="upvote" onclick="Vote(' + ID + ',1);"> UpVote<br>\
                     </label>\
@@ -944,9 +945,9 @@ function ActiveInitiatives(username) {
     </div>\
         ';
         document.getElementById("DynamicContainer").innerHTML = document.getElementById("DynamicContainer").innerHTML + content;
-        if (UsersVote == "1"||UsersVote=="0") {
-          document.getElementById("alreadyVote"+i).style.visibility="visible";
-        } else if (UsersVote=="-1"){
+        if (UsersVote == "1" || UsersVote == "0") {
+          document.getElementById("alreadyVote" + i).style.visibility = "visible";
+        } else if (UsersVote == "-1") {
           //nothing :P
         } else {
           alert("SOmethin went reallly wrong");
@@ -1061,3 +1062,86 @@ function openChoice(evt, choice) {
   evt.currentTarget.classList.add("w3-light-grey");
 }
 
+function EndedInitiatives() {
+  var mystring = "VoteServlet?&action=endedInitiatives";
+
+  loadXMLDoc('GET', mystring, function (response) {
+
+    var modalChart = '    <div id="id02" class="w3-modal">\
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom">\
+        <header class="w3-container" style="background-color:#4285f4">\
+            <span onclick="closeModalResults();" class="w3-button  w3-xlarge w3-display-topright">&times;</span>\
+            <h2>Results</h2>\
+        </header>\
+        <div id="noVote">\
+        <div id="piechart" style="display:inline-block;"></div>\
+        <div class="myChartContainer" id="chartDiv" style="display:inline-block;"></div>\
+        </div>\
+    </div>\
+</div>';
+    document.getElementById("DynamicContainer").innerHTML = modalChart;
+    var myresponse = response.split("<+>");
+    for (var i = 0; i < myresponse.length - 1; i++) {
+      var tmp = myresponse[i].split("<>");
+      var ID = tmp[0];
+      var Creator = tmp[1];
+      var Title = tmp[2];
+      var Category = tmp[3];
+      var Description = tmp[4];
+
+      var content = '<div class="row" style="padding-bottom:10px;padding-top:20px;">\
+      <div class="col-sm-3"></div>\
+      <div class="col-sm-6 initiative_box">\
+          <h1 class="myh1">\
+              <div class="col-sm-11" style="background-color:#4285f4;padding-left:13%"><span>'+ Category + '</span><span style="font-size:15px;">(' + Creator + ')</span></div>\
+              <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em style="cursor:pointer;" onclick="openModalResults('+ ID + ')" class="material-icons">poll</em></div>\
+          </h1>\
+          <h3 style="color:black; text-align:center;">'+ Title + '</h3>\
+          <div style="border:1px solid black;padding-bottom:10px;">\
+              <h4 class="myh4">Description:</h4>\
+              <span class="description">'+ Description + '</span>\
+          </div>\
+      </div>\
+      <div class="col-sm-3"></div>\
+  </div>';
+      document.getElementById("DynamicContainer").innerHTML = document.getElementById("DynamicContainer").innerHTML + content;
+    }
+  });
+}
+
+function openModalResults(ID) {
+  var mystring = "VoteServlet?&action=VoteResults&id=" + ID;
+
+  loadXMLDoc('GET', mystring, function (response) {
+    var myresponse = response.split("<+>");
+    var Votes = myresponse[0].split("<>");
+    var Users = myresponse[1].split("<>");
+    if (parseInt(Votes[0])==0&&parseInt(Votes[1])==0){
+      document.getElementById("noVote").innerHTML='<img src="images/noVote.jpg" style="height:20%;width:20%;padding-bottom:10px;position:relative;left:40%;">';
+      document.getElementById('id02').style.display = 'block';
+    } else {
+      document.getElementById("noVote").innerHTML=' <div id="piechart" style="display:inline-block;"></div>\
+      <div class="myChartContainer" id="chartDiv" style="display:inline-block;"></div>';
+      document.getElementById("chartDiv").innerHTML = '<h2 style="color:black;">Voters:</h2>';
+      for (var i = 0; i < Users.length - 1; i++) {
+        document.getElementById("chartDiv").innerHTML = document.getElementById("chartDiv").innerHTML + '<span style="display:block;text-align:center;">' + Users[i] + '</span>';
+      }
+      google.charts.load('current', { 'packages': ['corechart'] });
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Votes', 'Votes'],
+          ['Upvote', parseInt(Votes[0])],
+          ['Downvote', parseInt(Votes[1])],
+        ]);
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data);
+        document.getElementById('id02').style.display = 'block';
+      }
+    }
+  });
+}
+
+function closeModalResults() {
+  document.getElementById('id02').style.display = 'none';
+}

@@ -9,42 +9,86 @@
     <meta name="keywords" content="Info,A1,359,Html">
     <meta name="author" content="csd3142">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" text="text/css" href="css/MainPage.css">
     <link rel="stylesheet" text="text/css" href="css/mycss2.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-
+        .mycontainer {
+            position: absolute;
+            top: 22%;
+            left: 50%;
+            width: 30%;
+            height: 75%;
+            overflow: auto;
+        }
     </style>
+    <script>
+        function openModal() {
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+            document.getElementById('id01').style.display = 'block';
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Votes', 'Votes'],
+                    ['Upvote', 8],
+                    ['Downvote', 2],
+                ]);
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data);
+            }
+        }
+        function closeModal() {
+            document.getElementById('id01').style.display = 'none';
+        }
+    </script>
 </head>
 
 <body>
+    <div id="id01" class="w3-modal">
+        <span id="ModalVoteID"></span>
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom">
+            <header class="w3-container" style="background-color:#4285f4">
+                <span onclick="closeModal();" class="w3-button  w3-xlarge w3-display-topright">&times;</span>
+                <h2>Results</h2>
+            </header>
+            <img src="images/noVote.jpg" style="height:20%;width:20%;padding-bottom:10px;position:relative;left:40%;">
+        </div>
+    </div>
+
     <div class="row" style="padding-bottom:10px;padding-top:20px;">
         <div class="col-sm-3"></div>
         <div class="col-sm-6 initiative_box">
             <div id="PollID" style="display:none">Status</div>
             <h1 class="myh1">
                 <div class="col-sm-11" style="background-color:#4285f4;padding-left:13%"><span id="containerCategory">Category</span><span style="font-size:15px;">Creator</span></div>
-                <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em style="cursor:pointer;" class="material-icons">border_color</em></div>
+                <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em style="cursor:pointer;" onclick="openModal()" class="material-icons">poll</em></div>
             </h1>
             <h3 id="containerTitle" style="color:black; text-align:center;">Title</h3>
             <div style="border:1px solid black;padding-bottom:10px;">
                 <h4 class="myh4">Description:</h4>
                 <span id="containerDescription" class="description">Description</span>
             </div>
-            <div class="col-sm-5"></div>
-            <div class="col-sm-4" style="position:relative;right:4.5%">
-                <label class="radio-inline">
-                            <input type="radio" name="vote" value="upvote"> UpVote<br>
-                    </label>
-                <label class="radio-inline">
-                            <input type="radio" name="vote" value="downvote"> DownVote
-                    </label>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+    <div class="row" style="padding-bottom:10px;padding-top:20px;">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6 initiative_box">
+            <div id="PollID" style="display:none">Status</div>
+            <h1 class="myh1">
+                <div class="col-sm-11" style="background-color:#4285f4;padding-left:13%"><span id="containerCategory">Category</span><span style="font-size:15px;">Creator</span></div>
+                <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em style="cursor:pointer;" onclick="openModal()" class="material-icons">poll</em></div>
+            </h1>
+            <h3 id="containerTitle" style="color:black; text-align:center;">Title</h3>
+            <div style="border:1px solid black;padding-bottom:10px;">
+                <h4 class="myh4">Description:</h4>
+                <span id="containerDescription" class="description">Description</span>
             </div>
-            <div class="col-sm-4"></div>
         </div>
         <div class="col-sm-3"></div>
     </div>
