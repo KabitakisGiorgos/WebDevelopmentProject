@@ -28,7 +28,7 @@
 </head>
 
 <body>
-   
+
     <header class="container-fluid myheader" style="background-image:url(images/back.png);margin-right:0%;">
         <h1>Welcome</h1>
         <h2>A page With no Purpose</h2>
@@ -41,7 +41,6 @@
         </div>
         <div class="col-sm-9 menu">
             <ul id="mylist" class="mylist">
-                
             </ul>
         </div>
     </nav>
@@ -387,8 +386,9 @@
                             <h3>Διεύθυνση</h3>
                             <input type="text" id="address" pattern=".{2,40}" name="διεύθυνση" title="Από 2 μέχρι 40 χαρακτήρες" placeholder="π.χ. Διομήδη 11">
                             <span id="message2" class="ver"></span>
+
                             <div id="map"></div>
-                            
+        
                             <button type="button" id="showbutton" class='showbut' onclick="Showmap();">Show Map</button> 
                             <button type="button" id="hidebutton" class='showbut' onclick="Hidemap();">Hide Map</button> 
                             <h3>Επάγγελμα</h3>
@@ -399,16 +399,12 @@
                             <textarea id="info" name="πληροφορίες" cols="70" rows="10" placeholder="Ότι αλλο θα ήθελες να μας πείς για σενα..." maxlength="500"></textarea>
                             <br>
                              <div class="col-sm-3"></div>
-                        
                             <button class="mybutton" onclick="submitTheform();">Υποβολή</button>
-                       
-                        
                     </div>
                     </div>
                     <div class="col-sm-3"></div>
         </div>
         <div id="DynamicContainer" class="container-fluid">
-
         </div>
     </div>
 </body>

@@ -591,8 +591,8 @@ function UpdateChanges() {
     "&input10=" + document.getElementById("Pgender").innerHTML;
 
   loadXMLDoc('GET', "SiteFunctions?" + mystring2 + "&action=update", function (response) {
+    console.log(response);
   });
-  // location.reload();
   alert("The changes are made");
   Settings();
   Settings();
@@ -763,6 +763,7 @@ function SubmitNewInitiative() {
 }
 
 function MyInitiativeList() {
+  askQuestion();//added this line cause when u sign in first time u must update the lists of expired
   clearInterval(periodicalFunction);
   periodicalFunction = setInterval(askQuestion1, 20000);
   var mystring = "SiteFunctions?&action=reload";
@@ -782,7 +783,7 @@ function MyInitiativeList() {
       } else {
 
         var mymodal = '<div id="id01" class="w3-modal">\
-        <span id="ModalVoteID"></span>\
+        <span id="ModalVoteID" style="display:none"></span>\
         <div class="w3-modal-content w3-card-4 w3-animate-zoom">\
             <header class="w3-container" style="background-color:#4285f4">\
                 <span onclick="closeModal();" class="w3-button  w3-xlarge w3-display-topright">&times;</span>\
@@ -842,7 +843,7 @@ function MyInitiativeList() {
               <div id="PollID'+ i + '" style="display:none">' + Status + '</div>\
               <h1 class="myh1" >\
               <div  class="col-sm-11"style="background-color:#4285f4;padding-left:13%"><span id="containerCategory">'+ Category + '</span><span style="font-size:15px;">(' + Creator + ')</span></div>\
-              <div  class="col-sm-1"style="background-color:#4285f4;padding-left:4%;"><em style="cursor:pointer;" onclick="openModal(\''+ ID + '\',\'' + Category + '\',\'' + Title + '\',\'' + Description + '\');" class="material-icons">border_color</em></div>\
+              <div  class="col-sm-1"style="background-color:#4285f4;padding-left:4%;"><em style="cursor:pointer;" onclick="openModal(\''+ ID + '\',\'' + Category + '\',\'' + Title + '\',\'' + Description + '\');clearInterval(periodicalFunction);" class="material-icons">border_color</em></div>\
           </h1>\
           \
           \
@@ -907,6 +908,7 @@ function MyInitiativeList() {
 }
 
 function ActiveInitiatives(username) {
+  askQuestion();//added this line cause when u sign in first time u must update the lists of expired
   clearInterval(periodicalFunction);
   periodicalFunction = setInterval(askQuestion2, 20000);
   var mystring2 = "VoteServlet?&action=ActiveInitiatives&username=" + username;
@@ -914,6 +916,14 @@ function ActiveInitiatives(username) {
     document.getElementById("DynamicContainer").innerHTML = "";
     if (response == "0") {
       console.log("no initiatives");
+      document.getElementById("DynamicContainer").innerHTML = '<div class="row" style="padding-bottom:10px;padding-top:20px;">\
+      <div class="col-sm-3"></div>\
+      <div class="col-sm-6 ">\
+          <h1 style="color:black;text-align:center;" >Oooops no initiatives published</h1>\
+          <img style="width:50%;position:relative;left:25%" src="images/nopolls.png">\
+      </div>\
+      <div class="col-sm-3"></div>\
+  </div>';
     } else {
       var results = response.split("<+>");
       for (var i = 0; i < results.length - 1; i++) {
@@ -989,6 +999,8 @@ function closeModal() {
   var answer = confirm("Any changes will be lost");
   if (answer) {
     document.getElementById('id01').style.display = 'none';
+    clearInterval(periodicalFunction);
+    periodicalFunction = setInterval(askQuestion1, 20000);
   }
 }
 
@@ -1071,6 +1083,7 @@ function openChoice(evt, choice) {
 }
 
 function EndedInitiatives() {
+  askQuestion();//added this line cause when u sign in first time u must update the lists of expired
   clearInterval(periodicalFunction);
   periodicalFunction = setInterval(askQuestion3, 20000);
   var mystring = "VoteServlet?&action=endedInitiatives";
@@ -1104,7 +1117,7 @@ function EndedInitiatives() {
       <div class="col-sm-6 initiative_box">\
           <h1 class="myh1">\
               <div class="col-sm-11" style="background-color:#4285f4;padding-left:13%"><span>'+ Category + '</span><span style="font-size:15px;">(' + Creator + ')</span></div>\
-              <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em style="cursor:pointer;" onclick="openModalResults('+ ID + ')" class="material-icons">poll</em></div>\
+              <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em style="cursor:pointer;" onclick="openModalResults('+ ID + '); clearInterval(periodicalFunction);" class="material-icons">poll</em></div>\
           </h1>\
           <h3 style="color:black; text-align:center;">'+ Title + '</h3>\
           <div style="border:1px solid black;padding-bottom:10px;">\
@@ -1153,17 +1166,31 @@ function openModalResults(ID) {
 }
 
 function closeModalResults() {
+  clearInterval(periodicalFunction);
+  periodicalFunction = setInterval(askQuestion3, 20000);
   document.getElementById('id02').style.display = 'none';
+}
+
+function askQuestion() {
+  var mystring = "VoteServlet?&action=checkExpires";
+
+  loadXMLDoc('GET', mystring, function (response) {
+    if (response == "1") {
+      //console.log("iparxoun allages"); checking output
+    }else if (response == "0") {
+    } else {
+      alert("something went really bad");
+    }
+  });
 }
 
 function askQuestion1() {
   var mystring = "VoteServlet?&action=checkExpires";
 
   loadXMLDoc('GET', mystring, function (response) {
-    if (response == "1") {
+    if (response == "1"||response == "0") {
       MyInitiativeList();
-    } else if (response == "0") { }
-    else {
+    } else {
       alert("something went really bad");
     }
   });
@@ -1173,13 +1200,14 @@ function askQuestion2() {
   var mystring = "VoteServlet?&action=checkExpires";
 
   loadXMLDoc('GET', mystring, function (response) {
-    if (response == "1") {
+    console.log(response);
+    if (response == "1"||response == "0") {
       var mystring2 = "SiteFunctions?&action=reload";
       loadXMLDoc('GET', mystring2, function (response2) {
-      ActiveInitiatives(response2);
+        
+        ActiveInitiatives(response2);
       });
-    } else if (response == "0") { }
-    else {
+    }else {
       alert("something went really bad");
     }
   });
@@ -1189,12 +1217,11 @@ function askQuestion3() {
   var mystring = "VoteServlet?&action=checkExpires";
 
   loadXMLDoc('GET', mystring, function (response) {
-    if (response == "1") {
+    if (response == "1"||response == "0") {
       EndedInitiatives();
-    } else if (response == "0") { }
+    }
     else {
       alert("something went really bad");
     }
-
   });
 }

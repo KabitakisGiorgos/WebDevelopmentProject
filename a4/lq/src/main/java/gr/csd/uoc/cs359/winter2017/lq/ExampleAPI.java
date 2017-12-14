@@ -5,11 +5,9 @@
  */
 package gr.csd.uoc.cs359.winter2017.lq;
 
-import gr.csd.uoc.cs359.winter2017.lq.db.VoteDB;
-import gr.csd.uoc.cs359.winter2017.lq.model.Vote;
+import gr.csd.uoc.cs359.winter2017.lq.model.User;
 import java.util.List;
-import gr.csd.uoc.cs359.winter2017.lq.model.Initiative;
-import gr.csd.uoc.cs359.winter2017.lq.db.InitiativeDB;
+import gr.csd.uoc.cs359.winter2017.lq.db.UserDB;
 
 /**
  *
@@ -61,20 +59,26 @@ public class ExampleAPI {
 //        VoteDB.deleteVote(23);
 //        VoteDB.deleteVote(24);
 //        VoteDB.deleteVote(25);
-        List<Vote> votes = VoteDB.getAllVotes();
+//        List<Vote> votes = VoteDB.getAllVotes();
+//        int i = 0;
+//        for (Vote current : votes) {
+//            System.out.println("vote:" + i++);
+////            VoteDB.deleteVote(current.getId());
+//            System.out.println(current);
+//        }
+        User updateUser = UserDB.getUser("turing");
+        UserDB.deleteUser(updateUser);
+        List<User> users = UserDB.getUsers();
         int i = 0;
-        for (Vote current : votes) {
-            System.out.println("vote:" + i++);
-//            VoteDB.deleteVote(current.getId());
-            System.out.println(current);
+        for (User current : users) {
+            System.out.println(current.toString());
         }
-
-        List<Initiative> initiatives = InitiativeDB.getAllInitiatives();
-        i = 0;
-        for (Initiative current : initiatives) {
-            System.out.println("initiative:" + i++);
-//            InitiativeDB.deleteInitiative(current.getId());
-            System.out.println(current);
-        }
+//        List<Initiative> initiatives = InitiativeDB.getAllInitiatives();
+//        i = 0;
+//        for (Initiative current : initiatives) {
+//            System.out.println("initiative:" + i++);
+////            InitiativeDB.deleteInitiative(current.getId());
+//            System.out.println(current);
+//        }
     }
 }
