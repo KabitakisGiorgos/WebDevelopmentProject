@@ -1,9 +1,10 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import gr.csd.uoc.cs359.winter2017.lq.db.UserDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,22 +34,23 @@ public class SiteFunctions extends HttpServlet {
             newUser = (User) session.getAttribute("newUser");
             try {
                 User updateUser = UserDB.getUser(newUser.getUserName());
-                User newUser2 = new User(
-                        updateUser.getUserName(),
-                        updateUser.getEmail(),
-                        updateUser.getPassword(),
-                        request.getParameter("input1"),
-                        request.getParameter("input2"),
-                        request.getParameter("input3"),
-                        request.getParameter("input4"),
-                        request.getParameter("input5"),
-                        request.getParameter("input6"),
-                        request.getParameter("input7"),
-                        request.getParameter("input8"),
-                        request.getParameter("input9"),
-                        request.getParameter("input10"));
-                UserDB.deleteUser(newUser.getUserName());
-                UserDB.addUser(newUser2);
+                updateUser.setFirstName(request.getParameter("input1"));
+                updateUser.setLastName(request.getParameter("input2"));
+                updateUser.setBirthDate(request.getParameter("input3"));
+                updateUser.setOccupation(request.getParameter("input4"));
+                updateUser.setCountry(request.getParameter("input5"));
+                updateUser.setTown(request.getParameter("input6"));
+                updateUser.setAddress(request.getParameter("input7"));
+                updateUser.setInterests(request.getParameter("input8"));
+                updateUser.setInfo(request.getParameter("input9"));
+                updateUser.setGender(request.getParameter("input10"));
+
+                UserDB.updateUser(updateUser);
+
+                response.setStatus(200);
+                response.setContentType("text/xml");
+                PrintWriter out = response.getWriter();
+                out.write("1");
             } catch (ClassNotFoundException e) {
 
             }
