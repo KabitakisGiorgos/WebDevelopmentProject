@@ -1,3 +1,5 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,8 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 /**
  *
  * @author George
@@ -250,7 +250,7 @@ public class VoteServlet extends HttpServlet {
                         out.write(current.getTitle() + "<>");
                         out.write(current.getCategory() + "<>");
                         out.write(current.getDescription() + "<>");
-                        out.write("<+>");//here put the vote send or else where ? check it
+                        out.write("<+>");
                     }
                 } catch (ClassNotFoundException e) {
 
@@ -283,9 +283,7 @@ public class VoteServlet extends HttpServlet {
                             out.write(Users.get(i) + "<>");
                         }
                     } catch (ClassNotFoundException e) {
-
                     }
-
                 } else {
                     response.setStatus(400);
                     response.setContentType("text/xml");
@@ -294,9 +292,8 @@ public class VoteServlet extends HttpServlet {
                 }
             } else if (request.getParameter("action").equals("checkExpires")) {
                 try {
-                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                     Date date = new Date();//edo exoyme tin current date
-
+                    boolean change = false;
                     response.setStatus(200);
                     response.setContentType("text/xml");
                     PrintWriter out = response.getWriter();
@@ -306,12 +303,16 @@ public class VoteServlet extends HttpServlet {
                         if (!initiative.getExpires().after(date)) {
                             initiative.setStatus(2);
                             InitiativeDB.updateInitiative(initiative);
-
+                            change = true;
                         }
                     }
-                    out.write("1");
-                } catch (ClassNotFoundException e) {
+                    if (change) {
+                        out.write("1");
+                    } else {
+                        out.write("0");
+                    }
 
+                } catch (ClassNotFoundException e) {
                 }
             }
         } else {
