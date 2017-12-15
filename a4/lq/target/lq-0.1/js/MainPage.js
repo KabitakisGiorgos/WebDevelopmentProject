@@ -765,7 +765,7 @@ function SubmitNewInitiative() {
 function MyInitiativeList() {
   askQuestion();//added this line cause when u sign in first time u must update the lists of expired
   clearInterval(periodicalFunction);
-  periodicalFunction = setInterval(askQuestion1, 20000);
+  periodicalFunction = setInterval(askQuestion1, 60000);
   var mystring = "SiteFunctions?&action=reload";
   loadXMLDoc('GET', mystring, function (response) {
     //response here has the nam
@@ -910,7 +910,7 @@ function MyInitiativeList() {
 function ActiveInitiatives(username) {
   askQuestion();//added this line cause when u sign in first time u must update the lists of expired
   clearInterval(periodicalFunction);
-  periodicalFunction = setInterval(askQuestion2, 20000);
+  periodicalFunction = setInterval(askQuestion2, 60000);
   var mystring2 = "VoteServlet?&action=ActiveInitiatives&username=" + username;
   loadXMLDoc('GET', mystring2, function (response) {
     document.getElementById("DynamicContainer").innerHTML = "";
@@ -1000,7 +1000,7 @@ function closeModal() {
   if (answer) {
     document.getElementById('id01').style.display = 'none';
     clearInterval(periodicalFunction);
-    periodicalFunction = setInterval(askQuestion1, 20000);
+    periodicalFunction = setInterval(askQuestion1, 60000);
   }
 }
 
@@ -1085,7 +1085,7 @@ function openChoice(evt, choice) {
 function EndedInitiatives() {
   askQuestion();//added this line cause when u sign in first time u must update the lists of expired
   clearInterval(periodicalFunction);
-  periodicalFunction = setInterval(askQuestion3, 20000);
+  periodicalFunction = setInterval(askQuestion3, 60000);
   var mystring = "VoteServlet?&action=endedInitiatives";
 
   loadXMLDoc('GET', mystring, function (response) {
@@ -1167,7 +1167,7 @@ function openModalResults(ID) {
 
 function closeModalResults() {
   clearInterval(periodicalFunction);
-  periodicalFunction = setInterval(askQuestion3, 20000);
+  periodicalFunction = setInterval(askQuestion3, 60000);
   document.getElementById('id02').style.display = 'none';
 }
 
