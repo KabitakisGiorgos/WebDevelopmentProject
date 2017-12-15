@@ -4,13 +4,9 @@ gr\csd\uoc\cs359\winter2017\lq\model\Initiative.class
 gr\csd\uoc\cs359\winter2017\lq\db\UserDB.class
 gr\csd\uoc\cs359\winter2017\lq\ExampleAPI.class
 LqServlets\myServlet.class
-VoteServlet.class
-SiteFunctions.class
 gr\csd\uoc\cs359\winter2017\lq\db\CS359DB.class
 gr\csd\uoc\cs359\winter2017\lq\model\User$Gender.class
 LqServlets\SubmitForm.class
-SubmitForm.class
-myServlet.class
 gr\csd\uoc\cs359\winter2017\lq\model\User.class
 gr\csd\uoc\cs359\winter2017\lq\db\VoteDB.class
 LqServlets\VoteServlet.class
