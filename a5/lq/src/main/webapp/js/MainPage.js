@@ -337,6 +337,7 @@ function TryToLogin() {
     console.log("stelnei minima sto server MPRRR");
     var data = "SiteFunctions?username=" + document.getElementById('username1').value + "&password=" + document.getElementById('password1').value + "&action=login";
     loadXMLDoc('POST', data, function (response) {
+      console.log(response);
       if (response == "1") {
         loginFunction(document.getElementById("username1").value);
         document.getElementById("signIn").value = "";
@@ -354,6 +355,7 @@ function TryToLogin() {
         document.getElementById("password1").value = "";
       } else if (response == "WrongPassword") {
         document.getElementById("LogingPassMessage").innerHTML = "Wrong Password!Please Try again";
+        
         setTimeout(function () {
           document.getElementById("LogingPassMessage").innerHTML = "";
         }, 3000);
@@ -606,7 +608,9 @@ function appearbuttons() {
 
 function MyFriendList() {
   clearInterval(periodicalFunction);
+  periodicalFunction = setInterval(askQuestion4, 60000);
   var mystring = "SiteFunctions?&action=userlist";
+
   loadXMLDoc('GET', mystring, function (response) {
 
     var myresponse = response;
@@ -626,6 +630,7 @@ function MyFriendList() {
       var object2 = myresponse[i].split("^^^");
       var username = object2[0];
       var email = object2[1];
+      
       var mystring = '<tr class="borderTable">\
         <td class="picture">\
             <div class="circular--portrait2">\
@@ -641,6 +646,10 @@ function MyFriendList() {
        \
     </tr>';
       document.getElementById("mytable").innerHTML = document.getElementById("mytable").innerHTML + mystring;
+      var request="codeSprint1?action=checkon&username="+username;
+      loadXMLDoc('GET', request, function (response2) {
+        console.log(response2);
+      });
     }
   });
 }
@@ -952,10 +961,10 @@ function ActiveInitiatives(username) {
             <div class="col-sm-4"></div>\
             <div class="col-sm-5" style="position:relative;right:-1%">\
                 <label class="radio-inline">\
-                            <input type="radio" name="vote'+ i + '" value="upvote" onclick="Vote(' + ID + ',1,"active");"> UpVote<br>\
+                            <input type="radio" name="vote'+ i + '" value="upvote" onclick="Vote(' + ID + ',1,\'active\');"> UpVote<br>\
                     </label>\
                 <label class="radio-inline">\
-                            <input type="radio" name="vote'+ i + '"  value="downvote"onclick="Vote(' + ID + ',0,"active");"> DownVote\
+                            <input type="radio" name="vote'+ i + '"  value="downvote"onclick="Vote(' + ID + ',0,\'active\');"> DownVote\
                     </label>\
             </div>\
             <div class="col-sm-4"></div>\
@@ -1089,11 +1098,13 @@ function EndedInitiatives() {
   askQuestion();//added this line cause when u sign in first time u must update the lists of expired
   clearInterval(periodicalFunction);
   periodicalFunction = setInterval(askQuestion3, 60000);
-  var mystring = "VoteServlet?&action=endedInitiatives";
+  var mystring2 = "SiteFunctions?&action=reload";
+  loadXMLDoc('GET', mystring2, function (response2) {
+    var mystring = "VoteServlet?&action=endedInitiatives&username=" + response2;
 
-  loadXMLDoc('GET', mystring, function (response) {
+    loadXMLDoc('GET', mystring, function (response) {
 
-    var modalChart = '    <div id="id02" class="w3-modal">\
+      var modalChart = '    <div id="id02" class="w3-modal">\
     <div class="w3-modal-content w3-card-4 w3-animate-zoom">\
         <header class="w3-container" style="background-color:#4285f4">\
             <span onclick="closeModalResults();" class="w3-button  w3-xlarge w3-display-topright">&times;</span>\
@@ -1105,17 +1116,17 @@ function EndedInitiatives() {
         </div>\
     </div>\
 </div>';
-    document.getElementById("DynamicContainer").innerHTML = modalChart;
-    var myresponse = response.split("<+>");
-    for (var i = 0; i < myresponse.length - 1; i++) {
-      var tmp = myresponse[i].split("<>");
-      var ID = tmp[0];
-      var Creator = tmp[1];
-      var Title = tmp[2];
-      var Category = tmp[3];
-      var Description = tmp[4];
+      document.getElementById("DynamicContainer").innerHTML = modalChart;
+      var myresponse = response.split("<+>");
+      for (var i = 0; i < myresponse.length - 1; i++) {
+        var tmp = myresponse[i].split("<>");
+        var ID = tmp[0];
+        var Creator = tmp[1];
+        var Title = tmp[2];
+        var Category = tmp[3];
+        var Description = tmp[4];
 
-      var content = '<div class="row" style="padding-bottom:10px;padding-top:20px;">\
+        var content = '<div class="row" style="padding-bottom:10px;padding-top:20px;">\
       <div class="col-sm-3"></div>\
       <div class="col-sm-6 initiative_box">\
           <h1 class="myh1">\
@@ -1130,8 +1141,9 @@ function EndedInitiatives() {
       </div>\
       <div class="col-sm-3"></div>\
   </div>';
-      document.getElementById("DynamicContainer").innerHTML = document.getElementById("DynamicContainer").innerHTML + content;
-    }
+        document.getElementById("DynamicContainer").innerHTML = document.getElementById("DynamicContainer").innerHTML + content;
+      }
+    });
   });
 }
 
@@ -1213,6 +1225,28 @@ function askQuestion2() {
     } else {
       alert("something went really bad");
     }
+  });
+}
+
+function askQuestion3() {
+  var mystring = "VoteServlet?&action=checkExpires";
+
+  loadXMLDoc('GET', mystring, function (response) {
+    if (response == "1" || response == "0") {
+      EndedInitiatives();
+    }
+    else {
+      alert("something went really bad");
+    }
+  });
+}
+
+function askQuestion4() {
+  var mystring2 = "SiteFunctions?&action=reload";
+  loadXMLDoc('GET', mystring2, function (response2) {
+    var mystring ="codeSprint1?&action=InvalidateUsers&username="+response2;
+    
+    
   });
 }
 
@@ -1331,18 +1365,4 @@ function SearchInitiativeInDB(username) {
       }
     });
   });
-}
-
-function askQuestion3() {
-  var mystring = "VoteServlet?&action=checkExpires";
-
-  loadXMLDoc('GET', mystring, function (response) {
-    if (response == "1" || response == "0") {
-      EndedInitiatives();
-    }
-    else {
-      alert("something went really bad");
-    }
-  });
-
 }

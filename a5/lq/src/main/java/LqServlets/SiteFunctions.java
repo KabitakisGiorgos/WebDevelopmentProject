@@ -231,6 +231,14 @@ public class SiteFunctions extends HttpServlet {
                 response.setContentType("text/xml");
                 PrintWriter out = response.getWriter();
                 out.write(testUser.getUserName());
+
+                try {
+                    User myuser = UserDB.getUser(testUser.getUserName());
+                    myuser.setOn(true);
+                    UserDB.updateUser(myuser);
+                } catch (ClassNotFoundException e) {
+
+                }
             } else {
                 response.setStatus(200);
                 response.setContentType("text/xml");

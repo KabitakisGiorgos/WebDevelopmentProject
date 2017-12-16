@@ -6,8 +6,10 @@
 package LqServlets;
 
 import gr.csd.uoc.cs359.winter2017.lq.db.InitiativeDB;
+import gr.csd.uoc.cs359.winter2017.lq.db.UserDB;
 import gr.csd.uoc.cs359.winter2017.lq.db.VoteDB;
 import gr.csd.uoc.cs359.winter2017.lq.model.Initiative;
+import gr.csd.uoc.cs359.winter2017.lq.model.User;
 import gr.csd.uoc.cs359.winter2017.lq.model.Vote;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -51,6 +53,7 @@ public class codeSprint1 extends HttpServlet {
                         out.write("regexproblem");
                     } else {
                         try {
+
                             List<Initiative> initiatives = InitiativeDB.getInitiatives(request.getParameter("username"));
                             response.setStatus(200);
                             response.setContentType("text/xml");
@@ -94,6 +97,36 @@ public class codeSprint1 extends HttpServlet {
                     response.setContentType("text/xml");
                     PrintWriter out = response.getWriter();
                     out.write("InputsMissing");
+                }
+            } else if (request.getParameter("action").equals("InvalidateUsers")) {
+                try {
+                    List<User> users = UserDB.getUsers();
+                    for (int i = 0; i < users.size(); i++) {
+                        if (users.get(i).getUserName().equals(request.getParameter("username"))) {
+                            continue;
+                        }
+                        users.get(i).setOn(false);
+                    }
+                    response.setStatus(200);
+                    response.setContentType("text/xml");
+                    PrintWriter out = response.getWriter();
+                    out.write("1");
+                } catch (ClassNotFoundException e) {
+
+                }
+            } else if (request.getParameter("action").equals("checkon")) {
+                try {
+                    User myuser = UserDB.getUser(request.getParameter("username"));
+                    response.setStatus(200);
+                    response.setContentType("text/xml");
+                    PrintWriter out = response.getWriter();
+                    if (myuser.getOn()) {
+                        out.write("1");
+                    } else {
+                        out.write("0");
+                    }
+                } catch (ClassNotFoundException e) {
+
                 }
             }
         } else {

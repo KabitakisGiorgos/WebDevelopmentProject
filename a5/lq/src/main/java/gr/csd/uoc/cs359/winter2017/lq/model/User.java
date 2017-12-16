@@ -26,6 +26,7 @@ public class User implements Serializable {
     private String interests;
     private String town;
     private String info;
+    private boolean on;
 
     /**
      * Default Constructor
@@ -46,6 +47,7 @@ public class User implements Serializable {
         this.gender = Gender.UNKNOWN;
         this.address = "";
         this.interests = "";
+        this.on = false;
     }
 
     /**
@@ -84,6 +86,7 @@ public class User implements Serializable {
         this.gender = Gender.UNKNOWN;
         this.address = "";
         this.interests = "";
+        this.on = false;
     }
 
     /**
@@ -130,6 +133,7 @@ public class User implements Serializable {
         // Not obligatory fields
         this.info = info;
         this.gender = gender;
+        this.on = false;
     }
 
     /**
@@ -176,6 +180,7 @@ public class User implements Serializable {
         // Not obligatory fields
         this.info = info;
         setGender(gender);
+        this.on = false;
     }
 
     /**
@@ -210,6 +215,13 @@ public class User implements Serializable {
         return userName;
     }
 
+    public void setOn(boolean tmp) {
+        this.on = tmp;
+    }
+
+    public boolean getOn() {
+        return this.on;
+    }
     /**
      * Set the username
      *
