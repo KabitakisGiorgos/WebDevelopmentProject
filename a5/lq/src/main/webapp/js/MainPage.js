@@ -4,6 +4,21 @@ var usenameValidity = false;
 var emailValidity = false;
 var login = false;
 var login1 = false;
+var cryptostring = makeid();
+
+
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (var i = 0; i < 8; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text;
+}
+
+function crypto_kanto(string){
+  var crypto_string = hex_md5("hy359_cr1pt0$" + string + cryptostring); 
+  return crypto_string;
+}
 
 function gotoRegister() {
   document.getElementById("signIn").style.display = "none";
@@ -90,6 +105,10 @@ function submitTheform() {
     var job = document.getElementById('job').value;
     var interests = document.getElementById('interests').value;
     var info = document.getElementById('info').value;
+    console.log("to password meta to crypto einai : ");
+    console.log(crypto_kanto(password));
+    console.log("to verify password meta to crypto einai : ");
+    console.log(crypto_kanto(verifyPassword));
     var mystring = "username=" + username + "&email=" + email + "&password=" + password + "&confirm_password=" + verifyPassword + "&name=" + name + "&surname=" + surname + "&date=" + date + "&country=" + country + "&gender=" + gender + "&city=" + city + "&address=" + address + "&job=" + job + "&interests=" + interests + "&info=" + info + "&action=submit";
 
     loadXMLDoc('GET', "SubmitForm?" + mystring, function (response) {
@@ -335,6 +354,8 @@ function ManualTrue() {
 function TryToLogin() {
   if (login && login1) {
     console.log("stelnei minima sto server MPRRR");
+    console.log("to login mou meta to crypto einai:");
+    console.log(crypto_kanto(document.getElementById('password1').value));
     var data = "SiteFunctions?username=" + document.getElementById('username1').value + "&password=" + document.getElementById('password1').value + "&action=login";
     loadXMLDoc('POST', data, function (response) {
       if (response == "1") {

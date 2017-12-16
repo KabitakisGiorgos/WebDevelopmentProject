@@ -54,13 +54,11 @@ public class SubmitForm extends HttpServlet {
 
                 Matcher m = userName.matcher(request.getParameter("username"));
                 Matcher m1 = Email.matcher(request.getParameter("email"));
-                Matcher m2 = Pass.matcher(request.getParameter("password"));
-                Matcher m3 = Pass.matcher(request.getParameter("confirm_password"));
                 Matcher m4 = name.matcher(request.getParameter("name"));
                 Matcher m5 = surname.matcher(request.getParameter("surname"));
                 Matcher m6 = city.matcher(request.getParameter("city"));
                 Matcher m7 = job.matcher(request.getParameter("job"));
-                if (!m.matches() || !m1.matches() || !m2.matches() || !m3.matches() || !m4.matches() || !m5.matches() || !m6.matches() || !m7.matches()) {
+                if (!m.matches() || !m1.matches() || !m4.matches() || !m5.matches() || !m6.matches() || !m7.matches()) {
 
                     response.setStatus(400);//den tairiazoyne ta regexes
                     response.setContentType("text/xml");
