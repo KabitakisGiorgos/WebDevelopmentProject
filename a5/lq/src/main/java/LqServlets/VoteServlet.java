@@ -7,6 +7,8 @@ package LqServlets;
  */
 
 import gr.csd.uoc.cs359.winter2017.lq.db.InitiativeDB;
+import gr.csd.uoc.cs359.winter2017.lq.model.User;
+import gr.csd.uoc.cs359.winter2017.lq.db.UserDB;
 import gr.csd.uoc.cs359.winter2017.lq.db.VoteDB;
 import gr.csd.uoc.cs359.winter2017.lq.model.Initiative;
 import gr.csd.uoc.cs359.winter2017.lq.model.Vote;
@@ -281,6 +283,10 @@ public class VoteServlet extends HttpServlet {
                         out.write("<+>");
                         for (int i = 0; i < Users.size(); i++) {
                             out.write(Users.get(i) + "<>");
+                            User myuser = UserDB.getUser(Users.get(i));
+                            out.write(myuser.getAddress() + "<>");
+                            out.write(myuser.getCountry() + "<>");
+                            out.write(myuser.getTown() + "<?>");
                         }
                     } catch (ClassNotFoundException e) {
                     }
