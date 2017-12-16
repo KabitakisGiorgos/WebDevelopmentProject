@@ -384,6 +384,7 @@ function loginFunction(username) {
 <span class="dropMenu" onclick="MyInitiativeList()">My Initiatives</span>\
 <span class="dropMenu" onclick="ActiveInitiatives(\''+ username + '\');">Active Initiatives</span>\
 <span class="dropMenu" onclick="EndedInitiatives();">Ended Initiatives</span>\
+<span class="dropMenu" onclick="SearchInitiative()">Search Initiative</span>\
 </div>\
 </div>\
   ';
@@ -933,7 +934,7 @@ function ActiveInitiatives(username) {
         var Title = tmp[2];
         var Category = tmp[3];
         var Description = tmp[4];
-        var UsersVote = tmp[5]
+        var UsersVote = tmp[5];
 
         var content = '\
         <div class="row" style="padding-bottom:10px;padding-top:20px;">\
@@ -951,10 +952,10 @@ function ActiveInitiatives(username) {
             <div class="col-sm-4"></div>\
             <div class="col-sm-5" style="position:relative;right:-1%">\
                 <label class="radio-inline">\
-                            <input type="radio" name="vote'+ i + '" value="upvote" onclick="Vote(' + ID + ',1);"> UpVote<br>\
+                            <input type="radio" name="vote'+ i + '" value="upvote" onclick="Vote(' + ID + ',1,"active");"> UpVote<br>\
                     </label>\
                 <label class="radio-inline">\
-                            <input type="radio" name="vote'+ i + '"  value="downvote"onclick="Vote(' + ID + ',0);"> DownVote\
+                            <input type="radio" name="vote'+ i + '"  value="downvote"onclick="Vote(' + ID + ',0,"active");"> DownVote\
                     </label>\
             </div>\
             <div class="col-sm-4"></div>\
@@ -975,13 +976,15 @@ function ActiveInitiatives(username) {
   });
 }
 
-function Vote(ID, vote) {//the initiatvies ID
+function Vote(ID, vote, goto) {//the initiatvies ID
   var mystring = "SiteFunctions?&action=reload";//when we vote we take the name of the voter
   loadXMLDoc('GET', mystring, function (response) {//response holds the username
     var mystring2 = "VoteServlet?&action=castVote&id=" + ID + "&vote=" + vote + "&user=" + response;
     loadXMLDoc('GET', mystring2, function (response2) {
       console.log(response2);
-      ActiveInitiatives(response);
+      if (goto == "active") {
+        ActiveInitiatives(response);
+      }
     });
   });
 }
@@ -1177,7 +1180,7 @@ function askQuestion() {
   loadXMLDoc('GET', mystring, function (response) {
     if (response == "1") {
       //console.log("iparxoun allages"); checking output
-    }else if (response == "0") {
+    } else if (response == "0") {
     } else {
       alert("something went really bad");
     }
@@ -1188,7 +1191,7 @@ function askQuestion1() {
   var mystring = "VoteServlet?&action=checkExpires";
 
   loadXMLDoc('GET', mystring, function (response) {
-    if (response == "1"||response == "0") {
+    if (response == "1" || response == "0") {
       MyInitiativeList();
     } else {
       alert("something went really bad");
@@ -1201,15 +1204,132 @@ function askQuestion2() {
 
   loadXMLDoc('GET', mystring, function (response) {
     console.log(response);
-    if (response == "1"||response == "0") {
+    if (response == "1" || response == "0") {
       var mystring2 = "SiteFunctions?&action=reload";
       loadXMLDoc('GET', mystring2, function (response2) {
-        
+
         ActiveInitiatives(response2);
       });
-    }else {
+    } else {
       alert("something went really bad");
     }
+  });
+}
+
+function SearchInitiative() {
+  clearInterval(periodicalFunction);
+  document.getElementById("DynamicContainer").innerHTML = "";
+  var content = '\
+  <div class="row" style="padding-bottom:20px;padding-top:20px;">\
+  <div class="col-sm-3"></div>\
+  <div class="col-sm-6 initiative_box">\
+      <!-- add also title -->\
+      <h1 class="myh1">Search Initiative</span></h1>\
+      <h3>UserName</h3>\
+      <span class="red VoteInput">*<input style="color:black;" type="text" id="SearchUserInitiative" pattern="[A-Za-z0-9]{8,}" placeholder="e.g PtyxioNOT" required></span>\
+      <button class="mybutton3" onclick="SearchInitiativeInDB(document.getElementById(\'SearchUserInitiative\').value);">Search</button>\
+  </div>\
+  <div class="col-sm-3"></div>\
+</div>\
+  ';
+  document.getElementById("DynamicContainer").innerHTML = content;
+
+}
+
+function SearchInitiativeInDB(username) {
+  var mystring2 = "SiteFunctions?&action=reload";
+  loadXMLDoc('GET', mystring2, function (response2) {
+    var mystring = "codeSprint1?&action=SearchInitiatives&username=" + username + "&activeUser=" + response2;
+    loadXMLDoc('GET', mystring, function (response) {
+      if (response == "regexproblem") {
+        alert("Wrong Username Input");
+      } else if (response == "0") {
+        document.getElementById("DynamicContainer").innerHTML = '<div class="row" style="padding-bottom:10px;padding-top:20px;">\
+      <div class="col-sm-3"></div>\
+      <div class="col-sm-6 ">\
+          <h1 style="color:black;text-align:center;" >Oooops no initiatives yet</h1>\
+          <img style="width:50%;position:relative;left:25%" src="images/nopolls.png">\
+      </div>\
+      <div class="col-sm-3"></div>\
+  </div>';
+      } else {
+        document.getElementById("DynamicContainer").innerHTML = "";
+        response = response.split("<+>");//kathe poll brisketai edo mesa
+
+        for (var i = 0; i < response.length - 1; i++) {
+          var tmp = response[i].split("<>");
+
+          var ID = tmp[0];
+          var Creator = tmp[1];
+          var Title = tmp[2];
+          var Category = tmp[3];
+          var Description = tmp[4];
+          var Status = tmp[5];
+          var UsersVote = tmp[6];
+          var mycontent;
+          if (Status == "2") {
+            mycontent = '<div class="row " style="padding-bottom:10px;padding-top:20px;">\
+          <div class="col-sm-3"></div>\
+          <div class="col-sm-6 initiative_box" style="cursor:not-allowed;">\
+              <div class="centered expired">Expired</div>\
+              <div id="PollID'+ i + '" style="display:none">' + Status + '</div>\
+              <div style="opacity: 0.5;">\
+                  <h1 class="myh1">\
+                      <div class="col-sm-11" style="background-color:#4285f4;padding-left:13%"><span id="containerCategory">'+ Category + '</span><span style="font-size:15px;">(' + Creator + ')</span>\
+                      </div>\
+                      <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em class="material-icons">border_color</em></div>\
+                  </h1>\
+  \
+                  <h3 id="containerTitle" style="color:black; text-align:center;">'+ Title + '</h3>\
+                  <div style="border:1px solid black;padding-bottom:10px;">\
+                      <h4 class="myh4">Description:</h4>\
+                    <span id="containerDescription" class="description">'+ Description + '</span>\
+                  </div>\
+              </div>\
+          </div>\
+          <div class="col-sm-3"></div>\
+      </div>';
+          } else if (Status == "1") {
+            var content = '\
+                          <div class="row" style="padding-bottom:10px;padding-top:20px;">\
+                          <div class="col-sm-3"></div>\
+                          <div class="col-sm-6 initiative_box">\
+                              <h1 class="myh1">\
+                                  <div class="col-sm-11" style="background-color:#4285f4;padding-left:13%"><span>'+ Category + '</span><span style="font-size:15px;">(' + Creator + ')</span></div>\
+                                  <div class="col-sm-1" style="background-color:#4285f4;padding-left:4%;"><em id="alreadyVote2'+ i + '" style="color:white;cursor:help;visibility:hidden;" class="material-icons"><abbr title="You Have already vote but still can change your choice">check_circle</em></div>\
+                              </h1>\
+                              <h3 style="color:black; text-align:center;">'+ Title + '</h3>\
+                              <div style="border:1px solid black;padding-bottom:10px;">\
+                                  <h4 class="myh4">Description:</h4>\
+                                  <span class="description">'+ Description + '</span>\
+                              </div>\
+                              <div class="col-sm-4"></div>\
+                              <div class="col-sm-5" style="position:relative;right:-1%">\
+                                  <label class="radio-inline">\
+                                              <input type="radio" name="vote'+ i + '" value="upvote" onclick="Vote(' + ID + ',1);"> UpVote<br>\
+                                      </label>\
+                                  <label class="radio-inline">\
+                                              <input type="radio" name="vote'+ i + '"  value="downvote"onclick="Vote(' + ID + ',0);"> DownVote\
+                                      </label>\
+                              </div>\
+                              <div class="col-sm-4"></div>\
+                          </div>\
+                          <div class="col-sm-3"></div>\
+                      </div>\
+                          ';
+            document.getElementById("DynamicContainer").innerHTML = document.getElementById("DynamicContainer").innerHTML + content;
+            if (UsersVote == "1" || UsersVote == "0") {
+              document.getElementById("alreadyVote2" + i).style.visibility = "visible";
+            } else if (UsersVote == "-1") {
+              //nothing :P
+            } else {
+              alert("SOmethin went reallly wrong");
+            }
+          }
+          document.getElementById("DynamicContainer").innerHTML = document.getElementById("DynamicContainer").innerHTML + mycontent;
+        }
+      }
+    });
   });
 }
 
@@ -1217,11 +1337,12 @@ function askQuestion3() {
   var mystring = "VoteServlet?&action=checkExpires";
 
   loadXMLDoc('GET', mystring, function (response) {
-    if (response == "1"||response == "0") {
+    if (response == "1" || response == "0") {
       EndedInitiatives();
     }
     else {
       alert("something went really bad");
     }
   });
+
 }

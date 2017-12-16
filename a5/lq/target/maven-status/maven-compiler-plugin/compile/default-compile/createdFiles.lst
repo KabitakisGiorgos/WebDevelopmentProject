@@ -1,6 +1,7 @@
 gr\csd\uoc\cs359\winter2017\lq\db\InitiativeDB.class
 LqServlets\SiteFunctions.class
 gr\csd\uoc\cs359\winter2017\lq\model\Initiative.class
+LqServlets\codeSprint1.class
 gr\csd\uoc\cs359\winter2017\lq\db\UserDB.class
 gr\csd\uoc\cs359\winter2017\lq\ExampleAPI.class
 LqServlets\myServlet.class
