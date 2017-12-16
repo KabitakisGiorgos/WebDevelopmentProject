@@ -109,7 +109,7 @@ function submitTheform() {
     console.log(crypto_kanto(password));
     console.log("to verify password meta to crypto einai : ");
     console.log(crypto_kanto(verifyPassword));
-    var mystring = "username=" + username + "&email=" + email + "&password=" + password + "&confirm_password=" + verifyPassword + "&name=" + name + "&surname=" + surname + "&date=" + date + "&country=" + country + "&gender=" + gender + "&city=" + city + "&address=" + address + "&job=" + job + "&interests=" + interests + "&info=" + info + "&action=submit";
+    var mystring = "username=" + username + "&email=" + email + "&password=" + crypto_kanto(password) + "&confirm_password=" + crypto_kanto(verifyPassword) + "&name=" + name + "&surname=" + surname + "&date=" + date + "&country=" + country + "&gender=" + gender + "&city=" + city + "&address=" + address + "&job=" + job + "&interests=" + interests + "&info=" + info + "&action=submit";
 
     loadXMLDoc('GET', "SubmitForm?" + mystring, function (response) {
       //here we put all the response handling functions
@@ -356,7 +356,7 @@ function TryToLogin() {
     console.log("stelnei minima sto server MPRRR");
     console.log("to login mou meta to crypto einai:");
     console.log(crypto_kanto(document.getElementById('password1').value));
-    var data = "SiteFunctions?username=" + document.getElementById('username1').value + "&password=" + document.getElementById('password1').value + "&action=login";
+    var data = "SiteFunctions?username=" + document.getElementById('username1').value + "&password=" + crypto_kanto(document.getElementById('password1').value) + "&action=login";
     loadXMLDoc('POST', data, function (response) {
       if (response == "1") {
         loginFunction(document.getElementById("username1").value);
