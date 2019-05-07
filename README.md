@@ -1,11 +1,8 @@
-# My project's README
+# Project for CS-359 "Web Programming"
 
-# DATABASE CREDENTIALS
+This repo containts programming exercises for the course CS-359 of Computer Science department and a full stack project implemented using technologies :
 
-username: csd3142
-
-passwd: BGtWD6ecNK
-
-database: csd3142
-
-host: 83.212.108.176
+ - Java Servlets for backend Server
+ - mySql for Database
+ - HTML/css
+ - Javascript
